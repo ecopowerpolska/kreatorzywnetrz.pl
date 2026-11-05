@@ -148,7 +148,9 @@
       },
       "description": "Firmy, które polecamy: projekt wnętrz, remont mieszkania i meble na wymiar.",
       "representativeQueries": [
-        "polecane firmy projekt wnętrz remont meble na wymiar"
+        "polecane firmy projekt wnętrz remont meble na wymiar",
+        "firmy od projektu wnętrza, remontu i mebli",
+        "kto zrobi remont mieszkania i meble na wymiar"
       ]
     },
     {
@@ -207,7 +209,8 @@
       },
       "description": "Zasady przetwarzania danych z formularza kontaktowego i pliki cookie na kreatorzywnetrz.pl.",
       "representativeQueries": [
-        "polityka prywatności Kreatorzy Wnętrz"
+        "polityka prywatności Kreatorzy Wnętrz",
+        "jak Kreatorzy Wnętrz przetwarzają dane z formularza"
       ]
     },
     {
