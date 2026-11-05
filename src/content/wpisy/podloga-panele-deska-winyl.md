@@ -4,7 +4,7 @@ opis: "Panele, deska drewniana czy winyl? Czym się różnią, jak znoszą wodę
 data: 2026-11-07
 dzial: materialy
 zdjecie: "wpis-04.webp"
-alt: "Podłoga w salonie: jasna deska dębowa ułożona wzdłuż okna"
+alt: "Dłoń z szarą próbką podłogi wśród rozłożonych próbek paneli drewnopodobnych, terrazzo i kamienia"
 tagi: ["podłoga", "panele", "deska", "winyl", "ogrzewanie podłogowe"]
 ---
 

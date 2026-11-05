@@ -4,7 +4,7 @@ opis: "Cztery kroki przed remontem: dokładny pomiar, układ funkcjonalny, moodb
 data: 2026-11-05
 dzial: projekt-wnetrza
 zdjecie: "wpis-01.webp"
-alt: "Plan mieszkania z wymiarami, próbki materiałów i miarka zwijana na stole przed remontem"
+alt: "Rzut z wymiarami na stole, wokół wzorniki kolorów farb, próbki wykładzin i okleiny drewnopodobnej"
 tagi: ["projekt wnętrza", "pomiar", "moodboard", "kosztorys"]
 ---
 

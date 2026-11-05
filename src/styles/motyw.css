@@ -978,9 +978,35 @@ main:focus {
 /* ══ ODSŁANIANIE ZDJĘĆ (decyzja 3): kadr wchodzi z przezroczystości spod „kurtyny”; nigdy na zdjęciu LCP ══
    Stan domyślny = zdjęcie widoczne; mechanika niżej w bramce ruchu i wsparcia osi view(). */
 
+/* ══ KADR-ŁUK 3:2: okładka działu, karty firm na /polecamy/, /o-nas/, góra /kontakt/ (ten sam łuk co karty wpisów) ══ */
+.kadr-luk {
+  overflow: hidden;
+  border-radius: 50% 50% var(--promien) var(--promien) / 40% 40% var(--promien) var(--promien);
+  background: var(--powierzchnia);
+}
+
+.kadr-luk img {
+  width: 100%;
+  aspect-ratio: 3 / 2;
+  object-fit: cover;
+}
+
 /* ══ NAGŁÓWEK PODSTRONY, OKRUSZKI ══ */
 .podstrona-glowa {
   padding-block: var(--o-6) var(--o-12);
+}
+
+.podstrona-glowa--z-kadrem {
+  display: grid;
+  gap: var(--o-8);
+  align-items: end;
+}
+
+@media (min-width: 56rem) {
+  .podstrona-glowa--z-kadrem {
+    grid-template-columns: minmax(0, 7fr) minmax(0, 5fr);
+    gap: var(--o-16);
+  }
 }
 
 .podstrona-glowa__wstep {
@@ -1367,6 +1393,10 @@ body:has(#filtr-zapowiedzi:checked) .blog-czesc--zapowiedzi {
   background: var(--tlo);
 }
 
+.firma:has(.firma__kadr) {
+  padding-top: var(--o-6);
+}
+
 .firma h2 {
   font-size: var(--t-6);
 }
@@ -1430,6 +1460,18 @@ body:has(#filtr-zapowiedzi:checked) .blog-czesc--zapowiedzi {
   align-content: center;
   min-height: calc(100svh - var(--wys-naglowka));
   padding-block: var(--o-12);
+}
+
+.kontakt-gora {
+  gap: var(--o-8);
+}
+
+@media (min-width: 56rem) {
+  .kontakt-gora {
+    grid-template-columns: minmax(0, 7fr) minmax(0, 5fr);
+    align-items: center;
+    gap: var(--o-16);
+  }
 }
 
 .kontakt-gora h1 {

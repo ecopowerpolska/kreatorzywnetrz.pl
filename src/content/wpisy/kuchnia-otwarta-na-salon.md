@@ -4,7 +4,7 @@ opis: "Kuchnia otwarta na salon wygląda dobrze tylko z dobrym układem, mocnym 
 data: 2026-11-12
 dzial: meble-na-wymiar
 zdjecie: "wpis-06.webp"
-alt: "Aneks kuchenny z półwyspem otwarty na salon z kanapą i stołem"
+alt: "Salon z czarną skórzaną sofą, za nią otwarty aneks kuchenny z drewnianym blatem i stołem, w głębi zabudowa z półkami"
 tagi: ["kuchnia otwarta", "aneks kuchenny", "okap", "hałas", "meble na wymiar"]
 ---
 

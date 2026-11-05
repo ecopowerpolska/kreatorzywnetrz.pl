@@ -1,9 +1,10 @@
 ---
 // /polecamy/: trzy firmy z teksty.json `polecamy.firmy[{nazwa, zdanie, fakty[], url, przycisk}]`, przycisk z rel="nofollow"
-// (blok szablonowy), pod nimi zapowiedzi ich wpisów z RSS (najwyżej 3 z firmy, 12 razem). Bez logo, ocen i cen.
+// (blok szablonowy), zdjęcie karty polecamy-<nazwa-firmy>.webp w kadrze-łuku 3:2 (pierwsze = kandydat na LCP), pod nimi zapowiedzi ich wpisów z RSS (najwyżej 3 z firmy, 12 razem). Bez logo, ocen i cen.
 import Bazowy from '../layouts/Bazowy.astro';
 import Okruszki from '../components/Okruszki.astro';
 import KartaPolecana from '../components/KartaPolecana.astro';
+import Foto from '../components/Foto.astro';
 import { t, tMozePusty, obiekty, pole } from '../lib/tekst';
 import { wszystkiePolecane, polecaneRozne, NA_ZRODLO_POLECAMY } from '../lib/polecane';
 import { adresBezwzgledny, okruszki } from '../lib/schemat';
@@ -13,7 +14,9 @@ const firmy = obiekty('polecamy.firmy').map((f, i) => {
   const url = pole(f, 'url', sciezka);
   if (!/^https:\/\//.test(url)) throw new Error(`teksty.json: ${sciezka}.url musi zaczynać się od https:// („${url}”)`);
   const fakty = Array.isArray(f.fakty) ? f.fakty.filter((x): x is string => typeof x === 'string' && x.trim() !== '') : [];
-  return { nazwa: pole(f, 'nazwa', sciezka), zdanie: pole(f, 'zdanie', sciezka), przycisk: pole(f, 'przycisk', sciezka), url, fakty };
+  const nazwa = pole(f, 'nazwa', sciezka);
+  const zdjecie = `polecamy-${nazwa.toLowerCase().trim().replace(/\s+/g, '-')}.webp`;
+  return { nazwa, zdjecie, zdanie: pole(f, 'zdanie', sciezka), przycisk: pole(f, 'przycisk', sciezka), url, fakty };
 });
 const wstep = tMozePusty('polecamy.wstep');
 const zapowiedzi = polecaneRozne(await wszystkiePolecane(), NA_ZRODLO_POLECAMY).slice(0, 12);
@@ -51,8 +54,11 @@ const schemat = [
   <div class="kontener">
     <ul class="firmy">
       {
-        firmy.map((f) => (
+        firmy.map((f, i) => (
           <li class="firma">
+            <div class:list={['kadr-luk', 'firma__kadr', { odslon: i > 0 }]}>
+              <Foto nazwa={f.zdjecie} widths={[360, 540, 720, 960]} sizes="(min-width: 76rem) 21rem, (min-width: 64rem) 28vw, calc(100vw - 5.5rem)" priorytet={i === 0} />
+            </div>
             <h2>{f.nazwa}</h2>
             <p class="firma__zdanie">{f.zdanie}</p>
             {f.fakty.length > 0 && (

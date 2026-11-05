@@ -2,7 +2,7 @@ import type { ImageMetadata } from 'astro';
 import opisy from '../data/zdjecia.json';
 
 /** Zdjęcie główne strony głównej i domyślne zdjęcie do udostępnień. */
-export const ZDJECIE_GLOWNE = 'plansza-test.webp';
+export const ZDJECIE_GLOWNE = 'glowna.webp';
 
 // Import zachłanny (`eager: true`): WSZYSTKIE pliki z src/assets/zdjecia trafiają do dist/_astro, także zdjęcia wpisów
 // zaplanowanych na przyszłość, które nie występują jeszcze w żadnym HTML. Ich adresy są przez to publiczne przed datą wpisu.

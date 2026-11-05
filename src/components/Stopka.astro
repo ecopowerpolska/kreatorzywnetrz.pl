@@ -1,5 +1,6 @@
 ---
-// Stopka: nazwa i opis magazynu, dział Materiały, O nas, polityka prywatności, RSS, prawa.
+// Stopka: nazwa i opis magazynu, dział Materiały, O nas, polityka prywatności, prawa. Bez linków dla robotów
+// (RSS, llms.txt, sitemapa): kanał RSS ogłasza <link rel="alternate"> w Bazowy.astro.
 // Zero odnośników do firm (reguła strony linkującej).
 import { t, wstaw } from '../lib/tekst';
 import { adresDzialu } from '../lib/dzialy';
@@ -10,7 +11,6 @@ const odnosniki = [
   { etykieta: t('stopka.materialy'), href: adresDzialu('materialy') },
   { etykieta: t('stopka.oNas'), href: '/o-nas/' },
   { etykieta: t('stopka.polityka'), href: '/polityka-prywatnosci/' },
-  { etykieta: t('stopka.rss'), href: '/rss.xml' },
 ];
 ---
 

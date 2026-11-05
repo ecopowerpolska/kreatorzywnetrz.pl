@@ -4,7 +4,7 @@ opis: "Jak zaplanować światło ogólne, zadaniowe i nastrojowe, jaką temperat
 data: 2026-11-10
 dzial: projekt-wnetrza
 zdjecie: "wpis-05.webp"
-alt: "Salon wieczorem oświetlony lampą sufitową, lampą do czytania przy fotelu i taśmą LED za półką"
+alt: "Salon z ciemnymi panelami na ścianach, światłem punktowym w suficie, taśmą LED pod szafką RTV i pionową linią światła przy sofie"
 tagi: ["oświetlenie", "temperatura barwowa", "CRI", "projekt wnętrza"]
 ---
 

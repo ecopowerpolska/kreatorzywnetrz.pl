@@ -2,6 +2,7 @@
 // /o-nas/: kim jest redakcja (teksty.json `o-nas.*`), podpis „Redakcja Kreatorów Wnętrz”. Bez danych wydawcy.
 import Bazowy from '../layouts/Bazowy.astro';
 import Okruszki from '../components/Okruszki.astro';
+import Foto from '../components/Foto.astro';
 import { t, lista, kawalki } from '../lib/tekst';
 import { okruszki } from '../lib/schemat';
 
@@ -19,6 +20,9 @@ const schemat = [okruszki(pozycje)];
   </div>
   <div class="kontener">
     <div class="proza">
+      <div class="kadr-luk">
+        <Foto nazwa="o-nas.webp" widths={[400, 640, 880, 1200]} sizes="(min-width: 46rem) 42rem, calc(100vw - 2.5rem)" priorytet />
+      </div>
       {lista('o-nas.akapity').map((a) => <p>{kawalki(a).map((k) => (k.adres ? <a href={k.adres}>{k.tekst}</a> : k.tekst))}</p>)}
       <p class="proza__podpis">{t('o-nas.podpis')}</p>
     </div>

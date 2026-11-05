@@ -4,7 +4,7 @@ opis: "Kolejność prac w łazience: demontaż, instalacje wodne i elektryczne, 
 data: 2026-11-05
 dzial: remont
 zdjecie: "wpis-02.webp"
-alt: "Łazienka w trakcie remontu z nowymi rurami w ścianie i hydroizolacją przy brodziku"
+alt: "Wykonawca w białej rękawicy nakłada pędzlem niebieską masę hydroizolacyjną na ścianę łazienki, w drugiej ręce trzyma wiadro"
 tagi: ["remont łazienki", "hydroizolacja", "instalacje", "płytki"]
 ---
 

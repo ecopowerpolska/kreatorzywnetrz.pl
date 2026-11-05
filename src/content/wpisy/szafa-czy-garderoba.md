@@ -4,7 +4,7 @@ opis: "Szafa we wnęce czy osobna garderoba: ile miejsca zabiera każda, jak pol
 data: 2026-11-05
 dzial: meble-na-wymiar
 zdjecie: "wpis-03.webp"
-alt: "Wnęka w przedpokoju z szafą na wymiar o przesuwnych frontach obok wejścia do małej garderoby"
+alt: "Szara zabudowa przedpokoju na wymiar z wieszakami, ławeczką z szufladami i szafkami na buty, w głębi kuchnia"
 tagi: ["szafa na wymiar", "garderoba", "zabudowa", "meble na wymiar"]
 ---
 

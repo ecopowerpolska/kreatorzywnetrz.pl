@@ -1,7 +1,8 @@
 ---
-// /kontakt/: jasna góra (tytuł, wstęp), ostatnia sekcja = finał „Zmierzch” z guzikiem, formularz w <dialog> pod finałem.
+// /kontakt/: jasna góra (tytuł, wstęp, zdjęcie kontakt.webp w kadrze-łuku; w finale zdjęcia nie ma), ostatnia sekcja = finał „Zmierzch” z guzikiem, formularz w <dialog> pod finałem.
 import Bazowy from '../layouts/Bazowy.astro';
 import FinalKontaktu from '../components/FinalKontaktu.astro';
+import Foto from '../components/Foto.astro';
 import FormularzKontaktu from '../components/FormularzKontaktu.astro';
 import { t } from '../lib/tekst';
 import { adresBezwzgledny } from '../lib/schemat';
@@ -21,8 +22,13 @@ const schemat = [
 
 <Bazowy tytul={`${t('kontakt.tytul')} | ${t('marka.nazwa')}`} opis={t('kontakt.opis')} {schemat}>
   <section class="kontener kontakt-gora" aria-labelledby="kontakt-tytul">
-    <h1 id="kontakt-tytul">{t('kontakt.tytul')}</h1>
-    <p>{t('kontakt.wstep')}</p>
+    <div>
+      <h1 id="kontakt-tytul">{t('kontakt.tytul')}</h1>
+      <p>{t('kontakt.wstep')}</p>
+    </div>
+    <div class="kadr-luk">
+      <Foto nazwa="kontakt.webp" widths={[400, 640, 880, 1200]} sizes="(min-width: 56rem) 30rem, calc(100vw - 2.5rem)" priorytet />
+    </div>
   </section>
   <FinalKontaktu />
   <FormularzKontaktu />
