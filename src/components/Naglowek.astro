@@ -1,0 +1,96 @@
+---
+// Naglowek.astro — przyklejony pas w jednej linii. Progi zapytaniem kontenera (motyw.css), nie oknem.
+// Menu z teksty.json `menu` (7 pozycji); próg pasa w motyw.css zmierzony CDP dla tych 7 pozycji.
+// Telefon: przełącznik menu (aria-expanded, Esc, klik poza panelem, inert na main i stopce).
+import { t, pobierz } from '../lib/tekst';
+
+interface Props {
+  /** Adres działu, który menu ma podświetlić, gdy strona nie leży pod jego adresem (wpis /blog/<slug>/ → /<dzial>/). */
+  podswietl?: string;
+}
+const { podswietl } = Astro.props;
+const sciezka = Astro.url.pathname;
+// Pozycje menu z teksty.json `menu` [{nazwa, adres}] — kolejność pliku = kolejność w pasie.
+const pozycje = (Array.isArray(pobierz('menu')) ? (pobierz('menu') as { nazwa?: unknown; adres?: unknown }[]) : [])
+  .filter((p): p is { nazwa: string; adres: string } => typeof p?.nazwa === 'string' && typeof p?.adres === 'string')
+  .map((p) => ({ ...p, biezaca: p.adres === podswietl || (p.adres !== '/' && sciezka.startsWith(p.adres)) }));
+---
+
+<header class="naglowek" id="naglowek">
+  <div class="naglowek__pas kontener">
+    <a class="marka" href="/" aria-label={t('interfejs.marka_aria')} aria-current={sciezka === '/' ? 'page' : undefined}>
+      <svg class="marka__znak" viewBox="0 0 36 36" aria-hidden="true" focusable="false">
+        <circle cx="18" cy="18" r="16.5" fill="none" stroke="#f6f0e4" stroke-width="1.5"></circle>
+        <path d="M18 5 L22.2 18 L18 31 L13.8 18 Z" fill="#e9b48f"></path>
+        <path d="M5 18 L18 13.8 L31 18 L18 22.2 Z" fill="none" stroke="#f6f0e4" stroke-width="1.5" stroke-linejoin="round"></path>
+        <circle cx="18" cy="18" r="2" fill="#0f3e47"></circle>
+      </svg>
+      <span>{t('marka.nazwa')}</span>
+    </a>
+    <button
+      class="menu-przelacznik"
+      type="button"
+      aria-expanded="false"
+      aria-controls="menu-glowne"
+      aria-label={t('interfejs.menu_otworz')}
+      data-otworz={t('interfejs.menu_otworz')}
+      data-zamknij={t('interfejs.menu_zamknij')}
+    >
+      <svg class="ikona-otworz" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M4 7h16M4 12h16M4 17h16"></path></svg>
+      <svg class="ikona-zamknij" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M6 6l12 12M18 6L6 18"></path></svg>
+      <span class="menu-przelacznik__napis" aria-hidden="true">{t('interfejs.menu_otworz')}</span>
+    </button>
+    <nav class="menu" id="menu-glowne" aria-label={t('interfejs.menu_aria')}>
+      <ul>
+        {
+          pozycje.map((p) => (
+            <li>
+              <a href={p.adres} aria-current={p.biezaca ? (sciezka === p.adres ? 'page' : 'true') : undefined}>{p.nazwa}</a>
+            </li>
+          ))
+        }
+      </ul>
+    </nav>
+  </div>
+</header>
+
+<noscript>
+  <style>
+    .menu-przelacznik { display: none; }
+    .menu { display: block; }
+    .menu ul { display: flex; flex-wrap: wrap; gap: 0 1rem; }
+  </style>
+</noscript>
+
+<script>
+  const naglowek = document.getElementById('naglowek') as HTMLElement;
+  const przelacznik = naglowek.querySelector<HTMLButtonElement>('.menu-przelacznik')!;
+  const menu = document.getElementById('menu-glowne') as HTMLElement;
+  const html = document.documentElement;
+  const zablokowane = () => document.querySelectorAll<HTMLElement>('main, footer');
+  // Tryb panelu rozpoznajemy z CSS (przełącznik widoczny), nie z szerokości okna: jeden próg w jednym miejscu.
+  const panelAktywny = () => getComputedStyle(przelacznik).display !== 'none';
+
+  const ustaw = (otwarte: boolean) => {
+    przelacznik.setAttribute('aria-expanded', String(otwarte));
+    przelacznik.setAttribute('aria-label', (otwarte ? przelacznik.dataset.zamknij : przelacznik.dataset.otworz) ?? '');
+    if (otwarte) naglowek.setAttribute('data-otwarte', '');
+    else naglowek.removeAttribute('data-otwarte');
+    html.classList.toggle('menu-otwarte', otwarte);
+    zablokowane().forEach((el) => (el.inert = otwarte));
+  };
+
+  przelacznik.addEventListener('click', () => ustaw(przelacznik.getAttribute('aria-expanded') !== 'true'));
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape' && przelacznik.getAttribute('aria-expanded') === 'true') {
+      ustaw(false);
+      przelacznik.focus();
+    }
+  });
+  menu.addEventListener('click', (e) => {
+    if ((e.target as HTMLElement).closest('a')) ustaw(false);
+  });
+  window.addEventListener('resize', () => {
+    if (!panelAktywny() && przelacznik.getAttribute('aria-expanded') === 'true') ustaw(false);
+  });
+</script>

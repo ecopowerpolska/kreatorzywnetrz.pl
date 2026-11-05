@@ -1,0 +1,17 @@
+{
+  "specVersion": "1.0",
+  "entries": [
+    {
+      "identifier": "urn:air:kreatorzywnetrz.pl:katalog:ard",
+      "displayName": "Kreatorzy Wnętrz - katalog zasobów (ard.json)",
+      "type": "application/ai-catalog+json",
+      "url": "https://kreatorzywnetrz.pl/.well-known/ard.json",
+      "description": "Katalog zasobów kreatorzywnetrz.pl: strona główna, blog, działy, polecane firmy, informacje o redakcji, kontakt, kanał RSS i mapa strony.",
+      "representativeQueries": [
+        "Kreatorzy Wnętrz blog",
+        "jak zaplanować projekt wnętrza",
+        "remont łazienki krok po kroku"
+      ]
+    }
+  ]
+}

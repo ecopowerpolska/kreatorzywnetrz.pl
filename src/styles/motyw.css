@@ -1,0 +1,1458 @@
+/* motyw.css — JEDYNE miejsce, w którym zadeklarowane są kolory, skala typograficzna, siatka odstępów
+   i stany elementów interaktywnych tej strony. Plik podaje się bramce: --motyw src/styles/motyw.css
+
+   SZKIELET: style przeniesione ze wzorca magazynu; kierunek „Róż i burgund” i tokeny wprowadza etap układu i motywu.
+
+   KONTRASTY policzone skryptem kontrast-wcag.py (WCAG 2.2), nie ocenione okiem. Każda para tekst/tło ma własny komentarz. */
+
+/* kontrast: #1a2a2e na #f6f0e4 tekst */
+/* kontrast: #1a2a2e na #ece3d0 tekst */
+/* kontrast: #1a2a2e na #e0d4b9 tekst */
+/* kontrast: #4d5b5c na #f6f0e4 tekst */
+/* kontrast: #4d5b5c na #ece3d0 tekst */
+/* kontrast: #4d5b5c na #e0d4b9 tekst */
+/* kontrast: #a8452a na #f6f0e4 tekst */
+/* kontrast: #a8452a na #ece3d0 tekst */
+/* kontrast: #8f3a22 na #f6f0e4 tekst */
+/* kontrast: #8f3a22 na #ece3d0 tekst */
+/* kontrast: #0f3e47 na #f6f0e4 tekst */
+/* kontrast: #0f3e47 na #ece3d0 tekst */
+/* kontrast: #0f3e47 na #e0d4b9 tekst */
+/* kontrast: #f6f0e4 na #0f3e47 tekst */
+/* kontrast: #b9c9c6 na #0f3e47 tekst */
+/* kontrast: #e9b48f na #0f3e47 tekst */
+/* kontrast: #f6f0e4 na #a8452a tekst */
+/* kontrast: #e9b48f na #1a2a2e tekst */
+/* kontrast: #f6f0e4 na #4d5b5c tekst */
+
+/* skala: 0.875rem 1rem 1.125rem 1.4375rem 1.875rem 2.5rem 3.25rem */
+
+:root {
+  /* ── kolor: jeden motyw, jasny ───────────────────────────────────────────── */
+  --tlo: #f6f0e4;
+  --powierzchnia: #ece3d0;
+  --powierzchnia-mocna: #e0d4b9;
+  --tekst: #1a2a2e;
+  --tekst-cichy: #4d5b5c;
+  --morze: #0f3e47;
+  --na-morzu: #f6f0e4;
+  --na-morzu-cichy: #b9c9c6;
+  --na-morzu-akcent: #e9b48f;
+  --akcent: #a8452a;
+  --akcent-mocny: #8f3a22;
+  --linia: #cdbf9f;
+  color-scheme: light;
+
+  /* ── typografia ──────────────────────────────────────────────────────────── */
+  --font-nagl: 'Iowan Old Style', 'Palatino Linotype', Palatino, 'Book Antiqua', 'Noto Serif', 'DejaVu Serif', Georgia, serif;
+  --font-tekst: system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+
+  --t-1: 0.875rem;
+  --t-2: 1rem;
+  --t-3: 1.125rem;
+  --t-4: 1.4375rem;
+  --t-5: 1.875rem;
+  --t-6: 2.5rem;
+  --t-7: 3.25rem;
+
+  /* ── siatka odstępów: jednostka 0,25 rem ─────────────────────────────────── */
+  --o-1: 0.25rem;
+  --o-2: 0.5rem;
+  --o-3: 0.75rem;
+  --o-4: 1rem;
+  --o-6: 1.5rem;
+  --o-8: 2rem;
+  --o-12: 3rem;
+  --o-16: 4rem;
+  --o-24: 6rem;
+
+  --szerokosc: 76rem;
+  --miara: 70ch;
+  --miara-wpisu: 42rem; /* ok. 72 znaków przy 18 px kroju szeryfowym; tytuł i treść wpisu mają jedną lewą krawędź */
+  --margines: 1.25rem;
+  --promien-zdjecia: 3px;
+  --cel-dotyku: 2.75rem; /* 44 px przy pismie 16 px */
+  --wys-naglowka: 4rem;
+  --ruch: 120ms ease-out;
+}
+
+@media (min-width: 48rem) {
+  :root {
+    --margines: 2rem;
+    --wys-naglowka: 4.5rem; /* 72 px: jedna linia ≤ 80 px na komputerze */
+  }
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html {
+  background: var(--tlo);
+  scroll-padding-top: calc(var(--wys-naglowka) + var(--o-4));
+  -webkit-text-size-adjust: 100%;
+  text-size-adjust: 100%;
+}
+
+html.menu-otwarte {
+  overflow: hidden;
+}
+
+body {
+  margin: 0;
+  min-height: 100dvh;
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  grid-template-rows: auto 1fr auto;
+  background: var(--tlo);
+  color: var(--tekst);
+  font-family: var(--font-tekst);
+  font-size: var(--t-3);
+  line-height: 1.6;
+  overflow-wrap: break-word;
+}
+
+img {
+  display: block;
+  max-width: 100%;
+  height: auto;
+}
+
+h1,
+h2,
+h3,
+h4 {
+  margin: 0;
+  font-family: var(--font-nagl);
+  font-weight: 600;
+  line-height: 1.15;
+  letter-spacing: -0.01em;
+  text-wrap: balance;
+  overflow-wrap: anywhere; /* tekst 200 % na wąskim telefonie: długie słowo nie wypycha strony w bok */
+  color: var(--tekst);
+}
+
+p {
+  margin: 0;
+}
+
+ul,
+ol {
+  margin: 0;
+  padding: 0;
+}
+
+a {
+  color: var(--akcent);
+  text-decoration-thickness: 1px;
+  text-underline-offset: 0.18em;
+}
+
+a:hover {
+  color: var(--akcent-mocny);
+  text-decoration-thickness: 2px;
+}
+
+a:active {
+  color: var(--tekst);
+}
+
+:focus-visible {
+  outline: 3px solid var(--morze);
+  outline-offset: 3px;
+}
+
+.skip {
+  position: absolute;
+  left: var(--o-4);
+  top: var(--o-2);
+  z-index: 100;
+  padding: var(--o-3) var(--o-4);
+  background: var(--morze);
+  color: var(--na-morzu);
+  font-size: var(--t-2);
+  transform: translateY(-200%);
+}
+
+.skip:focus {
+  transform: none;
+  outline-color: var(--na-morzu);
+}
+
+.kontener {
+  width: 100%;
+  max-width: var(--szerokosc);
+  margin-inline: auto;
+  padding-inline: var(--margines);
+}
+
+main {
+  min-width: 0;
+}
+
+/* ══ NAGŁÓWEK: przyklejony, jedna linia; progi zapytaniem kontenera, nie oknem ══ */
+.naglowek {
+  position: sticky;
+  top: 0;
+  z-index: 40;
+  container: naglowek / inline-size;
+  max-width: 100vw;
+  background: var(--morze);
+  color: var(--na-morzu);
+}
+
+.naglowek__pas {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--o-3);
+  min-height: var(--wys-naglowka);
+}
+
+.marka {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--o-3);
+  min-height: var(--cel-dotyku);
+  min-width: 0;
+  color: var(--na-morzu);
+  font-family: var(--font-nagl);
+  font-size: var(--t-3);
+  font-weight: 600;
+  letter-spacing: -0.01em;
+  line-height: 1.1;
+  text-decoration: none;
+}
+
+.marka:hover {
+  color: var(--na-morzu-akcent);
+}
+
+.marka:active {
+  color: var(--na-morzu);
+}
+
+.marka:focus-visible,
+.menu a:focus-visible,
+.menu-przelacznik:focus-visible,
+.stopka a:focus-visible {
+  outline-color: var(--na-morzu);
+}
+
+.marka__znak {
+  flex: none;
+  width: 2.25rem;
+  height: 2.25rem;
+}
+
+.menu-przelacznik {
+  display: inline-flex;
+  flex: none;
+  align-items: center;
+  justify-content: center;
+  gap: var(--o-2);
+  min-width: var(--cel-dotyku);
+  min-height: var(--cel-dotyku);
+  padding: 0 var(--o-3);
+  border: 1px solid var(--na-morzu-cichy);
+  border-radius: 0;
+  background: transparent;
+  color: var(--na-morzu);
+  font: inherit;
+  font-size: var(--t-2);
+  cursor: pointer;
+}
+
+.menu-przelacznik:hover {
+  border-color: var(--na-morzu-akcent);
+  color: var(--na-morzu-akcent);
+}
+
+.menu-przelacznik:active {
+  background: var(--na-morzu);
+  color: var(--morze);
+}
+
+.menu-przelacznik[disabled] {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.menu-przelacznik svg {
+  width: 1.5rem;
+  height: 1.5rem;
+  stroke: currentColor;
+  fill: none;
+  stroke-width: 2;
+  stroke-linecap: round;
+}
+
+.menu-przelacznik .ikona-zamknij,
+.menu-przelacznik[aria-expanded='true'] .ikona-otworz {
+  display: none;
+}
+
+.menu-przelacznik[aria-expanded='true'] .ikona-zamknij {
+  display: block;
+}
+
+.menu-przelacznik__napis {
+  display: none;
+}
+
+/* Telefon: panel menu pod paskiem, na całą resztę ekranu; tło przewija się samo tylko w panelu */
+.menu {
+  display: none;
+}
+
+.naglowek[data-otwarte] .menu {
+  display: block;
+  position: fixed;
+  inset: var(--wys-naglowka) 0 0 0;
+  z-index: 39;
+  overflow-y: auto;
+  overscroll-behavior: contain;
+  padding: var(--o-4) var(--margines) max(var(--o-8), env(safe-area-inset-bottom));
+  background: var(--morze);
+  border-top: 1px solid var(--na-morzu-cichy);
+}
+
+.menu ul {
+  list-style: none;
+}
+
+.menu a {
+  display: flex;
+  align-items: center;
+  min-height: 3rem;
+  padding: 0 var(--o-1);
+  color: var(--na-morzu);
+  font-size: var(--t-4);
+  font-family: var(--font-nagl);
+  text-decoration: none;
+}
+
+.menu a:hover {
+  color: var(--na-morzu-akcent);
+  text-decoration: underline;
+  text-decoration-thickness: 2px;
+  text-underline-offset: 0.3em;
+}
+
+.menu a:active {
+  color: var(--na-morzu);
+}
+
+.menu a[aria-current] {
+  text-decoration: underline;
+  text-decoration-thickness: 2px;
+  text-underline-offset: 0.3em;
+}
+
+@container naglowek (min-width: 26rem) {
+  .menu-przelacznik__napis {
+    display: inline;
+  }
+}
+
+@container naglowek (max-width: 23.99rem) {
+  .marka__znak {
+    display: none;
+  }
+}
+
+/* Pas z menu w jednej linii, 7 pozycji (teksty.json `menu`). Zmierzone CDP 2026-11-03 (Chrome headless, dist kopii W1):
+   marka 20,3 rem + przerwa 0,75 + marginesy 4 + menu 38,7 rem przy odstępie pozycji 0,75 rem = 63,8 rem;
+   przy odstępie 0,5 rem menu ma 35,2 rem, razem 60,3 rem → próg 61 rem (pas od ok. 990 px okna), szerszy odstęp od 66 rem.
+   Poniżej progu przełącznik menu. Każda nowa pozycja menu = nowy pomiar i nowy próg. */
+@container naglowek (min-width: 61rem) {
+  .menu-przelacznik {
+    display: none;
+  }
+
+  .marka {
+    font-size: var(--t-4);
+    white-space: nowrap;
+  }
+
+  .menu,
+  .naglowek[data-otwarte] .menu {
+    display: block;
+    position: static;
+    inset: auto;
+    overflow: visible;
+    padding: 0;
+    border: 0;
+    background: transparent;
+  }
+
+  .menu ul {
+    display: flex;
+    align-items: center;
+    gap: var(--o-2);
+  }
+
+  .menu a {
+    min-height: var(--cel-dotyku);
+    padding: 0 var(--o-2);
+    font-family: var(--font-tekst);
+    font-size: var(--t-2);
+    white-space: nowrap;
+  }
+}
+
+@container naglowek (min-width: 66rem) {
+  .menu a {
+    padding: 0 var(--o-3);
+  }
+}
+
+/* ══ HERO: zdjęcie na pełną szerokość, panel z tytułem wsunięty na dolną krawędź (jedyny gest) ══ */
+.hero__zdjecie {
+  position: relative;
+  height: clamp(18rem, 48vw, 36rem);
+  overflow: hidden;
+  background: var(--powierzchnia-mocna);
+}
+
+.hero__zdjecie img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: 50% 40%;
+}
+
+.hero__rama {
+  position: relative;
+  margin-top: calc(-1 * var(--o-12));
+}
+
+.hero__panel {
+  max-width: 38rem;
+  padding: var(--o-6) var(--o-6) var(--o-8);
+  background: var(--morze);
+  color: var(--na-morzu);
+}
+
+.hero__panel h1 {
+  color: var(--na-morzu);
+  font-size: var(--t-6);
+}
+
+.hero__haslo {
+  margin-top: var(--o-4);
+  color: var(--na-morzu-cichy);
+  font-size: var(--t-3);
+  line-height: 1.5;
+}
+
+@media (min-width: 48rem) {
+  .hero__panel h1 {
+    font-size: var(--t-7);
+  }
+
+  .hero__rama {
+    margin-top: calc(-1 * var(--o-16));
+  }
+
+  .hero__panel {
+    padding: var(--o-8) var(--o-8) var(--o-12);
+  }
+}
+
+/* ══ SEKCJE ══ */
+.sekcja {
+  padding-block: var(--o-12);
+}
+
+@media (min-width: 48rem) {
+  .sekcja {
+    padding-block: var(--o-16);
+  }
+}
+
+.sekcja--bez-gory {
+  padding-top: 0;
+}
+
+main:focus {
+  outline: none;
+}
+
+.sekcja--piasek {
+  background: var(--powierzchnia);
+}
+
+.sekcja__glowa {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: var(--o-2) var(--o-6);
+  margin-bottom: var(--o-8);
+}
+
+.sekcja__glowa h2 {
+  font-size: var(--t-5);
+}
+
+.sekcja__wstep {
+  max-width: var(--miara);
+  margin-top: var(--o-3);
+  color: var(--tekst-cichy);
+}
+
+.link-sekcji {
+  display: inline-flex;
+  align-items: center;
+  min-height: var(--cel-dotyku);
+  font-size: var(--t-2);
+  font-weight: 600;
+}
+
+/* Wstęp po zdjęciu: duży akapit po lewej, reszta po prawej */
+.wstep {
+  display: grid;
+  gap: var(--o-6);
+}
+
+.wstep__lead {
+  overflow-wrap: anywhere;
+  font-family: var(--font-nagl);
+  font-size: var(--t-4);
+  line-height: 1.4;
+}
+
+.wstep__reszta {
+  display: grid;
+  gap: var(--o-4);
+  max-width: var(--miara);
+}
+
+@media (min-width: 56rem) {
+  .wstep {
+    grid-template-columns: 1fr 1fr;
+    gap: var(--o-12);
+    align-items: start;
+  }
+}
+
+/* ══ KARTY ══ */
+.karty {
+  display: grid;
+  gap: var(--o-8) var(--o-6);
+  grid-template-columns: repeat(auto-fill, minmax(min(100%, 19rem), 1fr));
+  list-style: none;
+}
+
+.karta {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  gap: var(--o-3);
+  min-width: 0;
+}
+
+.karta__zdjecie {
+  aspect-ratio: 3 / 2;
+  overflow: hidden;
+  border-radius: var(--promien-zdjecia);
+  background: var(--powierzchnia-mocna);
+}
+
+.karta__zdjecie img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+/* Plansza wpisu bez zdjęcia. Ta sama ramka 3:2 co zdjęcie,
+   więc rząd siatki trzyma wysokość; tło w barwie działu z palety motywu, poziomice jak na mapie z prawego górnego rogu.
+   Pary kolorów: #f6f0e4/#0f3e47, #f6f0e4/#a8452a, #0f3e47/#e0d4b9, #e9b48f/#1a2a2e, #f6f0e4/#4d5b5c (pary kontrastu na górze). */
+.karta__plansza {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  gap: var(--o-2);
+  aspect-ratio: 3 / 2;
+  overflow: hidden;
+  padding: var(--o-6);
+  border-radius: var(--promien-zdjecia);
+  background: var(--plansza-tlo);
+  color: var(--plansza-tekst);
+}
+
+.karta__plansza::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: repeating-radial-gradient(
+    circle at 88% 12%,
+    transparent 0 1.25rem,
+    color-mix(in srgb, currentColor 18%, transparent) 1.25rem calc(1.25rem + 1px)
+  );
+}
+
+.karta__plansza > span {
+  position: relative;
+}
+
+.karta__plansza-dzial {
+  font-family: var(--font-tekst);
+  font-size: var(--t-1);
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.karta__plansza-dzial::before {
+  content: '';
+  display: block;
+  width: 2.5rem;
+  height: 3px;
+  margin-bottom: var(--o-3);
+  background: var(--plansza-kreska);
+}
+
+.karta__plansza-haslo {
+  font-family: var(--font-nagl);
+  font-size: var(--t-5);
+  line-height: 1.1;
+  overflow-wrap: anywhere;
+}
+
+.karta--glowna .karta__plansza {
+  padding: var(--o-8);
+}
+
+.karta--glowna .karta__plansza-haslo {
+  font-size: var(--t-6);
+}
+
+.plansza--projekt-wnetrza {
+  --plansza-tlo: var(--morze);
+  --plansza-tekst: var(--na-morzu);
+  --plansza-kreska: var(--na-morzu-akcent);
+}
+
+.plansza--remont {
+  --plansza-tlo: var(--akcent);
+  --plansza-tekst: var(--na-morzu);
+  --plansza-kreska: var(--na-morzu);
+}
+
+.plansza--meble-na-wymiar {
+  --plansza-tlo: var(--powierzchnia-mocna);
+  --plansza-tekst: var(--morze);
+  --plansza-kreska: var(--akcent);
+}
+
+.plansza--materialy {
+  --plansza-tlo: var(--tekst-cichy);
+  --plansza-tekst: var(--na-morzu);
+  --plansza-kreska: var(--na-morzu-akcent);
+}
+
+.karta__meta,
+.wpis__meta {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0 var(--o-2);
+  color: var(--tekst-cichy);
+  font-size: var(--t-1);
+}
+
+.karta__meta > * + *::before {
+  content: '·';
+  margin-right: var(--o-2);
+  color: var(--tekst-cichy);
+}
+
+/* Etykieta działu: kapitaliki w kolorze morza. Cel dotyku 44 px wysokości, a ujemny margines trzyma linię meta niską */
+.karta__dzial,
+.wpis__dzial a {
+  position: relative;
+  z-index: 1;
+  display: inline-flex;
+  align-items: center;
+  min-height: var(--cel-dotyku);
+  margin-block: calc((1.5rem - var(--cel-dotyku)) / 2);
+  color: var(--morze);
+  font-family: var(--font-tekst);
+  font-size: var(--t-1);
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  text-decoration: none;
+}
+
+.karta__dzial:hover,
+.wpis__dzial a:hover {
+  color: var(--morze);
+  text-decoration: underline;
+  text-decoration-thickness: 2px;
+}
+
+.karta__dzial:active,
+.wpis__dzial a:active {
+  color: var(--tekst);
+}
+
+.karta .karta__dzial:focus-visible {
+  outline: 3px solid var(--morze);
+  outline-offset: 2px;
+}
+
+.karta__tytul {
+  font-size: var(--t-4);
+}
+
+.karta__tytul a {
+  color: var(--tekst);
+  text-decoration: none;
+}
+
+.karta p {
+  color: var(--tekst-cichy);
+  font-size: var(--t-2);
+  line-height: 1.55;
+}
+
+/* Cała karta jest odnośnikiem tytułu (rozciągnięty ::after); etykieta działu leży nad nim warstwą i prowadzi do działu */
+.karta__tytul a::after,
+.karta__czytaj::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+}
+
+.karta:hover .karta__tytul a,
+.karta:hover .karta__czytaj {
+  color: var(--akcent-mocny);
+  text-decoration: underline;
+  text-decoration-thickness: 2px;
+  text-underline-offset: 0.18em;
+}
+
+.karta:has(a:focus-visible) {
+  outline: 3px solid var(--morze);
+  outline-offset: 6px;
+}
+
+.karta a:focus-visible {
+  outline: none;
+}
+
+.karta__czytaj {
+  margin-top: auto;
+  padding-top: var(--o-1);
+  color: var(--akcent);
+  font-size: var(--t-2);
+  font-weight: 600;
+}
+
+.karta--zapowiedz {
+  padding: var(--o-6);
+  background: var(--powierzchnia);
+  border-radius: 0;
+}
+
+.karta--zapowiedz .karta__zdjecie {
+  margin: calc(-1 * var(--o-6)) calc(-1 * var(--o-6)) 0;
+  border-radius: 0;
+}
+
+.karta--zapowiedz .karta__zrodlo {
+  display: block;
+  font-weight: 600;
+  color: var(--morze);
+}
+
+.karta--zapowiedz:has(a:focus-visible) {
+  outline-offset: 3px;
+}
+
+/* Karta główna (najnowszy wpis): zdjęcie i tekst obok siebie */
+.karta--glowna {
+  margin-bottom: var(--o-8);
+}
+
+.karta--glowna .karta__tytul {
+  font-size: var(--t-5);
+}
+
+.karta--glowna p {
+  font-size: var(--t-3);
+}
+
+@media (min-width: 56rem) {
+  .karta--glowna {
+    display: grid;
+    grid-template-columns: 7fr 5fr;
+    align-items: center;
+    gap: var(--o-12);
+  }
+
+  .karta--glowna .karta__tekst {
+    display: flex;
+    flex-direction: column;
+    gap: var(--o-3);
+  }
+}
+
+.karta__tekst {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+  gap: var(--o-3);
+}
+
+.grupa-zrodla + .grupa-zrodla {
+  margin-top: var(--o-12);
+}
+
+.grupa-zrodla h2 {
+  margin-bottom: var(--o-6);
+  padding-bottom: var(--o-2);
+  border-bottom: 2px solid var(--morze);
+  font-size: var(--t-5);
+}
+
+.pusto {
+  max-width: var(--miara);
+  padding: var(--o-6);
+  background: var(--powierzchnia);
+  color: var(--tekst-cichy);
+}
+
+/* ══ NAGŁÓWEK PODSTRONY, OKRUSZKI ══ */
+.podstrona-glowa {
+  padding-block: var(--o-12) var(--o-8);
+}
+
+.podstrona-glowa h1 {
+  font-size: var(--t-6);
+}
+
+.podstrona-glowa__wstep {
+  max-width: var(--miara);
+  margin-top: var(--o-4);
+  color: var(--tekst-cichy);
+  font-size: var(--t-4);
+  font-family: var(--font-nagl);
+  line-height: 1.4;
+}
+
+@media (min-width: 48rem) {
+  .podstrona-glowa h1 {
+    font-size: var(--t-7);
+  }
+}
+
+.okruszki {
+  padding-top: var(--o-4);
+}
+
+.okruszki ol {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  list-style: none;
+  font-size: var(--t-1);
+}
+
+.okruszki li {
+  display: inline-flex;
+  align-items: center;
+  min-height: var(--cel-dotyku);
+}
+
+.okruszki li + li::before {
+  content: '/';
+  margin-inline: var(--o-2);
+  color: var(--tekst-cichy);
+}
+
+.okruszki a {
+  display: inline-flex;
+  align-items: center;
+  min-height: var(--cel-dotyku);
+}
+
+.okruszki [aria-current='page'] {
+  color: var(--tekst-cichy);
+}
+
+/* ══ WPIS ══ */
+.wpis__glowa {
+  /* + marginesy kontenera: tekst nagłówka zaczyna się na tej samej krawędzi co treść wpisu (.tresc bez marginesów) */
+  max-width: calc(var(--miara-wpisu) + 2 * var(--margines));
+  margin-inline: auto;
+  padding-block: var(--o-6) var(--o-8);
+}
+
+.wpis__glowa h1 {
+  font-size: var(--t-6);
+}
+
+.wpis__dzial {
+  margin-bottom: var(--o-2);
+}
+
+/* Linia meta wpisu bez kropek: na telefonie łamie się w trzy wiersze, a kropka na początku wiersza wisiałaby sama */
+.wpis__meta {
+  gap: 0 var(--o-6);
+  margin-top: var(--o-4);
+  font-size: var(--t-2);
+}
+
+.wpis__podpis {
+  display: inline-flex;
+  align-items: center;
+  min-height: var(--cel-dotyku);
+}
+
+.wpis__tagi {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--o-2);
+  max-width: var(--miara-wpisu);
+  margin: var(--o-8) auto 0;
+  list-style: none;
+}
+
+.wpis__tagi li {
+  padding: 0 var(--o-2);
+  background: var(--powierzchnia-mocna);
+  color: var(--tekst);
+  font-size: var(--t-1);
+}
+
+/* Wpis bez zdjęcia: nagłówek zamyka cienka linia na szerokości tekstu, bez pustej ramki po zdjęciu */
+.wpis--bez-zdjecia .wpis__glowa {
+  padding-bottom: 0;
+  margin-bottom: var(--o-8);
+}
+
+.wpis--bez-zdjecia .wpis__glowa::after {
+  content: '';
+  display: block;
+  height: 1px;
+  margin-top: var(--o-8);
+  background: var(--linia);
+}
+
+.wpis__zdjecie {
+  max-width: 64rem;
+  margin: 0 auto var(--o-8);
+  padding-inline: var(--margines);
+}
+
+.wpis__zdjecie img {
+  width: 100%;
+  aspect-ratio: 3 / 2;
+  object-fit: cover;
+  border-radius: var(--promien-zdjecia);
+}
+
+@media (min-width: 48rem) {
+  .wpis__glowa h1 {
+    font-size: var(--t-6);
+  }
+}
+
+.tresc {
+  max-width: var(--miara-wpisu);
+  margin-inline: auto;
+  font-family: var(--font-nagl);
+  font-size: var(--t-3);
+  line-height: 1.7;
+}
+
+.tresc > * + * {
+  margin-top: var(--o-4);
+}
+
+.tresc h2 {
+  margin-top: var(--o-12);
+  font-size: var(--t-5);
+}
+
+.tresc h3 {
+  margin-top: var(--o-8);
+  font-size: var(--t-4);
+}
+
+.tresc h2 + *,
+.tresc h3 + * {
+  margin-top: var(--o-3);
+}
+
+.tresc ul,
+.tresc ol {
+  padding-left: var(--o-6);
+}
+
+.tresc li + li {
+  margin-top: var(--o-2);
+}
+
+.tresc blockquote {
+  margin-inline: 0;
+  padding: var(--o-2) var(--o-6);
+  border-left: 4px solid var(--akcent);
+  background: var(--powierzchnia);
+}
+
+.tresc a {
+  overflow-wrap: anywhere;
+}
+
+.tresc img {
+  border-radius: var(--promien-zdjecia);
+}
+
+.tresc table {
+  display: block;
+  overflow-x: auto;
+  border-collapse: collapse;
+  font-family: var(--font-tekst);
+  font-size: var(--t-2);
+}
+
+.tresc th,
+.tresc td {
+  padding: var(--o-2) var(--o-3);
+  border: 1px solid var(--tekst-cichy);
+  text-align: left;
+  vertical-align: top;
+}
+
+.tresc th {
+  background: var(--powierzchnia);
+}
+
+.tresc hr {
+  border: 0;
+  border-top: 1px solid var(--tekst-cichy);
+}
+
+.wiecej {
+  margin-top: var(--o-12);
+}
+
+.sasiedzi-rama {
+  padding-bottom: var(--o-16);
+}
+
+.sasiedzi {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  gap: var(--o-4);
+  margin-top: var(--o-12);
+  padding-top: var(--o-8);
+  border-top: 2px solid var(--morze);
+}
+
+.sasiedzi a {
+  display: block;
+  min-height: var(--cel-dotyku);
+  padding: var(--o-4);
+  background: var(--powierzchnia);
+  color: var(--tekst);
+  text-decoration: none;
+}
+
+.sasiedzi a:hover {
+  background: var(--powierzchnia-mocna);
+  color: var(--tekst);
+}
+
+.sasiedzi a:active {
+  background: var(--powierzchnia-mocna);
+}
+
+.sasiedzi__etykieta {
+  display: block;
+  color: var(--tekst-cichy);
+  font-size: var(--t-1);
+}
+
+.sasiedzi__tytul {
+  overflow-wrap: anywhere;
+  display: block;
+  font-family: var(--font-nagl);
+  font-size: var(--t-4);
+  font-weight: 600;
+  line-height: 1.2;
+}
+
+.sasiedzi a:hover .sasiedzi__tytul {
+  text-decoration: underline;
+  text-decoration-thickness: 2px;
+  text-underline-offset: 0.18em;
+}
+
+@media (min-width: 48rem) {
+  .sasiedzi {
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+  }
+
+  .sasiedzi__nastepny {
+    grid-column: 2;
+    text-align: right;
+  }
+}
+
+/* ══ DZIAŁY: bloki na stronie głównej, odnośniki do pozostałych działów na stronie działu ══ */
+.dzialy__naglowek {
+  margin-bottom: var(--o-8);
+  font-size: var(--t-5);
+}
+
+.dzial-blok + .dzial-blok {
+  margin-top: var(--o-12);
+}
+
+.dzial-blok__nazwa {
+  margin-bottom: var(--o-6);
+  padding-bottom: var(--o-1);
+  border-bottom: 2px solid var(--morze);
+  font-size: var(--t-4);
+}
+
+.dzial-blok__nazwa a {
+  display: inline-flex;
+  align-items: center;
+  min-height: var(--cel-dotyku);
+  color: var(--tekst);
+  text-decoration: none;
+}
+
+.dzial-blok__nazwa a:hover {
+  color: var(--akcent-mocny);
+  text-decoration: underline;
+}
+
+.dzial-blok__nazwa a:active {
+  color: var(--tekst);
+}
+
+.dzial-blok__wiecej {
+  margin-top: var(--o-4);
+}
+
+/* Telefon: po 2 karty na dział (strona główna ma 5 bloków); trzecia od 48 rem, gdy karty stoją obok siebie */
+@media (max-width: 47.99rem) {
+  .dzial-blok .karty > li:nth-child(n + 3) {
+    display: none;
+  }
+}
+
+.inne-dzialy {
+  padding-bottom: var(--o-16);
+}
+
+.inne-dzialy h2 {
+  margin-bottom: var(--o-3);
+  font-size: var(--t-4);
+}
+
+.inne-dzialy ul {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--o-2) var(--o-3);
+  list-style: none;
+}
+
+.inne-dzialy a {
+  display: inline-flex;
+  align-items: center;
+  min-height: var(--cel-dotyku);
+  padding: 0 var(--o-4);
+  border: 1px solid var(--morze);
+  color: var(--morze);
+  font-size: var(--t-2);
+  font-weight: 600;
+  text-decoration: none;
+}
+
+.inne-dzialy a:hover {
+  background: var(--morze);
+  color: var(--na-morzu);
+}
+
+.inne-dzialy a:active {
+  background: var(--powierzchnia-mocna);
+  color: var(--morze);
+}
+
+/* ══ POLECAMY: bloki firm (bez logo, ocen i cen), pod nimi zapowiedzi ══ */
+.firmy {
+  display: grid;
+  gap: var(--o-8) var(--o-12);
+  grid-template-columns: repeat(auto-fill, minmax(min(100%, 22rem), 1fr));
+  list-style: none;
+}
+
+.firma {
+  display: flex;
+  flex-direction: column;
+  gap: var(--o-3);
+  padding-top: var(--o-4);
+  border-top: 2px solid var(--morze);
+}
+
+.firma h2 {
+  font-size: var(--t-5);
+}
+
+.firma p {
+  max-width: var(--miara);
+}
+
+.firma__dla-nas {
+  font-family: var(--font-nagl);
+  font-size: var(--t-3);
+}
+
+.firma__strona {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--o-2) var(--o-4);
+  margin-top: auto;
+  padding-top: var(--o-2);
+}
+
+.firma__host {
+  color: var(--tekst-cichy);
+  font-size: var(--t-1);
+}
+
+/* ══ STRONY TEKSTOWE (o nas, polityka, 404) ══ */
+.strona-tekst {
+  padding-bottom: var(--o-16);
+}
+
+.strona-tekst__kolumna {
+  max-width: var(--miara);
+}
+
+.dwie-kolumny {
+  display: grid;
+  gap: var(--o-8);
+  align-items: start;
+}
+
+@media (min-width: 56rem) {
+  .dwie-kolumny {
+    grid-template-columns: 5fr 4fr;
+    gap: var(--o-12);
+  }
+}
+
+.dwie-kolumny img {
+  width: 100%;
+  aspect-ratio: 3 / 2;
+  object-fit: cover;
+  border-radius: var(--promien-zdjecia);
+}
+
+.proza > * + * {
+  margin-top: var(--o-4);
+}
+
+.proza h2 {
+  margin-top: var(--o-12);
+  font-size: var(--t-5);
+}
+
+.proza h2 + * {
+  margin-top: var(--o-3);
+}
+
+.proza ul {
+  padding-left: var(--o-6);
+}
+
+.proza li + li {
+  margin-top: var(--o-2);
+}
+
+.proza a {
+  overflow-wrap: anywhere;
+}
+
+.polityka__data {
+  margin-top: var(--o-3);
+  color: var(--tekst-cichy);
+  font-size: var(--t-2);
+}
+
+.administrator {
+  margin-top: var(--o-4);
+  padding: var(--o-4) var(--o-6);
+  background: var(--powierzchnia);
+  list-style: none;
+}
+
+.strona-404 {
+  padding-block: var(--o-16);
+}
+
+.strona-404__liczba {
+  font-family: var(--font-nagl);
+  font-size: var(--t-7);
+  color: var(--akcent);
+  line-height: 1;
+}
+
+.strona-404 h1 {
+  margin-top: var(--o-3);
+  font-size: var(--t-6);
+}
+
+.strona-404 p {
+  max-width: var(--miara);
+  margin-top: var(--o-4);
+}
+
+.przycisk {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: var(--cel-dotyku);
+  padding: 0 var(--o-6);
+  border: 2px solid var(--morze);
+  background: var(--morze);
+  color: var(--na-morzu);
+  font-size: var(--t-2);
+  font-weight: 600;
+  text-decoration: none;
+}
+
+.przycisk:hover {
+  background: var(--tlo);
+  color: var(--morze);
+  text-decoration: none;
+}
+
+.przycisk:active {
+  background: var(--powierzchnia-mocna);
+  color: var(--morze);
+}
+
+.przycisk[aria-disabled='true'] {
+  opacity: 0.5;
+  pointer-events: none;
+}
+
+.przyciski {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--o-3);
+  margin-top: var(--o-6);
+}
+
+.przycisk--obrys {
+  background: transparent;
+  color: var(--morze);
+}
+
+.przycisk--obrys:hover {
+  background: var(--morze);
+  color: var(--na-morzu);
+}
+
+.przycisk--obrys:active {
+  background: var(--powierzchnia-mocna);
+  color: var(--morze);
+}
+
+/* ══ STOPKA: neutralna, bez listy polecanych stron ══ */
+.stopka {
+  padding-block: var(--o-8);
+  background: var(--morze);
+  color: var(--na-morzu);
+  font-size: var(--t-2);
+}
+
+.stopka__pas {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--o-2) var(--o-8);
+}
+
+.stopka__nazwa {
+  overflow-wrap: anywhere;
+  font-family: var(--font-nagl);
+  font-size: var(--t-4);
+  font-weight: 600;
+}
+
+.stopka ul {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0 var(--o-6);
+  list-style: none;
+}
+
+.stopka a {
+  display: inline-flex;
+  align-items: center;
+  min-height: var(--cel-dotyku);
+  color: var(--na-morzu);
+}
+
+.stopka a:hover {
+  color: var(--na-morzu-akcent);
+}
+
+.stopka a:active {
+  color: var(--na-morzu);
+}
+
+.stopka__prawa {
+  flex-basis: 100%;
+  color: var(--na-morzu-cichy);
+  font-size: var(--t-1);
+}
+
+/* ══ RUCH: wyłączony na życzenie systemu; poza tym tylko krótkie przejścia koloru ══ */
+@media (prefers-reduced-motion: no-preference) {
+  a,
+  .menu-przelacznik,
+  .przycisk,
+  .sasiedzi a {
+    transition: color var(--ruch), background-color var(--ruch), border-color var(--ruch);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
+
+@media print {
+  .naglowek,
+  .stopka,
+  .skip {
+    display: none;
+  }
+}

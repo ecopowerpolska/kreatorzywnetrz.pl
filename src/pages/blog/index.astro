@@ -1,0 +1,37 @@
+---
+import Bazowy from '../../layouts/Bazowy.astro';
+import Okruszki from '../../components/Okruszki.astro';
+import KartaWpisu from '../../components/KartaWpisu.astro';
+import { t } from '../../lib/tekst';
+import { opublikowane } from '../../lib/wpisy';
+import { okruszki } from '../../lib/schemat';
+
+const wpisy = await opublikowane();
+// Kandydat na LCP: pierwsza karta ze zdjęciem w pierwszym rzędzie (wpis bez zdjęcia ma planszę z CSS, bez obrazu)
+const pierwszeZdjecie = wpisy.findIndex((w) => w.data.zdjecie);
+const priorytetowy = pierwszeZdjecie >= 0 && pierwszeZdjecie < 3 ? pierwszeZdjecie : -1;
+const pozycje = [
+  { nazwa: t('interfejs.okruszki_glowna'), adres: '/' },
+  { nazwa: t('interfejs.okruszki_blog'), adres: '/blog/' },
+];
+const schemat = [okruszki(pozycje)];
+---
+
+<Bazowy tytul={t('blog.tytulKarty')} opis={t('blog.opisMeta')} {schemat}>
+  <Okruszki pozycje={pozycje} />
+  <div class="kontener podstrona-glowa">
+    <h1>{t('blog.h1')}</h1>
+    <p class="podstrona-glowa__wstep">{t('blog.wstep')}</p>
+  </div>
+  <section class="kontener sekcja sekcja--bez-gory" aria-label={t('blog.h1')}>
+    {
+      wpisy.length > 0 ? (
+        <ul class="karty">
+          {wpisy.map((w, i) => <li><KartaWpisu wpis={w} priorytet={i === priorytetowy} poziom={2} /></li>)}
+        </ul>
+      ) : (
+        <p class="pusto">{t('interfejs.brakWpisow')}</p>
+      )
+    }
+  </section>
+</Bazowy>

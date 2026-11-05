@@ -1,0 +1,13 @@
+{
+  "$comment": "Progi astro-guard dla kreatorzywnetrz.pl. JS strony: menu mobilne, dialog formularza z Turnstile, licznik czytania i zapas IntersectionObserver (bundlowane, bez wysp); budżet 4 kB gzip. Trasy bez menu nie istnieją, więc zeroJsRoutes puste.",
+  "static": {
+    "maxIslandsPerFile": 3,
+    "minAstroMajor": 6
+  },
+  "budget": {
+    "jsGzipKB": 4,
+    "cssGzipKB": 30,
+    "htmlGzipKB": 25,
+    "zeroJsRoutes": []
+  }
+}

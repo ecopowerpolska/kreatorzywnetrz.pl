@@ -1,0 +1,162 @@
+{
+  "marka": {
+    "nazwa": "Kreatorzy Wnętrz",
+    "haslo": "[W2]",
+    "opisKrotki": "[W2]"
+  },
+  "menu": [
+    {
+      "etykieta": "Projekt wnętrza",
+      "href": "/projekt-wnetrza/"
+    },
+    {
+      "etykieta": "Remont",
+      "href": "/remont/"
+    },
+    {
+      "etykieta": "Meble i kuchnie",
+      "href": "/meble-na-wymiar/"
+    },
+    {
+      "etykieta": "Blog",
+      "href": "/blog/"
+    },
+    {
+      "etykieta": "Polecamy",
+      "href": "/polecamy/"
+    },
+    {
+      "etykieta": "Kontakt",
+      "href": "/kontakt/"
+    }
+  ],
+  "interfejs": {
+    "czytajDalej": "[W2]",
+    "czytajNaZrodle": "Czytaj dalej na {zrodlo}",
+    "opublikowanoNa": "opublikowano na {zrodlo}",
+    "minCzytania": "{liczba} min czytania",
+    "wiecejZDzialu": "Więcej z działu {dzial}",
+    "spisTresci": "[W2]",
+    "doGory": "[W2]",
+    "poprzedni": "[W2]",
+    "nastepny": "[W2]",
+    "hamburger": "[W2]",
+    "zamknij": "[W2]",
+    "okruszkiStart": "[W2]"
+  },
+  "stopka": {
+    "oNas": "[W2]",
+    "polityka": "[W2]",
+    "rss": "[W2]",
+    "prawa": "© {rok} Kreatorzy Wnętrz",
+    "materialy": "[W2]"
+  },
+  "glowna": {
+    "tytul": "[W2]",
+    "podtytul": "[W2]",
+    "najnowsze": "[W2]",
+    "zNaszychStron": "[W2]",
+    "dzialyNaglowek": "[W2]"
+  },
+  "dzialy": {
+    "projekt-wnetrza": {
+      "nazwa": "[W2]",
+      "opis": "[W2]",
+      "metaOpis": "[W2]"
+    },
+    "remont": {
+      "nazwa": "[W2]",
+      "opis": "[W2]",
+      "metaOpis": "[W2]"
+    },
+    "meble-na-wymiar": {
+      "nazwa": "[W2]",
+      "opis": "[W2]",
+      "metaOpis": "[W2]"
+    },
+    "materialy": {
+      "nazwa": "[W2]",
+      "opis": "[W2]",
+      "metaOpis": "[W2]"
+    }
+  },
+  "blog": {
+    "tytul": "[W2]",
+    "opis": "[W2]",
+    "filtrWszystkie": "[W2]",
+    "filtrWlasne": "[W2]",
+    "filtrZapowiedzi": "[W2]"
+  },
+  "polecamy": {
+    "tytul": "[W2]",
+    "wstep": "",
+    "firmy": [
+      {
+        "nazwa": "[W2]",
+        "zdanie": "[W2]",
+        "fakty": [
+          "[W2]"
+        ],
+        "url": "[W2]",
+        "przycisk": "[W2]"
+      }
+    ],
+    "zapowiedziNaglowek": "[W2]"
+  },
+  "o-nas": {
+    "tytul": "[W2]",
+    "akapity": [
+      "[W2]"
+    ],
+    "podpis": "Redakcja Kreatorów Wnętrz"
+  },
+  "kontakt": {
+    "tytul": "[W2]",
+    "wstep": "[W2]",
+    "guzik": "Wyślij nam swoje zapytanie",
+    "pola": {
+      "imie": "[W2]",
+      "email": "[W2]",
+      "telefon": "[W2]",
+      "temat": "[W2]",
+      "wiadomosc": "[W2]",
+      "zgoda": "[W2]",
+      "wyslij": "[W2]"
+    },
+    "tematy": [
+      "[W2]",
+      "[W2]",
+      "[W2]",
+      "[W2]"
+    ],
+    "bledy": {
+      "turnstile": "[W2]",
+      "pola": "[W2]",
+      "czas": "[W2]",
+      "limit": "[W2]",
+      "ogolny": "[W2]"
+    },
+    "noscript": "[W2]"
+  },
+  "dziekujemy": {
+    "tytul": "[W2]",
+    "tekst": "[W2]",
+    "powrot": "[W2]"
+  },
+  "polityka": {
+    "tytul": "[W2]",
+    "sekcje": [
+      {
+        "naglowek": "[W2]",
+        "akapity": [
+          "[W2]"
+        ]
+      }
+    ]
+  },
+  "e404": {
+    "tytul": "[W2]",
+    "tekst": "[W2]",
+    "powrot": "[W2]"
+  }
+}

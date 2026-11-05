@@ -1,0 +1,37 @@
+# Zależności i wynik budowania — odtwarzalne jednym poleceniem
+node_modules/
+dist/
+.astro/
+
+# Materiał roboczy (oryginały zdjęć z Canvy, eksporty) — na stronę idą tylko pliki z src/assets/
+materialy/
+
+# Środowisko i sekrety — nigdy w repo
+.env
+.env.*
+
+# Notatki lokalne sesji
+CLAUDE.local.md
+
+# Zrzuty ekranu z sesji roboczych — TYLKO katalog główny (/*.png), z ukośnikiem:
+# bez niego reguła wycina także grafiki strony w src/assets/ i public/
+/*.png
+.playwright-mcp/
+
+# Sekrety — nigdy do repo
+*.pem
+*.key
+*.p12
+*.pfx
+id_rsa*
+id_ed25519*
+*-token*
+*.token
+secrets/
+.dev.vars
+.netrc
+credentials*.json
+*service-account*.json
+
+# Kontrakt sesji (zostaje na dysku, poza repo)
+/CLAUDE.md

@@ -1,0 +1,117 @@
+# build-i-wdrozenie.yml — agregacja RSS → build Astro → GitHub Pages (kreatorzywnetrz.pl)
+#
+# 🔴 WERSJE AKCJI TO LICZNIKI STANU, NIE STAŁE
+#    (odczyt u źródła docs.astro.build/en/guides/deploy/github/ 2026-09-04, w użyciu do 2026-11-05).
+#    Zapis starszy niż 30 dni weryfikuj u źródła; nie podnoś wersji „na wyczucie".
+#
+# 🔴 ŻADNEGO SEKRETU w GitHub Secrets tego repozytorium. Pages autoryzuje się tokenem wydawanym
+#    na czas przebiegu (permissions niżej); agregacja pushuje wbudowanym GITHUB_TOKEN.
+#
+# Trzy zadania w JEDNYM przepływie, jedno po drugim (needs):
+#   agreguj → build → deploy
+# 🔴 Dlaczego jeden przepływ: push zrobiony tokenem GITHUB_TOKEN NIE wyzwala innych przepływów
+#    (zasada GitHuba przeciw pętlom). Gdyby agregacja była osobnym przepływem, jej commit nie
+#    uruchomiłby budowania i nowe zapowiedzi nie trafiłyby na stronę. Dlatego build robi checkout
+#    DOPIERO PO agregacji, z `ref: main`, i widzi świeży commit bota.
+#
+# 🔴 PUŁAPKA 60 DNI: GitHub wyłącza przepływy z `schedule` w repozytorium PUBLICZNYM po 60 dniach
+#    bez aktywności w repo. Commity bota agregacji (nowe zapowiedzi) i commity wpisów to aktywność, więc
+#    zwykle podtrzymują harmonogram. Gdy zapowiedzi i wpisy ustaną na dwa miesiące, harmonogram
+#    gaśnie po cichu: wtedy wystarczy uruchomić przepływ ręcznie (Actions → Run workflow,
+#    `workflow_dispatch`) albo dać dowolny commit — to wznawia harmonogram.
+
+name: build-i-wdrozenie
+
+on:
+  push:
+    branches: [main]
+    # Commit bota agregacji (GITHUB_TOKEN) i tak nie wyzwoli tego wyzwalacza; ten push dotyczy wpisów i kodu.
+  workflow_dispatch:
+  # Trzy przebiegi dziennie (03:17, 07:47 i 11:23 UTC), poza pełną godziną: GitHub spóźnia `schedule` nawet o godziny,
+  # a pojedynczy przebieg bywał pomijany. Każdy robi agregację nowych wpisów z naszych stron oraz publikację wpisów,
+  # których data już minęła (filtr opublikowane() liczy „teraz” w chwili budowania); bez zmian wypuszcza to samo.
+  schedule:
+    - cron: '17 3 * * *'
+    - cron: '47 7 * * *'
+    - cron: '23 11 * * *'
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+# Dwa wgrania nie mogą biec naraz; trwającego nie przerywamy w połowie.
+concurrency:
+  group: pages
+  cancel-in-progress: false
+
+jobs:
+  agreguj:
+    runs-on: ubuntu-latest
+    # Tylko to zadanie pisze do repozytorium.
+    permissions:
+      contents: write
+    steps:
+      - name: Pobranie repozytorium
+        uses: actions/checkout@v7
+        with:
+          ref: main
+
+      - name: Node w wersji z .nvmrc
+        uses: actions/setup-node@v7
+        with:
+          node-version-file: .nvmrc
+
+      - name: Agregacja RSS naszych stron
+        run: npm run agreguj
+
+      - name: Zapis nowych zapowiedzi (tylko gdy są zmiany)
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add src/content/polecane
+          if git diff --cached --quiet; then
+            echo "Brak nowych zapowiedzi — nic do zapisania."
+          else
+            git commit -m "agregacja: $(date -u +%Y-%m-%d)"
+            # Bot mógł zostać wyprzedzony przez commit wpisu; dołączamy go zamiast kończyć błędem.
+            git pull --rebase origin main
+            git push origin HEAD:main
+          fi
+
+  build:
+    needs: agreguj
+    runs-on: ubuntu-latest
+    steps:
+      # Checkout PO agregacji, z main: widzi commit bota, którego nie widziałby checkout z chwili wyzwolenia.
+      - name: Pobranie repozytorium
+        uses: actions/checkout@v7
+        with:
+          ref: main
+
+      - name: Node w wersji z .nvmrc
+        uses: actions/setup-node@v7
+        with:
+          node-version-file: .nvmrc
+
+      # Walidator ma zero zależności, więc biegnie PRZED instalacją.
+      # Czerwony guard zatrzymuje wdrożenie — to jest bramka, nie usterka.
+      - name: astro-guard — walidator kodu źródłowego
+        run: npm run guard
+
+      - name: Instalacja, build i spakowanie artefaktu
+        uses: withastro/action@v6
+
+      - name: astro-guard — audyt dist
+        run: npm run guard:build
+
+  deploy:
+    needs: build
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - name: Wdrożenie na GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v5

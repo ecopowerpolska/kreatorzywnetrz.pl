@@ -1,0 +1,36 @@
+---
+// Foto.astro — zdjęcie z src/assets/zdjecia/ przez astro:assets: WebP, srcset, wymiary, kadr 3:2 w PLIKU (fit cover).
+// Wymiary źródła NIE są czytane (Proxy importu kopiowałby oryginał do dist — pułapka ㉕); kadr liczy się z propsów.
+import { Image } from 'astro:assets';
+import { zdjecie, altZdjecia } from '../lib/zdjecia';
+
+interface Props {
+  nazwa: string;
+  /** Pusty tekst = zdjęcie ozdobne. Brak = alt z src/data/zdjecia.json. */
+  alt?: string;
+  widths: number[];
+  sizes: string;
+  proporcja?: number;
+  /** Jedno zdjęcie na stronę (kandydat na LCP). */
+  priorytet?: boolean;
+  klasa?: string;
+}
+
+const { nazwa, alt, widths, sizes, proporcja = 3 / 2, priorytet = false, klasa } = Astro.props;
+const obraz = zdjecie(nazwa);
+const maks = widths[widths.length - 1];
+---
+
+<Image
+  src={obraz}
+  alt={alt ?? altZdjecia(nazwa)}
+  widths={widths}
+  sizes={sizes}
+  width={maks}
+  height={Math.round(maks / proporcja)}
+  fit="cover"
+  loading={priorytet ? 'eager' : 'lazy'}
+  fetchpriority={priorytet ? 'high' : undefined}
+  decoding={priorytet ? 'sync' : 'async'}
+  class={klasa}
+/>

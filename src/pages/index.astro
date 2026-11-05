@@ -1,0 +1,107 @@
+---
+// Strona główna magazynu: zdjęcie z panelem (H1 + jedno zdanie), Najnowsze (1 duży + 3),
+// bloki działów (do 3 kart + „Więcej z działu”), Polecamy (3 zapowiedzi, odnośnik do /polecamy/).
+// Dział bez opublikowanych wpisów nie ma bloku.
+import Bazowy from '../layouts/Bazowy.astro';
+import Foto from '../components/Foto.astro';
+import KartaWpisu from '../components/KartaWpisu.astro';
+import KartaPolecana from '../components/KartaPolecana.astro';
+import { t, lista, wstaw } from '../lib/tekst';
+import { opublikowane, polecaneRozne, type Wpis } from '../lib/wpisy';
+import { DZIALY, adresDzialu, nazwaDzialu } from '../lib/dzialy';
+import { ZDJECIE_GLOWNE } from '../lib/zdjecia';
+import { organizacja, stronaWww } from '../lib/schemat';
+
+const wszystkie = await opublikowane();
+const najnowsze = wszystkie.slice(0, 4);
+const [glowny, ...pozostale] = najnowsze;
+const pokazane = new Set(najnowsze.map((w) => w.id));
+
+// Blok działu: do 3 kart; gdy dział ma więcej niż 3 wpisy, najpierw te, których nie ma w „Najnowszych”.
+const bloki = DZIALY.map((dzial) => {
+  const wpisy = wszystkie.filter((w) => w.data.dzial === dzial);
+  const kolejnosc: Wpis[] = wpisy.length > 3 ? [...wpisy.filter((w) => !pokazane.has(w.id)), ...wpisy.filter((w) => pokazane.has(w.id))] : wpisy;
+  return { dzial, nazwa: nazwaDzialu(dzial), adres: adresDzialu(dzial), wpisy: kolejnosc.slice(0, 3) };
+}).filter((b) => b.wpisy.length > 0);
+
+const zapowiedzi = (await polecaneRozne(1)).slice(0, 3);
+const [zdanie] = lista('glowna.akapity');
+const schemat = [{ '@context': 'https://schema.org', '@graph': [stronaWww(), organizacja()] }];
+---
+
+<Bazowy tytul={t('glowna.tytulKarty')} opis={t('glowna.opisMeta')} {schemat}>
+  <div class="hero__zdjecie">
+    <Foto nazwa={ZDJECIE_GLOWNE} widths={[640, 960, 1440, 1920, 2400]} sizes="100vw" proporcja={3 / 2} priorytet />
+  </div>
+  <div class="hero__rama kontener">
+    <div class="hero__panel">
+      <h1>{t('glowna.h1')}</h1>
+      <p class="hero__haslo">{zdanie ?? t('marka.haslo')}</p>
+    </div>
+  </div>
+
+  <section class="sekcja" aria-labelledby="najnowsze">
+    <div class="kontener">
+      <div class="sekcja__glowa">
+        <h2 id="najnowsze">{t('glowna.najnowszeNaglowek')}</h2>
+        <a class="link-sekcji" href="/blog/">{t('glowna.najnowszeWszystkie')}</a>
+      </div>
+      {
+        glowny ? (
+          <>
+            <KartaWpisu wpis={glowny} glowna />
+            {pozostale.length > 0 && (
+              <ul class="karty">
+                {pozostale.map((w) => <li><KartaWpisu wpis={w} /></li>)}
+              </ul>
+            )}
+          </>
+        ) : (
+          <p class="pusto">{t('interfejs.brakWpisow')}</p>
+        )
+      }
+    </div>
+  </section>
+
+  {
+    bloki.length > 0 && (
+      <section class="sekcja sekcja--piasek" aria-labelledby="dzialy">
+        <div class="kontener">
+          <h2 id="dzialy" class="dzialy__naglowek">{t('glowna.naglowekDzialy')}</h2>
+          {bloki.map((b) => (
+            <section class="dzial-blok" aria-labelledby={`dzial-${b.dzial}`}>
+              <h3 id={`dzial-${b.dzial}`} class="dzial-blok__nazwa"><a href={b.adres}>{b.nazwa}</a></h3>
+              <ul class="karty">
+                {b.wpisy.map((w) => <li><KartaWpisu wpis={w} bezDzialu poziom={4} /></li>)}
+              </ul>
+              <p class="dzial-blok__wiecej">
+                <a class="link-sekcji" href={b.adres}>{wstaw(t('interfejs.wiecejZDzialu'), { dzial: b.nazwa })}</a>
+              </p>
+            </section>
+          ))}
+        </div>
+      </section>
+    )
+  }
+
+  <section class="sekcja" aria-labelledby="polecamy">
+    <div class="kontener">
+      <div class="sekcja__glowa">
+        <div>
+          <h2 id="polecamy">{t('glowna.zNaszychStronNaglowek')}</h2>
+          <p class="sekcja__wstep">{t('glowna.zNaszychStronWstep')}</p>
+        </div>
+        <a class="link-sekcji" href="/polecamy/">{t('glowna.zNaszychStronWszystkie')}</a>
+      </div>
+      {
+        zapowiedzi.length > 0 ? (
+          <ul class="karty">
+            {zapowiedzi.map((w) => <li><KartaPolecana wpis={w} /></li>)}
+          </ul>
+        ) : (
+          <p class="pusto">{t('interfejs.brakPolecanych')}</p>
+        )
+      }
+    </div>
+  </section>
+</Bazowy>

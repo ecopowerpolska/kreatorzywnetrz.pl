@@ -1,0 +1,98 @@
+---
+// /polecamy/ — firmy, z którymi pracujemy (teksty.json `polecamy.firmy[]`), a pod nimi zapowiedzi ich najnowszych wpisów
+// z RSS (kolekcja `polecane`, najwyżej 12: po 3 z jednej firmy, nie starsze niż 90 dni).
+// Odnośnik do firmy: rel="nofollow" (blok polecający; link w treści wpisu bez rel). Bez logo, ocen i cen.
+import Bazowy from '../layouts/Bazowy.astro';
+import Okruszki from '../components/Okruszki.astro';
+import KartaPolecana from '../components/KartaPolecana.astro';
+import { t, pobierz, wstaw } from '../lib/tekst';
+import { polecaneRozne } from '../lib/wpisy';
+import { adresBezwzgledny, okruszki } from '../lib/schemat';
+
+type Firma = { nazwa: string; adres: string; opis: string; coDlaNas: string };
+const tekst = (w: unknown) => (typeof w === 'string' ? w.trim() : '');
+const firmy: Firma[] = (Array.isArray(pobierz('polecamy.firmy')) ? (pobierz('polecamy.firmy') as Record<string, unknown>[]) : [])
+  .map((f) => ({ nazwa: tekst(f?.nazwa), adres: tekst(f?.adres), opis: tekst(f?.opis), coDlaNas: tekst(f?.coDlaNas) }))
+  .filter((f) => f.nazwa !== '' && /^https?:\/\//.test(f.adres));
+
+// Wstęp opcjonalny: pusty tekst = bez akapitu (t() dla pustego daje „[brak: …]”, więc czytamy wprost).
+const wstep = tekst(pobierz('polecamy.wstep'));
+const zapowiedzi = (await polecaneRozne(3)).slice(0, 12);
+// Napis odnośnika do firmy: `polecamy.odwiedz` („Odwiedź {nazwa}”), a bez tego klucza sama nazwa firmy.
+const napisOdwiedz = t('polecamy.odwiedz', '{nazwa}');
+const host = (adres: string) => new URL(adres).hostname.replace(/^www\./, '');
+
+const pozycje = [
+  { nazwa: t('interfejs.okruszki_glowna'), adres: '/' },
+  { nazwa: t('polecamy.h1'), adres: '/polecamy/' },
+];
+const schemat = [
+  {
+    '@context': 'https://schema.org',
+    '@type': 'CollectionPage',
+    '@id': `${adresBezwzgledny('/polecamy/')}#polecamy`,
+    name: t('polecamy.h1'),
+    description: t('polecamy.opisMeta'),
+    url: adresBezwzgledny('/polecamy/'),
+    inLanguage: 'pl-PL',
+    isPartOf: { '@id': `${adresBezwzgledny('/')}#strona` },
+    ...(firmy.length > 0 && {
+      mainEntity: {
+        '@type': 'ItemList',
+        itemListElement: firmy.map((f, i) => ({
+          '@type': 'ListItem',
+          position: i + 1,
+          item: { '@type': 'Organization', name: f.nazwa, url: f.adres },
+        })),
+      },
+    }),
+  },
+  okruszki(pozycje),
+];
+---
+
+<Bazowy tytul={t('polecamy.tytulKarty')} opis={t('polecamy.opisMeta')} {schemat}>
+  <Okruszki pozycje={pozycje} />
+  <div class="kontener podstrona-glowa">
+    <h1>{t('polecamy.h1')}</h1>
+    {wstep !== '' && <p class="podstrona-glowa__wstep">{wstep}</p>}
+  </div>
+
+  <div class="kontener">
+    <ul class="firmy">
+      {
+        firmy.map((f) => (
+          <li class="firma">
+            <h2>{f.nazwa}</h2>
+            {f.coDlaNas && <p class="firma__dla-nas">{f.coDlaNas}</p>}
+            {f.opis && <p>{f.opis}</p>}
+            <p class="firma__strona">
+              <a class="przycisk przycisk--obrys" href={f.adres} rel="nofollow">{wstaw(napisOdwiedz, { nazwa: f.nazwa })}</a>
+              <span class="firma__host">{host(f.adres)}</span>
+            </p>
+          </li>
+        ))
+      }
+    </ul>
+  </div>
+
+  <section class="sekcja" aria-labelledby="zapowiedzi">
+    <div class="kontener">
+      <div class="sekcja__glowa">
+        <div>
+          <h2 id="zapowiedzi">{t('polecamy.naglowekZapowiedzi')}</h2>
+          <p class="sekcja__wstep">{t('polecamy.wstepZapowiedzi')}</p>
+        </div>
+      </div>
+      {
+        zapowiedzi.length > 0 ? (
+          <ul class="karty">
+            {zapowiedzi.map((w) => <li><KartaPolecana wpis={w} napis={t('polecamy.czytajDalej', t('interfejs.czytajDalejNa'))} /></li>)}
+          </ul>
+        ) : (
+          <p class="pusto">{t('interfejs.brakPolecanych')}</p>
+        )
+      }
+    </div>
+  </section>
+</Bazowy>

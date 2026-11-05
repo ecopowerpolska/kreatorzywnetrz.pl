@@ -1,0 +1,137 @@
+{
+  "specVersion": "1.0",
+  "entries": [
+    {
+      "identifier": "urn:air:kreatorzywnetrz.pl:strona:glowna",
+      "displayName": "Kreatorzy Wnętrz - magazyn o projektowaniu, remontach i meblach na wymiar",
+      "type": "application/ld+json",
+      "data": {
+        "@context": "https://schema.org",
+        "@type": "WebSite",
+        "name": "Kreatorzy Wnętrz",
+        "url": "https://kreatorzywnetrz.pl/",
+        "inLanguage": "pl-PL",
+        "@id": "https://kreatorzywnetrz.pl/#strona",
+        "publisher": {
+          "@type": "Organization",
+          "name": "Redakcja Kreatorów Wnętrz",
+          "url": "https://kreatorzywnetrz.pl/"
+        }
+      },
+      "description": "Magazyn o urządzaniu mieszkań: projekt wnętrza, remont, meble i kuchnie na wymiar oraz materiały wykończeniowe.",
+      "representativeQueries": [
+        "magazyn o projektowaniu wnętrz i remontach",
+        "jak zaplanować remont mieszkania",
+        "meble na wymiar od czego zacząć"
+      ],
+      "tags": [
+        "wnętrza",
+        "remont",
+        "meble na wymiar",
+        "blog"
+      ]
+    },
+    {
+      "identifier": "urn:air:kreatorzywnetrz.pl:strona:blog",
+      "displayName": "Blog Kreatorów Wnętrz - wszystkie wpisy",
+      "type": "application/ld+json",
+      "data": {
+        "@context": "https://schema.org",
+        "@type": "Blog",
+        "name": "Blog Kreatorów Wnętrz",
+        "url": "https://kreatorzywnetrz.pl/blog/",
+        "inLanguage": "pl-PL",
+        "isPartOf": {
+          "@id": "https://kreatorzywnetrz.pl/#strona"
+        }
+      },
+      "description": "Lista wpisów ze wszystkich działów (projekt wnętrza, remont, meble i kuchnie, materiały), od najnowszego.",
+      "representativeQueries": [
+        "wpisy o projektowaniu wnętrz",
+        "porady remontowe",
+        "szafa czy garderoba"
+      ]
+    },
+    {
+      "identifier": "urn:air:kreatorzywnetrz.pl:strona:polecamy",
+      "displayName": "Polecamy - firmy polecane przez Kreatorów Wnętrz",
+      "type": "application/ld+json",
+      "data": {
+        "@context": "https://schema.org",
+        "@type": "CollectionPage",
+        "name": "Polecamy | Kreatorzy Wnętrz",
+        "url": "https://kreatorzywnetrz.pl/polecamy/",
+        "inLanguage": "pl-PL",
+        "isPartOf": {
+          "@id": "https://kreatorzywnetrz.pl/#strona"
+        }
+      },
+      "description": "Firmy, które polecamy: projekt wnętrz, remont mieszkania i meble na wymiar.",
+      "representativeQueries": [
+        "polecane firmy projekt wnętrz remont meble na wymiar"
+      ]
+    },
+    {
+      "identifier": "urn:air:kreatorzywnetrz.pl:strona:o-nas",
+      "displayName": "O nas - Kreatorzy Wnętrz",
+      "type": "application/ld+json",
+      "data": {
+        "@context": "https://schema.org",
+        "@type": "AboutPage",
+        "name": "O nas - Kreatorzy Wnętrz",
+        "url": "https://kreatorzywnetrz.pl/o-nas/",
+        "inLanguage": "pl-PL",
+        "isPartOf": {
+          "@id": "https://kreatorzywnetrz.pl/#strona"
+        }
+      },
+      "description": "Kim jesteśmy i o czym piszemy w czterech działach magazynu.",
+      "representativeQueries": [
+        "kim są Kreatorzy Wnętrz",
+        "o czym piszą Kreatorzy Wnętrz"
+      ]
+    },
+    {
+      "identifier": "urn:air:kreatorzywnetrz.pl:strona:kontakt",
+      "displayName": "Kontakt - Kreatorzy Wnętrz",
+      "type": "application/ld+json",
+      "data": {
+        "@context": "https://schema.org",
+        "@type": "ContactPage",
+        "name": "Kontakt - Kreatorzy Wnętrz",
+        "url": "https://kreatorzywnetrz.pl/kontakt/",
+        "inLanguage": "pl-PL",
+        "isPartOf": {
+          "@id": "https://kreatorzywnetrz.pl/#strona"
+        }
+      },
+      "description": "Formularz zapytania o projekt wnętrza, remont albo meble na wymiar.",
+      "representativeQueries": [
+        "kontakt Kreatorzy Wnętrz",
+        "zapytanie o remont lub projekt wnętrza"
+      ]
+    },
+    {
+      "identifier": "urn:air:kreatorzywnetrz.pl:strona:rss",
+      "displayName": "Kreatorzy Wnętrz - nowe wpisy (RSS)",
+      "type": "application/rss+xml",
+      "url": "https://kreatorzywnetrz.pl/rss.xml",
+      "description": "Kanał RSS z nowymi wpisami ze wszystkich działów magazynu.",
+      "representativeQueries": [
+        "nowe wpisy Kreatorów Wnętrz",
+        "kanał RSS o wnętrzach i remontach"
+      ]
+    },
+    {
+      "identifier": "urn:air:kreatorzywnetrz.pl:strona:sitemap",
+      "displayName": "Kreatorzy Wnętrz - mapa strony (sitemap.xml)",
+      "type": "application/xml",
+      "url": "https://kreatorzywnetrz.pl/sitemap.xml",
+      "description": "Adresy wszystkich podstron kreatorzywnetrz.pl przeznaczonych do indeksowania.",
+      "representativeQueries": [
+        "podstrony Kreatorów Wnętrz",
+        "lista stron kreatorzywnetrz.pl"
+      ]
+    }
+  ]
+}

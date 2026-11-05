@@ -1,0 +1,19 @@
+---
+// Stopka neutralna: nazwa redakcji, polityka prywatności, rok. Bez listy polecanych stron.
+import { t, wstaw } from '../lib/tekst';
+
+// Rok BUDOWY (czas Warszawy). Codzienna przebudowa w Actions odświeża go po 1 stycznia.
+const rok = new Intl.DateTimeFormat('pl-PL', { year: 'numeric', timeZone: 'Europe/Warsaw' }).format(new Date());
+---
+
+<footer class="stopka">
+  <div class="kontener stopka__pas">
+    <p class="stopka__nazwa">{t('stopka.redakcja')}</p>
+    <nav aria-label={t('stopka.redakcja')}>
+      <ul>
+        <li><a href="/polityka-prywatnosci/">{t('stopka.polityka')}</a></li>
+      </ul>
+    </nav>
+    <p class="stopka__prawa">{wstaw(t('stopka.prawa'), { rok })}</p>
+  </div>
+</footer>

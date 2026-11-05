@@ -1,0 +1,23 @@
+---
+// Okruszki: ostatnia pozycja bez odnośnika (aria-current). Ta sama lista idzie do BreadcrumbList w DaneStrukturalne.
+import { t } from '../lib/tekst';
+
+interface Props {
+  pozycje: { nazwa: string; adres?: string }[];
+}
+const { pozycje } = Astro.props;
+---
+
+<nav class="okruszki kontener" aria-label={t('interfejs.okruszki_aria')}>
+  <ol>
+    {
+      pozycje.map((p, i) =>
+        i === pozycje.length - 1 || !p.adres ? (
+          <li><span aria-current="page">{p.nazwa}</span></li>
+        ) : (
+          <li><a href={p.adres}>{p.nazwa}</a></li>
+        ),
+      )
+    }
+  </ol>
+</nav>
