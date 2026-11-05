@@ -1,0 +1,30 @@
+---
+// Finał „Zmierzch” (decyzja 2): ostatnia sekcja /kontakt/. Stan domyślny CSS = stan końcowy (czarna sekcja, widoczny guzik).
+// Przy wsparciu osi view() i bez ograniczenia ruchu nakładka .zmierzch (fixed, pod treścią finału) przechodzi 0→1 z przewijaniem,
+// a guzik wjeżdża od dołu (motyw.css). Przeglądarki bez osi: zapas IntersectionObserver niżej (klasa html.zmierzch-io).
+// Guzik bez JS = odnośnik #zapytanie do formularza pod spodem; z JS otwiera <dialog> (FormularzKontaktu.astro).
+import { t } from '../lib/tekst';
+---
+
+<section class="final" id="final" aria-labelledby="final-haslo">
+  <div class="zmierzch" aria-hidden="true"></div>
+  <div class="final__srodek">
+    <h2 class="final__haslo" id="final-haslo">{t('marka.haslo')}</h2>
+    <a class="final__guzik" href="#zapytanie" data-otworz-formularz>
+      {t('kontakt.guzik')}
+      <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M5 12h14M13 6l6 6-6 6"></path></svg>
+    </a>
+    <noscript><p class="final__noscript">{t('kontakt.noscript')}</p></noscript>
+  </div>
+</section>
+
+<script>
+  // Zapas dla przeglądarek bez animation-timeline (iOS ≤ 18, Firefox ≤ 158): klasa przy 35 % finału w oknie.
+  const final = document.getElementById('final');
+  if (final && !CSS.supports('animation-timeline', 'view()') && matchMedia('(prefers-reduced-motion: no-preference)').matches && 'IntersectionObserver' in window) {
+    document.documentElement.classList.add('zmierzch-io');
+    new IntersectionObserver(([w]) => final.classList.toggle('final--ciemno', w.intersectionRatio >= 0.35), {
+      threshold: [0, 0.35, 0.7],
+    }).observe(final);
+  }
+</script>

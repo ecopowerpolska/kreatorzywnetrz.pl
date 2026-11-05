@@ -1,0 +1,24 @@
+---
+// Marquee działów (decyzja 3): ozdobny pas nazw działów na stronie głównej. Cały pas aria-hidden — te same działy stoją
+// niżej jako odnośniki w sekcji działów. Dwie kopie listy, przesuw o połowę toru (motyw.css), pauza przy najechaniu;
+// przy ograniczonym ruchu pas stoi.
+import { DZIALY, nazwaDzialu } from '../lib/dzialy';
+
+const nazwy = DZIALY.map(nazwaDzialu);
+// Krótka lista wypełnia szerokie okno dopiero powtórzona; tor = 2 kopie po 3 powtórzenia.
+const kopia = [...nazwy, ...nazwy, ...nazwy];
+---
+
+<div class="marquee" aria-hidden="true">
+  <div class="marquee__tor">
+    {
+      [0, 1].map(() => (
+        <ul class="marquee__lista">
+          {kopia.map((n) => (
+            <li>{n}</li>
+          ))}
+        </ul>
+      ))
+    }
+  </div>
+</div>

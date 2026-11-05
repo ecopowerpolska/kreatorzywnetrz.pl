@@ -1,0 +1,145 @@
+---
+// Formularz kontaktu w pełnoekranowym <dialog> (showModal: pułapka fokusu i Esc natywnie). Bez JS dialog stoi jako zwykła
+// sekcja pod finałem (<noscript><style>), a guzik finału prowadzi do #zapytanie.
+// POST na kontakt.json `akcja` (handler PHP na lh.pl), pola wg BUDOWA-WSPOLNE §6. Turnstile: skrypt i render jawny dopiero
+// po pierwszym otwarciu dialogu. Odpowiedź serwera: 303 na /dziekujemy/ albo /kontakt/?blad=<kod>#formularz.
+import kontakt from '../data/kontakt.json';
+import { t, lista, kawalki } from '../lib/tekst';
+
+const dane = kontakt as Record<string, unknown>;
+const akcja = typeof dane.akcja === 'string' ? dane.akcja : '';
+const sitekey = typeof dane.turnstileSitekey === 'string' ? dane.turnstileSitekey : '';
+if (!/^https:\/\//.test(akcja)) throw new Error('kontakt.json: brak adresu `akcja` (https://…)');
+if (!sitekey) throw new Error('kontakt.json: brak `turnstileSitekey`');
+
+// Tematy: etykiety z teksty.json `kontakt.tematy[]`, `value` = dokładny tekst z kontakt.json `tematy[]` (ta sama kolejność; handler je porównuje).
+const etykiety = lista('kontakt.tematy');
+const zrodlo = Array.isArray(dane.tematy) ? (dane.tematy as unknown[]) : [];
+const wartosci = zrodlo.map((x) =>
+  typeof x === 'string' ? x : x && typeof x === 'object' ? String((x as Record<string, unknown>).value ?? (x as Record<string, unknown>).wartosc ?? '') : '',
+);
+if (wartosci.length !== etykiety.length || wartosci.some((w) => !w)) {
+  throw new Error(`kontakt.json: tematy[] (${wartosci.length}) nie odpowiadają kontakt.tematy[] w teksty.json (${etykiety.length})`);
+}
+const tematy = etykiety.map((etykieta, i) => ({ etykieta, wartosc: wartosci[i] }));
+
+const KODY = ['turnstile', 'pola', 'czas', 'limit', 'ogolny'] as const;
+const bledy = Object.fromEntries(KODY.map((k) => [k, t(`kontakt.bledy.${k}`)]));
+---
+
+<dialog class="panel" id="formularz" aria-labelledby="panel-tytul">
+  <div class="panel__wnetrze">
+    <div class="panel__glowa">
+      <h2 id="panel-tytul">{t('kontakt.guzik')}</h2>
+      <button class="panel__zamknij" type="button" data-zamknij-formularz>
+        <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M6 6l12 12M18 6L6 18"></path></svg>
+        {t('interfejs.zamknij')}
+      </button>
+    </div>
+
+    <form class="formularz" id="zapytanie" action={akcja} method="post">
+      <p class="formularz__blad formularz__blad--ogolny">{bledy.ogolny}</p>
+      <p class="formularz__blad" id="formularz-blad" role="alert" data-bledy={JSON.stringify(bledy)} hidden></p>
+
+      <div class="formularz__pole">
+        <label for="pole-imie">{t('kontakt.pola.imie')}</label>
+        <input id="pole-imie" name="imie" type="text" autocomplete="name" required maxlength="100" />
+      </div>
+      <div class="formularz__pole">
+        <label for="pole-email">{t('kontakt.pola.email')}</label>
+        <input id="pole-email" name="email" type="email" inputmode="email" autocomplete="email" required maxlength="200" />
+      </div>
+      <div class="formularz__pole">
+        <label for="pole-telefon">{t('kontakt.pola.telefon')}</label>
+        <input id="pole-telefon" name="telefon" type="tel" inputmode="tel" autocomplete="tel" maxlength="30" />
+      </div>
+      <div class="formularz__pole">
+        <label for="pole-temat">{t('kontakt.pola.temat')}</label>
+        <select id="pole-temat" name="temat" required>
+          {tematy.map((m) => <option value={m.wartosc}>{m.etykieta}</option>)}
+        </select>
+      </div>
+      <div class="formularz__pole">
+        <label for="pole-wiadomosc">{t('kontakt.pola.wiadomosc')}</label>
+        <textarea id="pole-wiadomosc" name="wiadomosc" required minlength="20" maxlength="4000" rows="6"></textarea>
+      </div>
+      <label class="formularz__zgoda">
+        <input type="checkbox" name="zgoda" value="tak" required />
+        <span>{kawalki(t('kontakt.pola.zgoda')).map((k) => (k.adres ? <a href={k.adres}>{k.tekst}</a> : k.tekst))}</span>
+      </label>
+
+      <div class="formularz__pulapka" aria-hidden="true">
+        <input name="strona" type="text" tabindex="-1" autocomplete="off" />
+      </div>
+      <input type="hidden" name="czas" id="pole-czas" value="" />
+
+      <div class="formularz__turnstile" id="kw-turnstile" data-sitekey={sitekey}></div>
+
+      <button class="final__guzik" type="submit" id="formularz-wyslij">{t('kontakt.pola.wyslij')}</button>
+    </form>
+  </div>
+</dialog>
+
+<noscript>
+  <style>
+    .panel { display: block; position: static; height: auto; opacity: 1; transform: none; }
+    .panel__zamknij { display: none; }
+  </style>
+</noscript>
+
+<script>
+  type Turnstile = { render: (el: HTMLElement, opcje: Record<string, unknown>) => string | undefined };
+  const okno = window as unknown as { turnstile?: Turnstile; kwTurnstile?: () => void };
+  const dialog = document.getElementById('formularz') as HTMLDialogElement;
+  const formularz = document.getElementById('zapytanie') as HTMLFormElement;
+  const wyslij = document.getElementById('formularz-wyslij') as HTMLButtonElement;
+  const blad = document.getElementById('formularz-blad') as HTMLElement;
+  const kontenerTs = document.getElementById('kw-turnstile') as HTMLElement;
+
+  // Komunikat ogólny jest dla wersji bez JS (pokazuje go :target); z JS mówimy konkretnie.
+  formularz.querySelector('.formularz__blad--ogolny')?.remove();
+
+  let turnstileZlecony = false;
+  const zaladujTurnstile = () => {
+    if (turnstileZlecony) return;
+    turnstileZlecony = true;
+    okno.kwTurnstile = () => {
+      okno.turnstile?.render(kontenerTs, { sitekey: kontenerTs.dataset.sitekey, appearance: 'interaction-only', theme: 'dark', language: 'pl', size: 'flexible' });
+    };
+    const s = document.createElement('script');
+    s.src = 'https://challenges.cloudflare.com/turnstile/v0/api.js?render=explicit&onload=kwTurnstile';
+    s.async = true;
+    document.head.append(s);
+  };
+  const czas = document.getElementById('pole-czas') as HTMLInputElement;
+  const otworz = () => {
+    // czas wypełniania liczy handler od chwili otwarcia dialogu (pierwszego)
+    if (!czas.value) czas.value = String(Date.now());
+    if (!dialog.open) dialog.showModal();
+    zaladujTurnstile();
+  };
+
+  document.querySelectorAll<HTMLElement>('[data-otworz-formularz]').forEach((g) =>
+    g.addEventListener('click', (e) => {
+      e.preventDefault();
+      otworz();
+    }),
+  );
+  dialog.querySelector('[data-zamknij-formularz]')?.addEventListener('click', () => dialog.close());
+
+  // Powrót z handlera z błędem: ?blad=<kod> → zdanie z kontakt.bledy.<kod>; nieznany kod = ogolny.
+  const kod = new URLSearchParams(location.search).get('blad');
+  if (kod !== null) {
+    const zdania = JSON.parse(blad.dataset.bledy ?? '{}') as Record<string, string>;
+    blad.textContent = zdania[kod] ?? zdania.ogolny ?? '';
+    blad.hidden = false;
+    otworz();
+  }
+
+  formularz.addEventListener('submit', () => {
+    wyslij.disabled = true;
+  });
+  window.addEventListener('pageshow', () => {
+    wyslij.disabled = false;
+  });
+</script>

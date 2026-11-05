@@ -1,50 +1,26 @@
 ---
+// /o-nas/: kim jest redakcja (teksty.json `o-nas.*`), podpis „Redakcja Kreatorów Wnętrz”. Bez danych wydawcy.
 import Bazowy from '../layouts/Bazowy.astro';
 import Okruszki from '../components/Okruszki.astro';
-import Foto from '../components/Foto.astro';
-import { t, lista, pobierz } from '../lib/tekst';
+import { t, lista, kawalki } from '../lib/tekst';
 import { okruszki } from '../lib/schemat';
 
 const pozycje = [
-  { nazwa: t('interfejs.okruszki_glowna'), adres: '/' },
-  { nazwa: t('o-nas.h1'), adres: '/o-nas/' },
+  { nazwa: t('interfejs.okruszkiStart'), adres: '/' },
+  { nazwa: t('o-nas.tytul'), adres: '/o-nas/' },
 ];
-const sekcje = (Array.isArray(pobierz('o-nas.sekcje')) ? (pobierz('o-nas.sekcje') as Record<string, unknown>[]) : [])
-  .map((s) => ({
-    naglowek: typeof s?.naglowek === 'string' ? s.naglowek : '',
-    akapity: Array.isArray(s?.akapity) ? (s.akapity as unknown[]).filter((a): a is string => typeof a === 'string') : [],
-  }))
-  .filter((s) => s.naglowek);
-const zdjecieNazwa = t('o-nas.zdjecie', '');
 const schemat = [okruszki(pozycje)];
 ---
 
-<Bazowy tytul={t('o-nas.tytulKarty')} opis={t('o-nas.opisMeta')} {schemat}>
+<Bazowy tytul={`${t('o-nas.tytul')} | ${t('marka.nazwa')}`} opis={t('o-nas.opis')} {schemat}>
   <Okruszki pozycje={pozycje} />
   <div class="kontener podstrona-glowa">
-    <h1>{t('o-nas.h1')}</h1>
-    <p class="podstrona-glowa__wstep">{t('o-nas.wstep')}</p>
+    <h1>{t('o-nas.tytul')}</h1>
   </div>
-  <div class="kontener strona-tekst">
-    <div class="dwie-kolumny">
-      <div class="proza">
-        {lista('o-nas.akapity').map((a) => <p>{a}</p>)}
-        {
-          sekcje.map((s) => (
-            <>
-              <h2>{s.naglowek}</h2>
-              {s.akapity.map((a) => <p>{a}</p>)}
-            </>
-          ))
-        }
-      </div>
-      {
-        zdjecieNazwa && (
-          <figure>
-            <Foto nazwa={zdjecieNazwa} widths={[480, 720, 960]} sizes="(min-width: 56rem) 40vw, calc(100vw - 2.5rem)" priorytet />
-          </figure>
-        )
-      }
+  <div class="kontener">
+    <div class="proza">
+      {lista('o-nas.akapity').map((a) => <p>{kawalki(a).map((k) => (k.adres ? <a href={k.adres}>{k.tekst}</a> : k.tekst))}</p>)}
+      <p class="proza__podpis">{t('o-nas.podpis')}</p>
     </div>
   </div>
 </Bazowy>

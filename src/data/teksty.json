@@ -1,8 +1,8 @@
 {
   "marka": {
     "nazwa": "Kreatorzy Wnętrz",
-    "haslo": "[W2]",
-    "opisKrotki": "[W2]"
+    "haslo": "Magazyn o projektowaniu, remontach i meblach na wymiar",
+    "opisKrotki": "Kreatorzy Wnętrz to magazyn z poradnikami o projektowaniu wnętrz, remoncie mieszkania i łazienki, meblach i kuchniach na wymiar oraz materiałach."
   },
   "menu": [
     {
@@ -31,132 +31,243 @@
     }
   ],
   "interfejs": {
-    "czytajDalej": "[W2]",
+    "czytajDalej": "Czytaj dalej",
     "czytajNaZrodle": "Czytaj dalej na {zrodlo}",
     "opublikowanoNa": "opublikowano na {zrodlo}",
     "minCzytania": "{liczba} min czytania",
     "wiecejZDzialu": "Więcej z działu {dzial}",
-    "spisTresci": "[W2]",
-    "doGory": "[W2]",
-    "poprzedni": "[W2]",
-    "nastepny": "[W2]",
-    "hamburger": "[W2]",
-    "zamknij": "[W2]",
-    "okruszkiStart": "[W2]"
+    "spisTresci": "Spis treści",
+    "doGory": "Do góry",
+    "poprzedni": "Poprzedni wpis",
+    "nastepny": "Następny wpis",
+    "hamburger": "Otwórz menu",
+    "zamknij": "Zamknij",
+    "okruszkiStart": "Strona główna",
+    "przejdzDoTresci": "Przejdź do treści",
+    "menuAria": "Menu główne",
+    "okruszkiAria": "Ścieżka strony"
   },
   "stopka": {
-    "oNas": "[W2]",
-    "polityka": "[W2]",
-    "rss": "[W2]",
+    "oNas": "O nas",
+    "polityka": "Polityka prywatności",
+    "rss": "Kanał RSS",
     "prawa": "© {rok} Kreatorzy Wnętrz",
-    "materialy": "[W2]"
+    "materialy": "Materiały"
   },
   "glowna": {
-    "tytul": "[W2]",
-    "podtytul": "[W2]",
-    "najnowsze": "[W2]",
-    "zNaszychStron": "[W2]",
-    "dzialyNaglowek": "[W2]"
+    "tytul": "Kreatorzy Wnętrz",
+    "podtytul": "Kreatorzy Wnętrz to magazyn o projektowaniu wnętrz, remontach i meblach na wymiar, z poradnikami pisanymi krok po kroku.",
+    "najnowsze": "Najnowsze wpisy",
+    "zNaszychStron": "Polecamy do czytania",
+    "dzialyNaglowek": "Działy magazynu"
   },
   "dzialy": {
     "projekt-wnetrza": {
-      "nazwa": "[W2]",
-      "opis": "[W2]",
-      "metaOpis": "[W2]"
+      "nazwa": "Projekt wnętrza",
+      "opis": "Wnętrze najtaniej zmienia się na papierze, zanim wejdzie ekipa. Piszemy o pomiarze, układzie funkcjonalnym, moodboardzie, świetle i kolorach, czyli o decyzjach, które po remoncie trudno odwrócić.",
+      "metaOpis": "Projekt wnętrza krok po kroku: pomiar, układ funkcjonalny, moodboard, światło i kolory. Poradniki o decyzjach, które warto podjąć przed remontem."
     },
     "remont": {
-      "nazwa": "[W2]",
-      "opis": "[W2]",
-      "metaOpis": "[W2]"
+      "nazwa": "Remont",
+      "opis": "Remont mieszkania i łazienki ma swoją kolejność: najpierw instalacje i prace mokre, potem wykończenie i meble. Piszemy, co ustalić z ekipą przed umową, co sprawdzić na budowie i jak przygotować odbiór.",
+      "metaOpis": "Remont mieszkania i łazienki: kolejność prac, instalacje, hydroizolacja i odbiory. Co ustalić z ekipą przed umową i co sprawdzić w trakcie prac."
     },
     "meble-na-wymiar": {
-      "nazwa": "[W2]",
-      "opis": "[W2]",
-      "metaOpis": "[W2]"
+      "nazwa": "Meble i kuchnie",
+      "opis": "Kuchnia, szafa i garderoba na wymiar zaczynają się od pomiaru i dobrze opisanego projektu. Piszemy o wymiarach, okuciach, frontach i blatach oraz o tym, jak przygotować mieszkanie do montażu.",
+      "metaOpis": "Kuchnie, szafy i garderoby na wymiar: pomiar, wymiary, okucia, fronty i blaty. Jak przygotować się do rozmowy ze stolarzem i do montażu mebli."
     },
     "materialy": {
-      "nazwa": "[W2]",
-      "opis": "[W2]",
-      "metaOpis": "[W2]"
+      "nazwa": "Materiały",
+      "opis": "Podłogi, płytki, farby, blaty i oprawy świetlne różnią się tym, jak znoszą wodę, ścieranie i słońce. Porównujemy materiały po ich właściwościach, żebyś wybrał to, co pasuje do twojego mieszkania.",
+      "metaOpis": "Materiały do wnętrz bez reklamowych haseł: podłogi, płytki, farby, blaty i oświetlenie. Jak się zużywają, gdzie się sprawdzają i na co patrzeć przy wyborze."
     }
   },
   "blog": {
-    "tytul": "[W2]",
-    "opis": "[W2]",
-    "filtrWszystkie": "[W2]",
-    "filtrWlasne": "[W2]",
-    "filtrZapowiedzi": "[W2]"
+    "tytul": "Blog",
+    "opis": "Wszystkie wpisy Kreatorów Wnętrz w jednym miejscu: projekt wnętrza, remont, meble i kuchnie na wymiar, materiały oraz polecane wpisy z innych blogów.",
+    "filtrWszystkie": "Wszystkie",
+    "filtrWlasne": "Nasze wpisy",
+    "filtrZapowiedzi": "Polecane z innych blogów"
   },
   "polecamy": {
-    "tytul": "[W2]",
+    "tytul": "Polecamy",
+    "opis": "Warszawskie firmy, do których idziesz z projektem wnętrza, remontem albo meblami na wymiar, i najnowsze wpisy z ich blogów zebrane w jednym miejscu.",
     "wstep": "",
     "firmy": [
       {
-        "nazwa": "[W2]",
-        "zdanie": "[W2]",
+        "nazwa": "Studio Agat",
+        "zdanie": "Do Studio Agat idziesz, gdy mieszkanie, dom albo biuro ma dostać projekt wnętrza, a potem remont i meble prowadzone przez jedną firmę aż do odbioru.",
         "fakty": [
-          "[W2]"
+          "Projektują mieszkania, domy i biura z rynku pierwotnego i wtórnego, w Warszawie i gminach wokół niej.",
+          "Prowadzą całą drogę: pomiary, układy funkcjonalne, moodboardy, wizualizacje 3D, dokumentację wykonawczą, kosztorys i harmonogram, a potem nadzór do protokołu odbioru.",
+          "Na remont, wykończenie i meble dają 24 miesiące gwarancji."
         ],
-        "url": "[W2]",
-        "przycisk": "[W2]"
+        "url": "https://studioagat.pl/",
+        "przycisk": "Odwiedź Studio Agat"
+      },
+      {
+        "nazwa": "Nadi Home",
+        "zdanie": "Do Nadi Home idziesz z remontem mieszkania albo łazienki i z wykończeniem pod klucz w Warszawie.",
+        "fakty": [
+          "To rodzinna firma remontowo-wykończeniowa z Gocławia, działa od 2012 roku.",
+          "Elektrykę i hydraulikę robią sami, na uprawnieniach SEP, a dwa lata gwarancji zapisują w umowie.",
+          "Przed startem prac dają wiążącą ofertę cenową i umowę, a termin ustalają na pierwszym spotkaniu."
+        ],
+        "url": "https://nadihome.pl/",
+        "przycisk": "Odwiedź Nadi Home"
+      },
+      {
+        "nazwa": "Pan Stolarz",
+        "zdanie": "Do stolarni Pan Stolarz idziesz z kuchnią, szafą, garderobą albo inną zabudową na wymiar w Warszawie i do około 30 km od niej.",
+        "fakty": [
+          "Przyjeżdżają na bezpłatny pomiar i wycenę; projekt 3D jest płatny, a jego kwota stoi w wycenie.",
+          "Kuchnię robią w 25 dni, szafę albo garderobę w 21 do 30 dni od zaksięgowania pierwszej transzy.",
+          "Transport i montaż są w cenie, gwarancja trwa 24 miesiące, a jedną regulację do 3 miesięcy po odbiorze robią bezpłatnie."
+        ],
+        "url": "https://pan-stolarz.pl/",
+        "przycisk": "Odwiedź Pan Stolarz"
       }
     ],
-    "zapowiedziNaglowek": "[W2]"
+    "zapowiedziNaglowek": "Najnowsze wpisy z ich blogów"
   },
   "o-nas": {
-    "tytul": "[W2]",
+    "tytul": "O nas",
+    "opis": "Kreatorzy Wnętrz to magazyn o projekcie wnętrza, remoncie, meblach na wymiar i materiałach. Zobacz, o czym piszemy i jak powstają nasze poradniki.",
     "akapity": [
-      "[W2]"
+      "Kreatorzy Wnętrz to nowy magazyn o urządzaniu mieszkań i domów, który ruszył jesienią 2026 roku. Pierwsze wpisy ukazały się w dniu startu, a kolejne dochodzą co kilka dni.",
+      "Piszemy o czterech sprawach: projekcie wnętrza, remoncie, meblach i kuchniach na wymiar oraz materiałach. Zaczynamy od pytań, które padają przed każdym remontem: od czego zacząć, w jakiej kolejności działać i co sprawdzić w umowie z wykonawcą.",
+      "Teksty powstają w redakcji jako poradniki krok po kroku. Fakty techniczne opieramy na przepisach, normach i dokumentacji producentów, a źródła podajemy w tekście, żebyś mógł je sprawdzić sam. Nie opisujemy realizacji, których nie widzieliśmy.",
+      "W zakładce Polecamy zbieramy warszawskie firmy, do których można iść z projektem, remontem albo meblami, i zapowiedzi wpisów z ich blogów. Pytania i propozycje tematów przyjmujemy przez formularz w zakładce Kontakt."
     ],
     "podpis": "Redakcja Kreatorów Wnętrz"
   },
   "kontakt": {
-    "tytul": "[W2]",
-    "wstep": "[W2]",
+    "tytul": "Kontakt",
+    "opis": "Napisz do redakcji Kreatorów Wnętrz: pytanie o projekt wnętrza, remont albo meble na wymiar lub propozycja tematu. Formularz czeka na dole strony.",
+    "wstep": "Napisz, jeśli masz pytanie o projekt wnętrza, remont albo meble na wymiar, albo chcesz zaproponować temat wpisu. Formularz czeka na dole strony, a odpowiedź wyślemy na adres e-mail, który w nim podasz.",
     "guzik": "Wyślij nam swoje zapytanie",
     "pola": {
-      "imie": "[W2]",
-      "email": "[W2]",
-      "telefon": "[W2]",
-      "temat": "[W2]",
-      "wiadomosc": "[W2]",
-      "zgoda": "[W2]",
-      "wyslij": "[W2]"
+      "imie": "Imię",
+      "email": "Adres e-mail",
+      "telefon": "Telefon (nieobowiązkowo)",
+      "temat": "Temat",
+      "wiadomosc": "Wiadomość (co najmniej 20 znaków)",
+      "zgoda": "Znam zasady przetwarzania danych opisane w [polityce prywatności](/polityka-prywatnosci/).",
+      "wyslij": "Wyślij"
     },
     "tematy": [
-      "[W2]",
-      "[W2]",
-      "[W2]",
-      "[W2]"
+      "Projekt wnętrza",
+      "Remont",
+      "Meble na wymiar",
+      "Inne"
     ],
     "bledy": {
-      "turnstile": "[W2]",
-      "pola": "[W2]",
-      "czas": "[W2]",
-      "limit": "[W2]",
-      "ogolny": "[W2]"
+      "turnstile": "Nie udało się potwierdzić, że formularz wysyła człowiek. Odśwież stronę, poczekaj na znak potwierdzenia i wyślij wiadomość jeszcze raz.",
+      "pola": "Uzupełnij imię, adres e-mail i wiadomość (co najmniej 20 znaków) i zaznacz pole pod formularzem.",
+      "czas": "Formularz poszedł zbyt szybko, tak jak wysyłają go automaty. Sprawdź pola i wyślij wiadomość jeszcze raz.",
+      "limit": "W tej godzinie przyszło do nas zbyt wiele wiadomości. Spróbuj ponownie za godzinę.",
+      "ogolny": "Wiadomości nie udało się wysłać. Spróbuj ponownie za kilka minut."
     },
-    "noscript": "[W2]"
+    "noscript": "Formularz potrzebuje włączonego JavaScriptu, bo chroni go weryfikacja przed automatami. Włącz JavaScript i odśwież stronę albo zadzwoń do wybranej firmy z zakładki Polecamy."
   },
   "dziekujemy": {
-    "tytul": "[W2]",
-    "tekst": "[W2]",
-    "powrot": "[W2]"
+    "tytul": "Dziękujemy za wiadomość",
+    "opis": "Wiadomość z formularza Kreatorów Wnętrz dotarła do redakcji. Odpowiemy na adres e-mail podany w formularzu, a w tym czasie zajrzyj do bloga.",
+    "tekst": "Wiadomość do nas dotarła. Odpowiemy na adres e-mail podany w formularzu.",
+    "powrot": "Wróć na stronę główną"
   },
   "polityka": {
-    "tytul": "[W2]",
+    "tytul": "Polityka prywatności",
+    "opis": "Polityka prywatności kreatorzywnetrz.pl: administrator danych, formularz kontaktowy, Cloudflare Turnstile, hosting, brak cookies i analityki, twoje prawa.",
     "sekcje": [
       {
-        "naglowek": "[W2]",
+        "naglowek": "Administrator danych",
         "akapity": [
-          "[W2]"
+          "Administratorem danych osobowych zbieranych przez stronę kreatorzywnetrz.pl jest EcoPower Polska Sp. z o.o., Bora Komorowskiego 21, 03-982 Warszawa, NIP: 7011019372, KRS: 0000881612.",
+          "W sprawach danych osobowych napisz na adres kontakt@ecopowerpolska.pl. Administrator nie wyznaczył inspektora ochrony danych."
+        ]
+      },
+      {
+        "naglowek": "Czego dotyczy ta polityka",
+        "akapity": [
+          "Polityka dotyczy strony kreatorzywnetrz.pl i formularza w zakładce [Kontakt](/kontakt/). Strona nie ma kont, sklepu, newslettera ani reklam. Jedyne miejsce, w którym sam podajesz dane, to formularz kontaktowy."
+        ]
+      },
+      {
+        "naglowek": "Dane z formularza kontaktowego",
+        "akapity": [
+          "Formularz zbiera imię, adres e-mail, wybrany temat i treść wiadomości. Numer telefonu podajesz, jeśli chcesz. Formularz nie przyjmuje załączników.",
+          "Strona stoi na GitHub Pages, gdzie nie działają skrypty serwera. Wiadomość wysyła więc skrypt administratora na serwerze LH.pl Sp. z o.o. w Polsce, pod adresem formularz.kreatorzywnetrz.pl, jako list do skrzynki pocztowej administratora prowadzonej na tym samym hostingu. Nie korzystamy z zewnętrznych usług formularzy.",
+          "Razem z wiadomością trafia do skrzynki adres IP, z którego ją wysłano, oraz data i godzina wysłania. Pomaga to rozpoznać nadużycia; te informacje usuwamy razem z wiadomością. Gdy wysłanie się nie uda, serwer zapisuje w dzienniku datę i adres e-mail, żeby można było odpisać; ten wpis usuwamy po obsłudze zapytania.",
+          "Formularz ma ukryte pole pułapkę, sprawdza czas wypełnienia i liczy wysłane wiadomości w każdej godzinie, żeby odsiać automaty i chronić skrzynkę przed spamem.",
+          "Dane służą do odpowiedzi na wiadomość. Gdy pytasz o usługę przed zawarciem umowy, podstawą jest art. 6 ust. 1 lit. b RODO, a w pozostałych sprawach art. 6 ust. 1 lit. f RODO, czyli prawnie uzasadniony interes administratora w prowadzeniu korespondencji i ochronie formularza przed nadużyciami. Zaznaczenie pola pod formularzem potwierdza, że znasz te zasady; podstawą przetwarzania nie jest zgoda.",
+          "Wiadomość przechowujemy przez czas obsługi zapytania, a jeśli nie dojdzie do umowy, do 12 miesięcy od ostatniego kontaktu. Podanie danych jest dobrowolne, ale bez imienia, adresu e-mail i treści wiadomości nie możemy odpowiedzieć."
+        ]
+      },
+      {
+        "naglowek": "Ochrona formularza: Cloudflare Turnstile",
+        "akapity": [
+          "Formularz chroni usługa Cloudflare Turnstile. Sprawdza ona, czy formularz wypełnia człowiek, a nie program rozsyłający spam. Zwykle odbywa się to bez żadnego zadania do wykonania.",
+          "Skrypt Turnstile ładuje się z serwerów Cloudflare (challenges.cloudflare.com) dopiero wtedy, gdy otworzysz formularz w zakładce Kontakt. Do sprawdzenia Cloudflare przetwarza adres IP oraz techniczne informacje o przeglądarce i połączeniu.",
+          "Przy wysłaniu formularza serwer administratora przekazuje do Cloudflare jednorazowy token wydany przez widget oraz adres IP nadawcy, a Cloudflare odpowiada, czy sprawdzenie się powiodło. W tym zapytaniu nie przekazujemy imienia, adresu e-mail, numeru telefonu ani treści wiadomości.",
+          "Dostawcą usługi jest Cloudflare, Inc. z siedzibą w Stanach Zjednoczonych, działający na zlecenie administratora jako podmiot przetwarzający. Podstawą jest art. 6 ust. 1 lit. f RODO, czyli prawnie uzasadniony interes w ochronie formularza przed spamem. Dane mogą być przy tym przetwarzane poza Europejskim Obszarem Gospodarczym; zasady opisuje [polityka prywatności Turnstile](https://www.cloudflare.com/turnstile-privacy-policy/).",
+          "Widget działa w osobnej ramce z domeny challenges.cloudflare.com. To, co zapisuje w tej ramce, należy do Cloudflare i nie jest plikiem cookie strony kreatorzywnetrz.pl."
+        ]
+      },
+      {
+        "naglowek": "Hosting strony na GitHub Pages",
+        "akapity": [
+          "Strona stoi na GitHub Pages, usłudze GitHub, Inc. z siedzibą w Stanach Zjednoczonych. GitHub może zapisywać w dziennikach serwera adresy IP odwiedzających i podstawowe dane techniczne zapytań: datę, przeglądarkę i adres otwieranej strony. Robi to na własnych zasadach, opisanych w swojej polityce prywatności.",
+          "Podstawą przetwarzania po stronie administratora jest prawnie uzasadniony interes (art. 6 ust. 1 lit. f RODO): udostępnienie strony i dbanie o jej bezpieczeństwo."
+        ]
+      },
+      {
+        "naglowek": "Serwer formularza na LH.pl",
+        "akapity": [
+          "Skrypt formularza i skrzynka pocztowa działają na serwerach LH.pl Sp. z o.o. w Polsce. Ta firma przetwarza dane na zlecenie administratora jako podmiot przetwarzający. Serwer zapisuje standardowe logi połączeń: adres IP, datę i godzinę, adres pobranego pliku oraz informacje o przeglądarce i błędach.",
+          "Logi służą bezpieczeństwu i utrzymaniu serwera. Podstawą jest art. 6 ust. 1 lit. f RODO, a okres ich przechowywania wynika z zasad dostawcy hostingu."
+        ]
+      },
+      {
+        "naglowek": "Zdjęcia w zapowiedziach polecanych firm",
+        "akapity": [
+          "W zakładce [Polecamy](/polecamy/), w blogu i na stronie głównej pokazujemy zapowiedzi wpisów z blogów firm, które polecamy: studioagat.pl, nadihome.pl i pan-stolarz.pl. Zdjęcia do tych zapowiedzi przeglądarka może pobierać prosto z serwerów tych stron. Ich serwer zapisuje wtedy adres IP i podstawowe dane techniczne zapytania.",
+          "Zapowiedzi nie ustawiają plików cookies i nie uruchamiają skryptów tych stron. Kliknięcie w link do oryginału przenosi cię na stronę z własną polityką prywatności."
+        ]
+      },
+      {
+        "naglowek": "Pliki cookies i analityka",
+        "akapity": [
+          "Strona nie ustawia własnych plików cookies, nie używa analityki, nie ładuje reklam ani skryptów śledzących. Nie pokazujemy okna zgody, bo nie używamy plików cookies, które by jej wymagały.",
+          "Jedyny wyjątek to dane, które Cloudflare Turnstile może zapisać w swojej ramce po otwarciu formularza, opisane wyżej. Przeglądarka może też sama zapisywać dane potrzebne technicznie, zgodnie ze swoimi ustawieniami."
+        ]
+      },
+      {
+        "naglowek": "Linki do innych stron",
+        "akapity": [
+          "We wpisach i w zakładce Polecamy są linki do innych stron. Po kliknięciu trafiasz na stronę z własną polityką prywatności. Przeczytaj ją, zanim zostawisz tam swoje dane."
+        ]
+      },
+      {
+        "naglowek": "Twoje prawa",
+        "akapity": [
+          "Masz prawo dostępu do danych (art. 15 RODO), ich sprostowania (art. 16), usunięcia (art. 17), ograniczenia przetwarzania (art. 18), przenoszenia danych (art. 20) i sprzeciwu wobec przetwarzania opartego na prawnie uzasadnionym interesie administratora (art. 21).",
+          "Żeby skorzystać z tych praw, napisz do administratora na adres kontakt@ecopowerpolska.pl. Możesz też złożyć skargę do Prezesa Urzędu Ochrony Danych Osobowych, ul. Stawki 2, 00-193 Warszawa."
+        ]
+      },
+      {
+        "naglowek": "Zmiany polityki",
+        "akapity": [
+          "Politykę zmieniamy, gdy zmienia się sposób działania strony. Ta wersja obowiązuje od uruchomienia strony w listopadzie 2026 roku."
         ]
       }
     ]
   },
   "e404": {
-    "tytul": "[W2]",
-    "tekst": "[W2]",
-    "powrot": "[W2]"
+    "tytul": "Nie ma takiej strony",
+    "opis": "Pod tym adresem nie ma strony Kreatorów Wnętrz. Sprawdź, czy w linku nie ma literówki, albo zacznij od strony głównej i działów magazynu.",
+    "tekst": "Pod tym adresem nic nie ma. Możliwe, że wpis zmienił adres albo w linku jest literówka. Zacznij od strony głównej albo zajrzyj do bloga.",
+    "powrot": "Wróć na stronę główną"
   }
 }

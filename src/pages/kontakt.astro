@@ -1,0 +1,29 @@
+---
+// /kontakt/: jasna góra (tytuł, wstęp), ostatnia sekcja = finał „Zmierzch” z guzikiem, formularz w <dialog> pod finałem.
+import Bazowy from '../layouts/Bazowy.astro';
+import FinalKontaktu from '../components/FinalKontaktu.astro';
+import FormularzKontaktu from '../components/FormularzKontaktu.astro';
+import { t } from '../lib/tekst';
+import { adresBezwzgledny } from '../lib/schemat';
+
+const schemat = [
+  {
+    '@context': 'https://schema.org',
+    '@type': 'ContactPage',
+    name: t('kontakt.tytul'),
+    description: t('kontakt.opis'),
+    url: adresBezwzgledny('/kontakt/'),
+    inLanguage: 'pl-PL',
+    isPartOf: { '@id': `${adresBezwzgledny('/')}#strona` },
+  },
+];
+---
+
+<Bazowy tytul={`${t('kontakt.tytul')} | ${t('marka.nazwa')}`} opis={t('kontakt.opis')} {schemat}>
+  <section class="kontener kontakt-gora" aria-labelledby="kontakt-tytul">
+    <h1 id="kontakt-tytul">{t('kontakt.tytul')}</h1>
+    <p>{t('kontakt.wstep')}</p>
+  </section>
+  <FinalKontaktu />
+  <FormularzKontaktu />
+</Bazowy>

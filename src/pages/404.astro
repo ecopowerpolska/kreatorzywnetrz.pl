@@ -3,14 +3,11 @@ import Bazowy from '../layouts/Bazowy.astro';
 import { t } from '../lib/tekst';
 ---
 
-<Bazowy tytul={t('e404.tytulKarty')} opis={t('e404.opisMeta')} bezIndeksu>
-  <div class="kontener strona-404">
+<Bazowy tytul={`${t('e404.tytul')} | ${t('marka.nazwa')}`} opis={t('e404.opis')} bezIndeksu>
+  <div class="kontener komunikat">
     <p class="strona-404__liczba" aria-hidden="true">404</p>
-    <h1>{t('e404.h1')}</h1>
+    <h1>{t('e404.tytul')}</h1>
     <p>{t('e404.tekst')}</p>
-    <div class="przyciski">
-      <a class="przycisk" href="/">{t('e404.glowna')}</a>
-      <a class="przycisk" href="/blog/">{t('e404.blog')}</a>
-    </div>
+    <a class="przycisk" href="/">{t('e404.powrot')}</a>
   </div>
 </Bazowy>

@@ -1,19 +1,28 @@
 ---
-// Stopka neutralna: nazwa redakcji, polityka prywatności, rok. Bez listy polecanych stron.
+// Stopka: nazwa i opis magazynu, dział Materiały, O nas, polityka prywatności, RSS, prawa.
+// Zero odnośników do firm (reguła strony linkującej).
 import { t, wstaw } from '../lib/tekst';
+import { adresDzialu } from '../lib/dzialy';
 
-// Rok BUDOWY (czas Warszawy). Codzienna przebudowa w Actions odświeża go po 1 stycznia.
+// Rok BUDOWY (czas Warszawy). Przebudowa w Actions odświeża go po 1 stycznia.
 const rok = new Intl.DateTimeFormat('pl-PL', { year: 'numeric', timeZone: 'Europe/Warsaw' }).format(new Date());
+const odnosniki = [
+  { etykieta: t('stopka.materialy'), href: adresDzialu('materialy') },
+  { etykieta: t('stopka.oNas'), href: '/o-nas/' },
+  { etykieta: t('stopka.polityka'), href: '/polityka-prywatnosci/' },
+  { etykieta: t('stopka.rss'), href: '/rss.xml' },
+];
 ---
 
 <footer class="stopka">
   <div class="kontener stopka__pas">
-    <p class="stopka__nazwa">{t('stopka.redakcja')}</p>
-    <nav aria-label={t('stopka.redakcja')}>
-      <ul>
-        <li><a href="/polityka-prywatnosci/">{t('stopka.polityka')}</a></li>
-      </ul>
-    </nav>
+    <div>
+      <p class="stopka__nazwa">{t('marka.nazwa')}</p>
+      <p class="stopka__opis">{t('marka.opisKrotki')}</p>
+    </div>
+    <ul>
+      {odnosniki.map((o) => <li><a href={o.href}>{o.etykieta}</a></li>)}
+    </ul>
     <p class="stopka__prawa">{wstaw(t('stopka.prawa'), { rok })}</p>
   </div>
 </footer>

@@ -1,16 +1,15 @@
 ---
 // Polityka prywatności: cała treść z teksty.json → polityka.tytul i polityka.sekcje[{naglowek, akapity[]}]
-// (administrator danych wpisany wprost w tekst sekcji). W tekście: [kotwica](/trasa/) = odnośnik.
+// (administrator danych wpisany wprost w tekst sekcji — jedyne miejsce strony z danymi wydawcy). [kotwica](/trasa/) = odnośnik.
 import Bazowy from '../layouts/Bazowy.astro';
 import Okruszki from '../components/Okruszki.astro';
-import { t, pobierz, kawalki } from '../lib/tekst';
+import { t, obiekty, pole, kawalki } from '../lib/tekst';
 import { okruszki } from '../lib/schemat';
 
-const naTekst = (v: unknown) => (typeof v === 'string' ? v.trim() : '');
-const teksty = (v: unknown) => (Array.isArray(v) ? v.map(naTekst).filter(Boolean) : []);
-const sekcje = (Array.isArray(pobierz('polityka.sekcje')) ? (pobierz('polityka.sekcje') as Record<string, unknown>[]) : [])
-  .map((s) => ({ naglowek: naTekst(s?.naglowek), akapity: teksty(s?.akapity) }))
-  .filter((s) => s.naglowek);
+const sekcje = obiekty('polityka.sekcje').map((s, i) => ({
+  naglowek: pole(s, 'naglowek', `polityka.sekcje.${i}`),
+  akapity: Array.isArray(s.akapity) ? s.akapity.filter((a): a is string => typeof a === 'string' && a.trim() !== '') : [],
+}));
 
 const pozycje = [
   { nazwa: t('interfejs.okruszkiStart'), adres: '/' },
@@ -19,13 +18,13 @@ const pozycje = [
 const schemat = [okruszki(pozycje)];
 ---
 
-<Bazowy tytul={`${t('polityka.tytul')} | ${t('marka.nazwa')}`} opis={t('polityka.tytul')} {schemat}>
+<Bazowy tytul={`${t('polityka.tytul')} | ${t('marka.nazwa')}`} opis={t('polityka.opis')} {schemat}>
   <Okruszki pozycje={pozycje} />
   <div class="kontener podstrona-glowa">
     <h1>{t('polityka.tytul')}</h1>
   </div>
-  <div class="kontener strona-tekst">
-    <div class="strona-tekst__kolumna proza">
+  <div class="kontener">
+    <div class="proza">
       {
         sekcje.map((s) => (
           <>

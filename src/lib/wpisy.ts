@@ -2,7 +2,6 @@ import { getCollection, type CollectionEntry } from 'astro:content';
 import type { Dzial } from './dzialy';
 
 export type Wpis = CollectionEntry<'wpisy'>;
-export type Polecany = CollectionEntry<'polecane'>;
 
 /**
  * Wpisy opublikowane, od najnowszego. Wpis z datą w przyszłości czeka: przebudowa w Actions (trzy razy dziennie: 03:17, 07:47
@@ -19,14 +18,17 @@ export async function opublikowane(): Promise<Wpis[]> {
   return gotowe.sort((a, b) => b.data.data.getTime() - a.data.data.getTime() || a.id.localeCompare(b.id));
 }
 
+/** Rozdziały H2 wpisu do spisu treści (z wyniku render()). */
+export const rozdzialy = (naglowki: { depth: number; slug: string; text: string }[]) => naglowki.filter((n) => n.depth === 2);
+
 /** Opublikowane wpisy jednego działu, od najnowszego. */
 export async function zDzialu(dzial: Dzial): Promise<Wpis[]> {
   return (await opublikowane()).filter((w) => w.data.dzial === dzial);
 }
 
 /**
- * „Więcej z działu”: najnowsze inne wpisy tego działu; gdy działowi brakuje do kompletu, dobiera najnowsze z całej strony
- *. `wszystkie` = wynik opublikowane().
+ * „Więcej z działu”: najnowsze inne wpisy tego działu; gdy działowi brakuje do kompletu, dobiera najnowsze z całej strony.
+ * `wszystkie` = wynik opublikowane().
  */
 export function wiecejZDzialu(wpis: Wpis, wszystkie: Wpis[], ile = 3): Wpis[] {
   const inne = wszystkie.filter((w) => w.id !== wpis.id);
@@ -46,23 +48,6 @@ export function czasCzytania(wpis: Wpis): number {
     .replace(/[#>*_`|~]+/g, ' ');
   const slowa = tekst.split(/\s+/).filter((s) => /[\p{L}\p{N}]/u.test(s)).length;
   return Math.max(1, Math.ceil(slowa / 200));
-}
-
-export async function polecane(): Promise<Polecany[]> {
-  const wszystkie = await getCollection('polecane');
-  return wszystkie.sort((a, b) => b.data.data.getTime() - a.data.data.getTime() || a.id.localeCompare(b.id));
-}
-
-/** Zapowiedzi z różnych źródeł: najwyżej `naZrodlo` z jednej firmy i nie starsze niż `dni` — żeby jedna firma nie zajmowała całej listy. */
-export async function polecaneRozne(naZrodlo: number, dni = 90): Promise<Polecany[]> {
-  const granica = Date.now() - dni * 86_400_000;
-  const licznik = new Map<string, number>();
-  return (await polecane()).filter((w) => {
-    if (w.data.data.getTime() < granica) return false;
-    const n = (licznik.get(w.data.zrodlo) ?? 0) + 1;
-    licznik.set(w.data.zrodlo, n);
-    return n <= naZrodlo;
-  });
 }
 
 export const adresWpisu = (id: string) => `/blog/${id}/`;

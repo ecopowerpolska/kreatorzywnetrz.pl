@@ -1,0 +1,13 @@
+---
+// /dziekujemy/: strona po wysłaniu formularza (303 z handlera). noindex, poza sitemapą (filtr w astro.config.mjs).
+import Bazowy from '../layouts/Bazowy.astro';
+import { t } from '../lib/tekst';
+---
+
+<Bazowy tytul={`${t('dziekujemy.tytul')} | ${t('marka.nazwa')}`} opis={t('dziekujemy.opis')} bezIndeksu>
+  <div class="kontener komunikat">
+    <h1>{t('dziekujemy.tytul')}</h1>
+    <p>{t('dziekujemy.tekst')}</p>
+    <a class="przycisk" href="/">{t('dziekujemy.powrot')}</a>
+  </div>
+</Bazowy>

@@ -1,8 +1,6 @@
 ---
-// Strona działu /<slug>/ (projekt-wnetrza, remont, meble-na-wymiar, materialy): okruszki, H1 i wstęp z teksty.json `dzialy.<slug>`,
-// wpisy działu od najnowszego (pierwszy jako karta wiodąca), na dole pozostałe działy.
-// Dział bez opublikowanych wpisów: komunikat i noindex (hak sitemapy w astro.config.mjs wycina go z sitemap.xml).
-// Trasy statyczne (o-nas, polecamy, polityka-prywatnosci, blog/…) mają pierwszeństwo, a slugi działów z nimi nie kolidują.
+// Strona działu /<slug>/: okruszki, H1 i wstęp z teksty.json `dzialy.<slug>`, wpisy działu od najnowszego (pierwszy jako
+// karta wiodąca), na dole pozostałe działy. Dział bez opublikowanych wpisów: noindex (hak sitemapy wycina go z sitemap.xml).
 import Bazowy from '../layouts/Bazowy.astro';
 import Okruszki from '../components/Okruszki.astro';
 import KartaWpisu from '../components/KartaWpisu.astro';
@@ -22,7 +20,7 @@ const nazwa = nazwaDzialu(dzial);
 const inne = DZIALY.filter((d) => d !== dzial);
 
 const pozycje = [
-  { nazwa: t('interfejs.okruszki_glowna'), adres: '/' },
+  { nazwa: t('interfejs.okruszkiStart'), adres: '/' },
   { nazwa, adres: adresDzialu(dzial) },
 ];
 const schemat = [
@@ -31,7 +29,7 @@ const schemat = [
     '@type': 'CollectionPage',
     '@id': `${adresBezwzgledny(adresDzialu(dzial))}#dzial`,
     name: nazwa,
-    description: t(`dzialy.${dzial}.opisMeta`),
+    description: t(`dzialy.${dzial}.metaOpis`),
     url: adresBezwzgledny(adresDzialu(dzial)),
     inLanguage: 'pl-PL',
     isPartOf: { '@id': `${adresBezwzgledny('/')}#strona` },
@@ -46,32 +44,40 @@ const schemat = [
 ];
 ---
 
-<Bazowy tytul={t(`dzialy.${dzial}.tytulKarty`)} opis={t(`dzialy.${dzial}.opisMeta`)} {schemat} bezIndeksu={wpisy.length === 0}>
+<Bazowy tytul={`${nazwa} | ${t('marka.nazwa')}`} opis={t(`dzialy.${dzial}.metaOpis`)} {schemat} bezIndeksu={wpisy.length === 0}>
   <Okruszki pozycje={pozycje} />
   <div class="kontener podstrona-glowa">
-    <h1>{t(`dzialy.${dzial}.h1`)}</h1>
-    <p class="podstrona-glowa__wstep">{t(`dzialy.${dzial}.wstep`)}</p>
+    <h1>{nazwa}</h1>
+    <p class="podstrona-glowa__wstep">{t(`dzialy.${dzial}.opis`)}</p>
   </div>
-  <section class="kontener sekcja sekcja--bez-gory" aria-label={nazwa}>
-    {
-      wiodacy ? (
-        <>
-          <KartaWpisu wpis={wiodacy} glowna priorytet bezDzialu poziom={2} />
-          {reszta.length > 0 && (
-            <ul class="karty">
-              {reszta.map((w) => <li><KartaWpisu wpis={w} bezDzialu poziom={2} /></li>)}
-            </ul>
-          )}
-        </>
-      ) : (
-        <p class="pusto">{t('interfejs.brakWpisow')}</p>
-      )
-    }
-  </section>
+  {
+    wiodacy && (
+      <section class="kontener sekcja sekcja--bez-gory" aria-label={nazwa}>
+        <KartaWpisu wpis={wiodacy} glowna priorytet bezDzialu poziom={2} />
+        {reszta.length > 0 && (
+          <ul class="karty">
+            {reszta.map((w) => (
+              <li>
+                <KartaWpisu wpis={w} bezDzialu poziom={2} />
+              </li>
+            ))}
+          </ul>
+        )}
+      </section>
+    )
+  }
   <nav class="kontener inne-dzialy" aria-labelledby="inne-dzialy">
-    <h2 id="inne-dzialy">{t('glowna.naglowekDzialy')}</h2>
+    <h2 id="inne-dzialy">{t('glowna.dzialyNaglowek')}</h2>
     <ul>
-      {inne.map((d) => <li><a href={adresDzialu(d)}>{nazwaDzialu(d)}</a></li>)}
+      {
+        inne.map((d) => (
+          <li>
+            <a class="przycisk przycisk--obrys" href={adresDzialu(d)}>
+              {nazwaDzialu(d)}
+            </a>
+          </li>
+        ))
+      }
     </ul>
   </nav>
 </Bazowy>

@@ -1,6 +1,8 @@
 ---
-// Foto.astro — zdjęcie z src/assets/zdjecia/ przez astro:assets: WebP, srcset, wymiary, kadr 3:2 w PLIKU (fit cover).
-// Wymiary źródła NIE są czytane (Proxy importu kopiowałby oryginał do dist — pułapka ㉕); kadr liczy się z propsów.
+// Foto.astro — zdjęcie z src/assets/zdjecia/ przez astro:assets: WebP, srcset, wymiary, kadr w PLIKU (fit cover).
+// Wymiary źródła NIE są czytane (Proxy importu kopiowałby oryginał do dist); kadr liczy się z propsów.
+// Zdjęcie bez `priorytet` dostaje odsłanianie przy przewijaniu (klasa .odslon na opakowaniu, motyw.css);
+// zdjęcie z `priorytet` (kandydat na LCP) nigdy.
 import { Image } from 'astro:assets';
 import { zdjecie, altZdjecia } from '../lib/zdjecia';
 

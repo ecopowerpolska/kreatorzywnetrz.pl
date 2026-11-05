@@ -1,14 +1,17 @@
 ---
-// Wpis: okruszki Strona główna › Dział › Tytuł, etykieta działu, H1, linia meta (data, podpis redakcji
-// z odnośnikiem do /o-nas/, czas czytania), zdjęcie, treść Markdown, tagi, „Więcej z działu” (3 karty), poprzedni i następny.
+// Wpis: licznik czytania (pasek), okruszki Strona główna › Dział › Tytuł, etykieta działu, H1, linia meta (data, podpis redakcji
+// z odnośnikiem do /o-nas/, czas czytania), zdjęcie (LCP, bez odsłaniania), treść z przyklejonym spisem treści,
+// a POZA </article>: „Więcej z działu” i poprzedni/następny (bramka linków czyta treść tylko z <div class="tresc">).
 import { getImage } from 'astro:assets';
 import { render } from 'astro:content';
 import Bazowy from '../../layouts/Bazowy.astro';
 import Okruszki from '../../components/Okruszki.astro';
 import Foto from '../../components/Foto.astro';
 import KartaWpisu from '../../components/KartaWpisu.astro';
+import SpisTresci from '../../components/SpisTresci.astro';
+import LicznikCzytania from '../../components/LicznikCzytania.astro';
 import { t, wstaw } from '../../lib/tekst';
-import { adresWpisu, czasCzytania, dataIso, dataPoPolsku, opublikowane, wiecejZDzialu } from '../../lib/wpisy';
+import { adresWpisu, czasCzytania, dataIso, dataPoPolsku, opublikowane, rozdzialy, wiecejZDzialu } from '../../lib/wpisy';
 import { adresDzialu, nazwaDzialu } from '../../lib/dzialy';
 import { zdjecie, ZDJECIE_GLOWNE } from '../../lib/zdjecia';
 import { adresBezwzgledny, okruszki as schematOkruszkow } from '../../lib/schemat';
@@ -28,21 +31,22 @@ export async function getStaticPaths() {
 
 const { wpis, poprzedni, nastepny, wiecej } = Astro.props;
 const d = wpis.data;
-const { Content } = await render(wpis);
+const { Content, headings } = await render(wpis);
+const spis = rozdzialy(headings);
 
-// Obraz do udostępnień: zdjęcie wpisu, a gdy wpis go nie ma, zdjęcie główne strony (to samo, co domyślnie daje layout)
 const kadrOg = await getImage({ src: zdjecie(d.zdjecie ?? ZDJECIE_GLOWNE), width: 1200, height: 630, fit: 'cover', format: 'jpeg', quality: 80 });
 const obrazOg = adresBezwzgledny(kadrOg.src);
 const adres = adresBezwzgledny(adresWpisu(wpis.id));
 const nazwaD = nazwaDzialu(d.dzial);
 const adresD = adresDzialu(d.dzial);
 const minuty = czasCzytania(wpis);
-// <title> z marką tylko do 65 znaków; dłuższy tytuł Google i tak obcina, więc idzie sam (marka zostaje w og:site_name).
+const podpis = t('o-nas.podpis');
+// <title> z marką tylko do 65 znaków; dłuższy tytuł idzie sam (marka zostaje w og:site_name).
 const tytulZMarka = `${d.tytul} | ${t('marka.nazwa')}`;
 const tytulStrony = tytulZMarka.length <= 65 ? tytulZMarka : d.tytul;
 
 const pozycje = [
-  { nazwa: t('interfejs.okruszki_glowna'), adres: '/' },
+  { nazwa: t('interfejs.okruszkiStart'), adres: '/' },
   { nazwa: nazwaD, adres: adresD },
   { nazwa: d.tytul, adres: adresWpisu(wpis.id) },
 ];
@@ -54,71 +58,60 @@ const schemat = [
     mainEntityOfPage: { '@type': 'WebPage', '@id': adres },
     headline: d.tytul,
     description: d.opis,
-    // wpis bez zdjęcia: bez image (zdjęcie główne strony nie przedstawia treści wpisu; pole jest zalecane, nie wymagane)
     image: d.zdjecie ? [obrazOg] : undefined,
     datePublished: dataIso(d.data),
     dateModified: dataIso(d.zmieniono ?? d.data),
     inLanguage: 'pl-PL',
     articleSection: nazwaD,
     keywords: d.tagi.join(', ') || undefined,
-    author: { '@type': 'Organization', name: t('interfejs.podpisRedakcji'), url: adresBezwzgledny('/o-nas/') },
-    publisher: { '@id': adresBezwzgledny('/') + '#organizacja', '@type': 'Organization', name: t('marka.nazwa'), url: adresBezwzgledny('/') },
+    author: { '@type': 'Organization', name: podpis, url: adresBezwzgledny('/o-nas/') },
+    publisher: { '@id': `${adresBezwzgledny('/')}#organizacja`, '@type': 'Organization', name: t('marka.nazwa'), url: adresBezwzgledny('/') },
   },
   schematOkruszkow(pozycje),
 ];
 ---
 
 <Bazowy tytul={tytulStrony} opis={d.opis} typOg="article" {obrazOg} obrazOgAlt={d.alt ?? t('marka.nazwa')} {schemat} podswietl={adresD}>
+  <LicznikCzytania />
   <Okruszki pozycje={pozycje} />
   <article class:list={['wpis', { 'wpis--bez-zdjecia': !d.zdjecie }]}>
     <header class="wpis__glowa kontener">
       <p class="wpis__dzial"><a href={adresD}>{nazwaD}</a></p>
       <h1>{d.tytul}</h1>
       <p class="wpis__meta">
-        <span>
-          {t('interfejs.opublikowano')}{' '}
-          <time datetime={dataIso(d.data)}>{dataPoPolsku(d.data)}</time>
-        </span>
-        <a class="wpis__podpis" href="/o-nas/">{t('interfejs.podpisRedakcji')}</a>
-        <span>{wstaw(t('interfejs.minCzytania'), { n: String(minuty) })}</span>
+        <time datetime={dataIso(d.data)}>{dataPoPolsku(d.data)}</time>
+        <a class="wpis__podpis" href="/o-nas/">{podpis}</a>
+        <span>{wstaw(t('interfejs.minCzytania'), { liczba: String(minuty) })}</span>
       </p>
     </header>
     {
       d.zdjecie && (
         <figure class="wpis__zdjecie">
-          <Foto
-            nazwa={d.zdjecie}
-            alt={d.alt}
-            widths={[640, 960, 1280, 1600]}
-            sizes="(min-width: 64rem) 60rem, 100vw"
-            priorytet
-          />
+          <Foto nazwa={d.zdjecie} alt={d.alt} widths={[640, 960, 1280, 1600, 2000]} sizes="(min-width: 76rem) 72rem, calc(100vw - 2.5rem)" priorytet />
         </figure>
       )
     }
-    <div class="kontener">
+    <div class="kontener wpis__uklad">
+      <SpisTresci naglowki={spis} />
       <div class="tresc">
         <Content />
       </div>
-      {
-        d.tagi.length > 0 && (
-          <ul class="wpis__tagi" aria-label={t('interfejs.tagi_aria')}>
-            {d.tagi.map((tag) => <li>{tag}</li>)}
-          </ul>
-        )
-      }
     </div>
   </article>
 
   {
     wiecej.length > 0 && (
-      <section class="sekcja sekcja--piasek wiecej" aria-labelledby="wiecej-z-dzialu">
+      <section class="sekcja sekcja--powierzchnia" aria-labelledby="wiecej-z-dzialu">
         <div class="kontener">
           <div class="sekcja__glowa">
             <h2 id="wiecej-z-dzialu">{wstaw(t('interfejs.wiecejZDzialu'), { dzial: nazwaD })}</h2>
           </div>
           <ul class="karty">
-            {wiecej.map((w) => <li><KartaWpisu wpis={w} bezDzialu={w.data.dzial === d.dzial} /></li>)}
+            {wiecej.map((w) => (
+              <li>
+                <KartaWpisu wpis={w} bezDzialu={w.data.dzial === d.dzial} />
+              </li>
+            ))}
           </ul>
         </div>
       </section>
@@ -127,15 +120,13 @@ const schemat = [
 
   {
     (poprzedni || nastepny) && (
-      <div class="kontener sasiedzi-rama">
-        <nav class="sasiedzi" aria-label={t('interfejs.sasiedzi_aria')}>
-          {poprzedni ? (
+      <div class="kontener">
+        <nav class="sasiedzi" aria-label={`${t('interfejs.poprzedni')}, ${t('interfejs.nastepny')}`}>
+          {poprzedni && (
             <a class="sasiedzi__poprzedni" href={adresWpisu(poprzedni.id)} rel="prev">
               <span class="sasiedzi__etykieta">{t('interfejs.poprzedni')}</span>
               <span class="sasiedzi__tytul">{poprzedni.data.tytul}</span>
             </a>
-          ) : (
-            <span></span>
           )}
           {nastepny && (
             <a class="sasiedzi__nastepny" href={adresWpisu(nastepny.id)} rel="next">

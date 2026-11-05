@@ -3,7 +3,7 @@
 //
 // Czyta kanały RSS z src/data/zrodla-rss.json i dla każdego NOWEGO wpisu zapisuje plik
 // src/content/polecane/<slug-źródła>-<hash8 linku>.md: tytuł, 2–4 zdania opisu (max 400 znaków, bez HTML),
-// data, źródło, link do oryginału i — jeśli kanał go podaje — adres zdjęcia. PEŁNEJ TREŚCI nigdy nie kopiuje.
+// data ORYGINAŁU (pubDate/published kanału), źródło, link do oryginału i — jeśli kanał go podaje — adres zdjęcia. PEŁNEJ TREŚCI nigdy nie kopiuje.
 // Kluczem wpisu jest link: istniejący plik jest pomijany (nigdy nie nadpisujemy). Błąd jednego źródła
 // nie przerywa pozostałych. Kod wyjścia 0 także przy błędach źródeł (to nie jest błąd budowania strony);
 // w Actions błędy idą jako ostrzeżenia ::warning::.
@@ -97,6 +97,9 @@ const slug = (s) =>
     .replace(/[^a-z0-9]+/g, '-')
     .replace(/^-+|-+$/g, '');
 
+/** Bez myślników długich i półpauz: zakres liczb dostaje dywiz, wtrącenie przecinek, w tytule dwukropek. */
+const bezPauz = (s, zamiast) => s.replace(/(\d)\s*[—–]\s*(?=\d)/g, '$1-').replace(/\s*[—–]\s*/g, zamiast).replace(/^[,:]\s*|[,:]\s*$/g, '');
+
 const host = (adres) => new URL(adres).hostname.replace(/^www\./, '');
 
 function poprawnyAdres(kandydat, baza) {
@@ -129,8 +132,8 @@ function pozycje(xml, adresKanalu) {
     const data = new Date(dataTekst);
     return {
       link,
-      tytul: bezHtml(znacznik(b, 'title')).replace(/\s*[—–]\s*/g, ': '),
-      opis: skrot(bezHtml(html)),
+      tytul: bezPauz(bezHtml(znacznik(b, 'title')), ': '),
+      opis: bezPauz(skrot(bezHtml(html)), ', '),
       zdjecie: zdjecie ? poprawnyAdres(zdjecie, link || adresKanalu) : '',
       data: Number.isNaN(data.getTime()) ? null : data,
     };
@@ -146,7 +149,7 @@ function tresc(zrodlo, p) {
   const pola = [
     `tytul: ${JSON.stringify(p.tytul)}`,
     `opis: ${JSON.stringify(p.opis)}`,
-    `data: ${JSON.stringify((p.data ?? new Date()).toISOString())}`,
+    `data: ${JSON.stringify(p.data.toISOString())}`,
     `zrodlo: ${JSON.stringify(zrodlo)}`,
     `link: ${JSON.stringify(p.link)}`,
   ];
@@ -181,10 +184,11 @@ async function main() {
       const wszystkie = pozycje(xml, z.adres);
       const wlasne = host(z.adres);
       const najnowsze = wszystkie
-        .filter((p) => p.link && p.tytul)
-        .sort((a, b) => (b.data?.getTime() ?? 0) - (a.data?.getTime() ?? 0))
+        .filter((p) => p.link && p.tytul && p.data)
+        .sort((a, b) => b.data.getTime() - a.data.getTime())
         .slice(0, MAKS_NA_ZRODLO);
-      wiersz.odrzuconych += wszystkie.length - wszystkie.filter((p) => p.link && p.tytul).length;
+      // bez linku, tytułu albo daty oryginału zapowiedź odpada (data dnia agregacji byłaby nieprawdziwa)
+      wiersz.odrzuconych += wszystkie.length - wszystkie.filter((p) => p.link && p.tytul && p.data).length;
       for (const p of najnowsze) {
         // Zapowiedź musi prowadzić do tej samej witryny co kanał (nie linkujemy dalej, niż wskazuje źródło).
         if (host(p.link) !== wlasne) {

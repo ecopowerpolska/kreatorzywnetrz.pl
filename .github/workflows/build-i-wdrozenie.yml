@@ -2,7 +2,7 @@
 #
 # 🔴 WERSJE AKCJI TO LICZNIKI STANU, NIE STAŁE
 #    (odczyt u źródła docs.astro.build/en/guides/deploy/github/ 2026-09-04, w użyciu do 2026-11-05).
-#    Zapis starszy niż 30 dni weryfikuj u źródła; nie podnoś wersji „na wyczucie".
+#    Zapis starszy niż 30 dni weryfikuj u źródła; nie podnoś wersji "na wyczucie".
 #
 # 🔴 ŻADNEGO SEKRETU w GitHub Secrets tego repozytorium. Pages autoryzuje się tokenem wydawanym
 #    na czas przebiegu (permissions niżej); agregacja pushuje wbudowanym GITHUB_TOKEN.
@@ -29,7 +29,7 @@ on:
   workflow_dispatch:
   # Trzy przebiegi dziennie (03:17, 07:47 i 11:23 UTC), poza pełną godziną: GitHub spóźnia `schedule` nawet o godziny,
   # a pojedynczy przebieg bywał pomijany. Każdy robi agregację nowych wpisów z naszych stron oraz publikację wpisów,
-  # których data już minęła (filtr opublikowane() liczy „teraz” w chwili budowania); bez zmian wypuszcza to samo.
+  # których data już minęła (filtr opublikowane() liczy "teraz" w chwili budowania); bez zmian wypuszcza to samo.
   schedule:
     - cron: '17 3 * * *'
     - cron: '47 7 * * *'

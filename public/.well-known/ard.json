@@ -32,6 +32,86 @@
       ]
     },
     {
+      "identifier": "urn:air:kreatorzywnetrz.pl:strona:projekt-wnetrza",
+      "displayName": "Projekt wnętrza - Kreatorzy Wnętrz",
+      "type": "application/ld+json",
+      "data": {
+        "@context": "https://schema.org",
+        "@type": "CollectionPage",
+        "name": "Projekt wnętrza - Kreatorzy Wnętrz",
+        "url": "https://kreatorzywnetrz.pl/projekt-wnetrza/",
+        "inLanguage": "pl-PL",
+        "isPartOf": {
+          "@id": "https://kreatorzywnetrz.pl/#strona"
+        }
+      },
+      "description": "Dział o projektowaniu wnętrz: pomiar, układ funkcjonalny, moodboard, dobór materiałów i współpraca z projektantem.",
+      "representativeQueries": [
+        "jak zaplanować projekt wnętrza",
+        "od czego zacząć projekt mieszkania"
+      ]
+    },
+    {
+      "identifier": "urn:air:kreatorzywnetrz.pl:strona:remont",
+      "displayName": "Remont - Kreatorzy Wnętrz",
+      "type": "application/ld+json",
+      "data": {
+        "@context": "https://schema.org",
+        "@type": "CollectionPage",
+        "name": "Remont - Kreatorzy Wnętrz",
+        "url": "https://kreatorzywnetrz.pl/remont/",
+        "inLanguage": "pl-PL",
+        "isPartOf": {
+          "@id": "https://kreatorzywnetrz.pl/#strona"
+        }
+      },
+      "description": "Dział o remontach mieszkań: kolejność prac, łazienka, instalacje, podłogi i odbiór robót.",
+      "representativeQueries": [
+        "remont łazienki krok po kroku",
+        "kolejność prac przy remoncie mieszkania"
+      ]
+    },
+    {
+      "identifier": "urn:air:kreatorzywnetrz.pl:strona:meble-na-wymiar",
+      "displayName": "Meble i kuchnie - Kreatorzy Wnętrz",
+      "type": "application/ld+json",
+      "data": {
+        "@context": "https://schema.org",
+        "@type": "CollectionPage",
+        "name": "Meble i kuchnie - Kreatorzy Wnętrz",
+        "url": "https://kreatorzywnetrz.pl/meble-na-wymiar/",
+        "inLanguage": "pl-PL",
+        "isPartOf": {
+          "@id": "https://kreatorzywnetrz.pl/#strona"
+        }
+      },
+      "description": "Dział o meblach i kuchniach na wymiar: szafy, garderoby, zabudowa kuchenna, fronty, blaty i pomiar.",
+      "representativeQueries": [
+        "szafa czy garderoba",
+        "kuchnia na wymiar od czego zacząć"
+      ]
+    },
+    {
+      "identifier": "urn:air:kreatorzywnetrz.pl:strona:materialy",
+      "displayName": "Materiały - Kreatorzy Wnętrz",
+      "type": "application/ld+json",
+      "data": {
+        "@context": "https://schema.org",
+        "@type": "CollectionPage",
+        "name": "Materiały - Kreatorzy Wnętrz",
+        "url": "https://kreatorzywnetrz.pl/materialy/",
+        "inLanguage": "pl-PL",
+        "isPartOf": {
+          "@id": "https://kreatorzywnetrz.pl/#strona"
+        }
+      },
+      "description": "Dział o materiałach wykończeniowych: podłogi, płytki, farby, lakiery i oświetlenie.",
+      "representativeQueries": [
+        "panele, deska czy winyl",
+        "jak dobrać oświetlenie mieszkania"
+      ]
+    },
+    {
       "identifier": "urn:air:kreatorzywnetrz.pl:strona:blog",
       "displayName": "Blog Kreatorów Wnętrz - wszystkie wpisy",
       "type": "application/ld+json",
@@ -109,6 +189,25 @@
       "representativeQueries": [
         "kontakt Kreatorzy Wnętrz",
         "zapytanie o remont lub projekt wnętrza"
+      ]
+    },
+    {
+      "identifier": "urn:air:kreatorzywnetrz.pl:strona:polityka-prywatnosci",
+      "displayName": "Polityka prywatności - Kreatorzy Wnętrz",
+      "type": "application/ld+json",
+      "data": {
+        "@context": "https://schema.org",
+        "@type": "WebPage",
+        "name": "Polityka prywatności - Kreatorzy Wnętrz",
+        "url": "https://kreatorzywnetrz.pl/polityka-prywatnosci/",
+        "inLanguage": "pl-PL",
+        "isPartOf": {
+          "@id": "https://kreatorzywnetrz.pl/#strona"
+        }
+      },
+      "description": "Zasady przetwarzania danych z formularza kontaktowego i pliki cookie na kreatorzywnetrz.pl.",
+      "representativeQueries": [
+        "polityka prywatności Kreatorzy Wnętrz"
       ]
     },
     {

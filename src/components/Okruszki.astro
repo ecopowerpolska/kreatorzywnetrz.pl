@@ -1,5 +1,5 @@
 ---
-// Okruszki: ostatnia pozycja bez odnośnika (aria-current). Ta sama lista idzie do BreadcrumbList w DaneStrukturalne.
+// Okruszki: ostatnia pozycja bez odnośnika (aria-current). Ta sama lista idzie do BreadcrumbList (schemat.ts).
 import { t } from '../lib/tekst';
 
 interface Props {
@@ -8,7 +8,7 @@ interface Props {
 const { pozycje } = Astro.props;
 ---
 
-<nav class="okruszki kontener" aria-label={t('interfejs.okruszki_aria')}>
+<nav class="okruszki kontener" aria-label={t('interfejs.okruszkiAria')}>
   <ol>
     {
       pozycje.map((p, i) =>

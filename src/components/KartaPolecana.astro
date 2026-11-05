@@ -1,34 +1,36 @@
 ---
-// Zapowiedź wpisu z naszej strony: tylko tytuł, 2–4 zdania i link „Czytaj dalej na <źródło>” z rel="nofollow"
-// (blok polecający; link w treści wpisu zostaje bez rel).
-// Zdjęcie z RSS ładuje przeglądarka z serwera źródła (nasze strony); bez zdjęcia karta jest tekstowa.
-import { dataIso, dataPoPolsku, type Polecany } from '../lib/wpisy';
+// Zapowiedź wpisu z naszej strony: data ORYGINAŁU z podpisem „opublikowano na {zrodlo}” (decyzja 6), tytuł, opis
+// i odnośnik „Czytaj dalej na {zrodlo}” z rel="nofollow" (blok szablonowy). Zdjęcie z RSS ładuje się z serwera źródła.
+import { dataIso, dataPoPolsku } from '../lib/wpisy';
+import type { Polecany } from '../lib/polecane';
 import { t, wstaw } from '../lib/tekst';
 
 interface Props {
   wpis: Polecany;
-  /** Szablon napisu odnośnika z {zrodlo}; domyślnie interfejs.czytajDalejNa. */
-  napis?: string;
+  poziom?: 2 | 3;
 }
-const { wpis, napis = t('interfejs.czytajDalejNa') } = Astro.props;
+const { wpis, poziom = 3 } = Astro.props;
 const d = wpis.data;
+const Tytul = poziom === 2 ? 'h2' : 'h3';
 ---
 
 <article class="karta karta--zapowiedz">
   {
     d.zdjecie && (
-      <div class="karta__zdjecie">
+      <div class="karta__zdjecie odslon">
         <img src={d.zdjecie} alt="" width="600" height="400" loading="lazy" decoding="async" referrerpolicy="no-referrer" />
       </div>
     )
   }
   <div class="karta__tekst">
     <p class="karta__meta">
-      <span class="karta__zrodlo">{d.zrodlo}</span>{' '}
-      <time datetime={dataIso(d.data)}>{dataPoPolsku(d.data)}</time>
+      <span>
+        <time datetime={dataIso(d.data)}>{dataPoPolsku(d.data)}</time>,{' '}
+        <span class="karta__zrodlo">{wstaw(t('interfejs.opublikowanoNa'), { zrodlo: d.zrodlo })}</span>
+      </span>
     </p>
-    <h3 class="karta__tytul">{d.tytul}</h3>
-    <p>{d.opis}</p>
-    <a class="karta__czytaj" href={d.link} rel="nofollow">{wstaw(napis, { zrodlo: d.zrodlo })}</a>
+    <Tytul class="karta__tytul">{d.tytul}</Tytul>
+    <p class="karta__opis">{d.opis}</p>
+    <a class="karta__czytaj" href={d.link} rel="nofollow">{wstaw(t('interfejs.czytajNaZrodle'), { zrodlo: d.zrodlo })}</a>
   </div>
 </article>

@@ -1,0 +1,47 @@
+---
+// Spis treści wpisu (decyzja 3): rozdziały H2 z render(); na komputerze przyklejony z boku (motyw.css .wpis__uklad .spis).
+// Bieżący rozdział: aria-current ustawia skrypt (przeliczenie przy przewijaniu); :target-current w CSS to dodatek dla Chrome 140+.
+import { t } from '../lib/tekst';
+
+interface Props {
+  naglowki: { slug: string; text: string }[];
+}
+const { naglowki } = Astro.props;
+---
+
+{
+  naglowki.length > 1 && (
+    <nav class="spis" aria-labelledby="spis-tytul">
+      <h2 id="spis-tytul">{t('interfejs.spisTresci')}</h2>
+      <ol>
+        {naglowki.map((n) => (
+          <li>
+            <a href={`#${n.slug}`}>{n.text}</a>
+          </li>
+        ))}
+      </ol>
+      <p class="spis__gora">
+        <a href="#tresc">{t('interfejs.doGory')}</a>
+      </p>
+    </nav>
+  )
+}
+
+<script>
+  // Bieżący rozdział = ostatni nagłówek, którego góra minęła 40 % wysokości okna (przeliczane przy przewijaniu, raz na klatkę).
+  const odnosniki = [...document.querySelectorAll<HTMLAnchorElement>('.spis ol a')];
+  const naglowki = odnosniki.map((a) => document.getElementById(decodeURIComponent(a.hash.slice(1))));
+  let klatka = 0;
+  const przelicz = () => {
+    klatka = 0;
+    let biezacy = -1;
+    naglowki.forEach((h, i) => {
+      if (h && h.getBoundingClientRect().top <= innerHeight * 0.4) biezacy = i;
+    });
+    odnosniki.forEach((a, i) => (i === biezacy ? a.setAttribute('aria-current', 'true') : a.removeAttribute('aria-current')));
+  };
+  if (odnosniki.length) {
+    addEventListener('scroll', () => (klatka ||= requestAnimationFrame(przelicz)), { passive: true });
+    przelicz();
+  }
+</script>

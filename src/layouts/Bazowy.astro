@@ -1,8 +1,8 @@
 ---
-// Bazowy.astro — jedyny layout strony: head (canonical, OG, Twitter, JSON-LD), nagłówek, stopka.
-// Bez cookies, bez analityki, bez skryptów zewnętrznych, bez <ClientRouter /> (strona prawie statyczna).
+// Bazowy.astro — jedyny layout strony: head (canonical, OG, Twitter, JSON-LD, fonty, favikony), nagłówek, stopka.
+// Bez cookies, bez analityki, bez <ClientRouter /> (przejścia stron: CSS @view-transition w motyw.css).
 import '../styles/motyw.css';
-import { getImage } from 'astro:assets';
+import { Font, getImage } from 'astro:assets';
 import Naglowek from '../components/Naglowek.astro';
 import Stopka from '../components/Stopka.astro';
 import { t } from '../lib/tekst';
@@ -45,9 +45,12 @@ if (!og) {
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>{tytul}</title>
     <meta name="description" content={opis} />
-    <meta name="google-site-verification" content="BtiwSnpeg79W3XRknGVla95xI-LvrXFd87SCxVMyYvI" />
+    <meta name="google-site-verification" content="DKd-SFvRqNU5_cGAL20YgHjSIHD2KgpcEpa3o84Fx6w" />
     <meta name="robots" content={bezIndeksu ? 'noindex' : 'max-image-preview:large'} />
     {!bezKanonicznego && <link rel="canonical" href={kanoniczny} />}
+
+    <Font cssVariable="--font-display" preload />
+    <Font cssVariable="--font-sans" preload />
 
     <meta property="og:type" content={typOg} />
     <meta property="og:site_name" content={nazwa} />
@@ -64,12 +67,12 @@ if (!og) {
     <meta name="twitter:description" content={opis} />
     <meta name="twitter:image" content={og} />
 
-    <meta name="theme-color" content="#0f3e47" />
-    <link rel="icon" href="/favicon.svg?v=20261103" type="image/svg+xml" />
-    <link rel="icon" href="/favicon-48.png?v=20261103" type="image/png" sizes="48x48" />
-    <link rel="apple-touch-icon" href="/apple-touch-icon.png?v=20261103" />
+    <meta name="theme-color" content="#f7e9e4" />
+    <link rel="icon" href="/favicon.svg?v=20261105" type="image/svg+xml" />
+    <link rel="icon" href="/favicon-48.png?v=20261105" type="image/png" sizes="48x48" />
+    <link rel="apple-touch-icon" href="/apple-touch-icon.png?v=20261105" />
     <link rel="sitemap" href="/sitemap.xml" />
-    <link rel="alternate" type="application/rss+xml" title={`${nazwa}: wpisy`} href="/rss.xml" />
+    <link rel="alternate" type="application/rss+xml" title={nazwa} href="/rss.xml" />
 
     {schemat.map((s) => <script type="application/ld+json" set:html={JSON.stringify(s).replace(/</g, '\\u003c')} />)}
   </head>

@@ -1,0 +1,17 @@
+{
+  "akcja": "https://formularz.kreatorzywnetrz.pl/wyslij.php",
+  "turnstileSitekey": "0x4AAAAAAF1XrznPmKGg3269",
+  "pola": [
+    { "nazwa": "imie", "typ": "text", "wymagane": true, "maks": 100, "autocomplete": "name" },
+    { "nazwa": "email", "typ": "email", "wymagane": true, "maks": 200, "autocomplete": "email" },
+    { "nazwa": "telefon", "typ": "tel", "wymagane": false, "maks": 30, "autocomplete": "tel" },
+    { "nazwa": "temat", "typ": "select", "wymagane": true },
+    { "nazwa": "wiadomosc", "typ": "textarea", "wymagane": true, "min": 20, "maks": 4000 },
+    { "nazwa": "zgoda", "typ": "checkbox", "wymagane": true, "wartosc": "tak" },
+    { "nazwa": "strona", "typ": "honeypot", "wymagane": false },
+    { "nazwa": "czas", "typ": "hidden", "wymagane": true }
+  ],
+  "tematy": ["Projekt wnętrza", "Remont", "Meble na wymiar", "Inne"],
+  "sukces": "https://kreatorzywnetrz.pl/dziekujemy/",
+  "bledy": ["turnstile", "pola", "czas", "limit", "ogolny"]
+}
