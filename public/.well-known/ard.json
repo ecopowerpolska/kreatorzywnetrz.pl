@@ -133,27 +133,6 @@
       ]
     },
     {
-      "identifier": "urn:air:kreatorzywnetrz.pl:strona:polecamy",
-      "displayName": "Polecamy - firmy polecane przez Kreatorów Wnętrz",
-      "type": "application/ld+json",
-      "data": {
-        "@context": "https://schema.org",
-        "@type": "CollectionPage",
-        "name": "Polecamy | Kreatorzy Wnętrz",
-        "url": "https://kreatorzywnetrz.pl/polecamy/",
-        "inLanguage": "pl-PL",
-        "isPartOf": {
-          "@id": "https://kreatorzywnetrz.pl/#strona"
-        }
-      },
-      "description": "Firmy, które polecamy: projekt wnętrz, remont mieszkania i meble na wymiar.",
-      "representativeQueries": [
-        "polecane firmy projekt wnętrz remont meble na wymiar",
-        "firmy od projektu wnętrza, remontu i mebli",
-        "kto zrobi remont mieszkania i meble na wymiar"
-      ]
-    },
-    {
       "identifier": "urn:air:kreatorzywnetrz.pl:strona:o-nas",
       "displayName": "O nas - Kreatorzy Wnętrz",
       "type": "application/ld+json",

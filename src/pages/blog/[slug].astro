@@ -87,7 +87,9 @@ const schemat = [
     {
       d.zdjecie && (
         <figure class="wpis__zdjecie">
-          <Foto nazwa={d.zdjecie} alt={d.alt} widths={[640, 960, 1280, 1600, 2000]} sizes="(min-width: 76rem) 72rem, calc(100vw - 2.5rem)" priorytet />
+          <div class="ramka">
+            <Foto nazwa={d.zdjecie} alt={d.alt} widths={[640, 960, 1280, 1600, 2000]} sizes="(min-width: 76rem) 71rem, calc(100vw - 3.5rem)" priorytet />
+          </div>
         </figure>
       )
     }

@@ -13,13 +13,6 @@ export function t(sciezka: string): string {
   return w;
 }
 
-/** Tekst, który może być pusty (np. 'polecamy.wstep'); brak klucza = błąd budowania. */
-export function tMozePusty(sciezka: string): string {
-  const w = pobierz(sciezka);
-  if (typeof w !== 'string') return brak(sciezka, 'brak tekstu');
-  return w.trim();
-}
-
 /** Lista tekstów po ścieżce (akapity); brak albo nie-lista = błąd budowania. */
 export function lista(sciezka: string): string[] {
   const w = pobierz(sciezka);

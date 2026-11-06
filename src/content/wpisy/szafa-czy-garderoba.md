@@ -20,7 +20,7 @@ Garderoba to osobne pomieszczenie albo wydzielony kąt. Do głębokości zabudow
 
 Zanim zdecydujesz, otwórz obecną szafę i policz. Ile ubrań wisi na długo: płaszcze, sukienki. Ile na krótko: koszule, marynarki, spodnie na wieszaku. Ile stosów swetrów i koszulek na półkach, ile par butów, ile walizek. Doliczysz też pościel, ręczniki, odkurzacz i deskę do prasowania, jeśli mają mieszkać w tej samej zabudowie.
 
-Z taką listą zobaczysz, czy wystarczy szafa na całą ścianę wnęki, czy potrzebna jest garderoba. Lista skraca też rozmowę ze stolarzem. W Warszawie szafy i garderoby na wymiar robi na przykład [Pan Stolarz](https://pan-stolarz.pl/szafy-na-wymiar). Przyjeżdżają zmierzyć wnękę na miejscu, montaż i transport są u nich w cenie, a projekt 3D jest płatny i jego kwotę podają w wycenie. Szafa albo garderoba powstaje w 21 do 30 dni od zaksięgowania pierwszej transzy, a jedną regulację frontów do trzech miesięcy po odbiorze mają w cenie.
+Z taką listą zobaczysz, czy wystarczy szafa na całą ścianę wnęki, czy potrzebna jest garderoba. Lista skraca też rozmowę ze [stolarzem](https://pan-stolarz.pl/szafy-na-wymiar), który i tak przyjedzie zmierzyć wnękę na miejscu. Przy wycenie zapytaj, czy pomiar, projekt, transport i montaż są w cenie i ile dni mija od wpłaty zaliczki do montażu.
 
 ## Kiedy zamówić zabudowę w czasie remontu
 

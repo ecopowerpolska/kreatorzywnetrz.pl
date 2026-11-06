@@ -22,18 +22,12 @@
       "href": "/blog/"
     },
     {
-      "etykieta": "Polecamy",
-      "href": "/polecamy/"
-    },
-    {
       "etykieta": "Kontakt",
       "href": "/kontakt/"
     }
   ],
   "interfejs": {
     "czytajDalej": "Czytaj dalej",
-    "czytajNaZrodle": "Czytaj dalej na {zrodlo}",
-    "opublikowanoNa": "opublikowano na {zrodlo}",
     "minCzytania": "{liczba} min czytania",
     "wiecejZDzialu": "Więcej z działu {dzial}",
     "spisTresci": "Spis treści",
@@ -58,7 +52,6 @@
     "tytul": "Kreatorzy Wnętrz",
     "podtytul": "Kreatorzy Wnętrz to magazyn o projektowaniu wnętrz, remontach i meblach na wymiar, z poradnikami pisanymi krok po kroku.",
     "najnowsze": "Najnowsze wpisy",
-    "zNaszychStron": "Polecamy do czytania",
     "dzialyNaglowek": "Działy magazynu"
   },
   "dzialy": {
@@ -85,51 +78,7 @@
   },
   "blog": {
     "tytul": "Blog",
-    "opis": "Wszystkie wpisy Kreatorów Wnętrz w jednym miejscu: projekt wnętrza, remont, meble i kuchnie na wymiar, materiały oraz polecane wpisy z innych blogów.",
-    "filtrWszystkie": "Wszystkie",
-    "filtrWlasne": "Nasze wpisy",
-    "filtrZapowiedzi": "Polecane z innych blogów"
-  },
-  "polecamy": {
-    "tytul": "Polecamy",
-    "opis": "Warszawskie firmy, do których idziesz z projektem wnętrza, remontem albo meblami na wymiar, i najnowsze wpisy z ich blogów zebrane w jednym miejscu.",
-    "wstep": "",
-    "firmy": [
-      {
-        "nazwa": "Studio Agat",
-        "zdanie": "Do Studio Agat idziesz, gdy mieszkanie, dom albo biuro ma dostać projekt wnętrza, a potem remont i meble prowadzone przez jedną firmę aż do odbioru.",
-        "fakty": [
-          "Projektują mieszkania, domy i biura z rynku pierwotnego i wtórnego, w Warszawie i gminach wokół niej.",
-          "Prowadzą całą drogę: pomiary, układy funkcjonalne, moodboardy, wizualizacje 3D, dokumentację wykonawczą, kosztorys i harmonogram, a potem nadzór do protokołu odbioru.",
-          "Na remont, wykończenie i meble dają 24 miesiące gwarancji."
-        ],
-        "url": "https://studioagat.pl/",
-        "przycisk": "Odwiedź Studio Agat"
-      },
-      {
-        "nazwa": "Nadi Home",
-        "zdanie": "Do Nadi Home idziesz z remontem mieszkania albo łazienki i z wykończeniem pod klucz w Warszawie.",
-        "fakty": [
-          "To rodzinna firma remontowo-wykończeniowa z Gocławia, działa od 2012 roku.",
-          "Elektrykę i hydraulikę robią sami, na uprawnieniach SEP, a dwa lata gwarancji zapisują w umowie.",
-          "Przed startem prac dają wiążącą ofertę cenową i umowę, a termin ustalają na pierwszym spotkaniu."
-        ],
-        "url": "https://nadihome.pl/",
-        "przycisk": "Odwiedź Nadi Home"
-      },
-      {
-        "nazwa": "Pan Stolarz",
-        "zdanie": "Do stolarni Pan Stolarz idziesz z kuchnią, szafą, garderobą albo inną zabudową na wymiar w Warszawie i do około 30 km od niej.",
-        "fakty": [
-          "Przyjeżdżają na bezpłatny pomiar i wycenę; projekt 3D jest płatny, a jego kwota stoi w wycenie.",
-          "Kuchnię robią w 25 dni, szafę albo garderobę w 21 do 30 dni od zaksięgowania pierwszej transzy.",
-          "Transport i montaż są w cenie, gwarancja trwa 24 miesiące, a jedną regulację do 3 miesięcy po odbiorze robią bezpłatnie."
-        ],
-        "url": "https://pan-stolarz.pl/",
-        "przycisk": "Odwiedź Pan Stolarz"
-      }
-    ],
-    "zapowiedziNaglowek": "Najnowsze wpisy z ich blogów"
+    "opis": "Wszystkie wpisy Kreatorów Wnętrz w jednym miejscu: projekt wnętrza, remont, meble i kuchnie na wymiar oraz materiały, od najnowszego."
   },
   "o-nas": {
     "tytul": "O nas",
@@ -138,7 +87,7 @@
       "Kreatorzy Wnętrz to nowy magazyn o urządzaniu mieszkań i domów, który ruszył jesienią 2026 roku. Pierwsze wpisy ukazały się w dniu startu, a kolejne dochodzą co kilka dni.",
       "Piszemy o czterech sprawach: projekcie wnętrza, remoncie, meblach i kuchniach na wymiar oraz materiałach. Zaczynamy od pytań, które padają przed każdym remontem: od czego zacząć, w jakiej kolejności działać i co sprawdzić w umowie z wykonawcą.",
       "Teksty powstają w redakcji jako poradniki krok po kroku. Fakty techniczne opieramy na przepisach, normach i dokumentacji producentów, a źródła podajemy w tekście, żebyś mógł je sprawdzić sam. Nie opisujemy realizacji, których nie widzieliśmy.",
-      "W zakładce Polecamy zbieramy warszawskie firmy, do których można iść z projektem, remontem albo meblami, i zapowiedzi wpisów z ich blogów. Pytania i propozycje tematów przyjmujemy przez formularz w zakładce Kontakt."
+      "Pytania i propozycje tematów przyjmujemy przez formularz w zakładce Kontakt."
     ],
     "podpis": "Redakcja Kreatorów Wnętrz"
   },
@@ -169,7 +118,7 @@
       "limit": "W tej godzinie przyszło do nas zbyt wiele wiadomości. Spróbuj ponownie za godzinę.",
       "ogolny": "Wiadomości nie udało się wysłać. Spróbuj ponownie za kilka minut."
     },
-    "noscript": "Formularz potrzebuje włączonego JavaScriptu, bo chroni go weryfikacja przed automatami. Włącz JavaScript i odśwież stronę albo zadzwoń do wybranej firmy z zakładki Polecamy."
+    "noscript": "Formularz potrzebuje włączonego JavaScriptu, bo chroni go weryfikacja przed automatami. Włącz JavaScript i odśwież stronę."
   },
   "dziekujemy": {
     "tytul": "Dziękujemy za wiadomość",
@@ -230,13 +179,6 @@
         ]
       },
       {
-        "naglowek": "Zdjęcia w zapowiedziach polecanych firm",
-        "akapity": [
-          "W zakładce [Polecamy](/polecamy/), w blogu i na stronie głównej pokazujemy zapowiedzi wpisów z blogów firm, które polecamy: studioagat.pl, nadihome.pl i pan-stolarz.pl. Zdjęcia do tych zapowiedzi przeglądarka może pobierać prosto z serwerów tych stron. Ich serwer zapisuje wtedy adres IP i podstawowe dane techniczne zapytania.",
-          "Zapowiedzi nie ustawiają plików cookies i nie uruchamiają skryptów tych stron. Kliknięcie w link do oryginału przenosi cię na stronę z własną polityką prywatności."
-        ]
-      },
-      {
         "naglowek": "Pliki cookies i analityka",
         "akapity": [
           "Strona nie ustawia własnych plików cookies, nie używa analityki, nie ładuje reklam ani skryptów śledzących. Nie pokazujemy okna zgody, bo nie używamy plików cookies, które by jej wymagały.",
@@ -246,7 +188,7 @@
       {
         "naglowek": "Linki do innych stron",
         "akapity": [
-          "We wpisach i w zakładce Polecamy są linki do innych stron. Po kliknięciu trafiasz na stronę z własną polityką prywatności. Przeczytaj ją, zanim zostawisz tam swoje dane."
+          "We wpisach są linki do innych stron. Po kliknięciu trafiasz na stronę z własną polityką prywatności. Przeczytaj ją, zanim zostawisz tam swoje dane."
         ]
       },
       {
@@ -259,7 +201,7 @@
       {
         "naglowek": "Zmiany polityki",
         "akapity": [
-          "Politykę zmieniamy, gdy zmienia się sposób działania strony. Ta wersja obowiązuje od uruchomienia strony w listopadzie 2026 roku."
+          "Politykę zmieniamy, gdy zmienia się sposób działania strony. Ta wersja obowiązuje od 6 listopada 2026 roku."
         ]
       }
     ]

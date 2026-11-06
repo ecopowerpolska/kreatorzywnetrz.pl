@@ -1,8 +1,9 @@
 ---
-// Foto.astro — zdjęcie z src/assets/zdjecia/ przez astro:assets: WebP, srcset, wymiary, kadr w PLIKU (fit cover).
-// Wymiary źródła NIE są czytane (Proxy importu kopiowałby oryginał do dist); kadr liczy się z propsów.
-// Zdjęcie bez `priorytet` dostaje odsłanianie przy przewijaniu (klasa .odslon na opakowaniu, motyw.css);
-// zdjęcie z `priorytet` (kandydat na LCP) nigdy.
+// Foto.astro — zdjęcie z src/assets/zdjecia/ przez astro:assets: WebP, srcset, width i height w atrybutach (CLS 0).
+// Zdjęcie ZAWSZE we własnej proporcji pliku, bez kadrowania (decyzja Piotra 2026-11-06): wysokość liczona z wymiarów źródła.
+// Odczyt width/height importu nie kopiuje oryginału do dist (w Astro 7 śledzony jest tylko odczyt `src`).
+// Ramkę daje opakowanie z klasą .ramka (motyw.css). Zdjęcie bez `priorytet` dostaje odsłanianie przy przewijaniu
+// (klasa .odslon na opakowaniu); zdjęcie z `priorytet` (kandydat na LCP) nigdy.
 import { Image } from 'astro:assets';
 import { zdjecie, altZdjecia } from '../lib/zdjecia';
 
@@ -12,25 +13,23 @@ interface Props {
   alt?: string;
   widths: number[];
   sizes: string;
-  proporcja?: number;
   /** Jedno zdjęcie na stronę (kandydat na LCP). */
   priorytet?: boolean;
   klasa?: string;
 }
 
-const { nazwa, alt, widths, sizes, proporcja = 3 / 2, priorytet = false, klasa } = Astro.props;
+const { nazwa, alt, widths, sizes, priorytet = false, klasa } = Astro.props;
 const obraz = zdjecie(nazwa);
-const maks = widths[widths.length - 1];
+const maks = Math.min(widths[widths.length - 1], obraz.width);
 ---
 
 <Image
   src={obraz}
   alt={alt ?? altZdjecia(nazwa)}
-  widths={widths}
+  widths={widths.filter((w) => w <= obraz.width)}
   sizes={sizes}
   width={maks}
-  height={Math.round(maks / proporcja)}
-  fit="cover"
+  height={Math.round((maks * obraz.height) / obraz.width)}
   loading={priorytet ? 'eager' : 'lazy'}
   fetchpriority={priorytet ? 'high' : undefined}
   decoding={priorytet ? 'sync' : 'async'}

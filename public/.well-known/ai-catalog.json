@@ -6,7 +6,7 @@
       "displayName": "Kreatorzy Wnętrz - katalog zasobów (ard.json)",
       "type": "application/ai-catalog+json",
       "url": "https://kreatorzywnetrz.pl/.well-known/ard.json",
-      "description": "Katalog zasobów kreatorzywnetrz.pl: strona główna, cztery działy, blog, polecane firmy, informacje o redakcji, kontakt, polityka prywatności, kanał RSS i mapa strony.",
+      "description": "Katalog zasobów kreatorzywnetrz.pl: strona główna, cztery działy, blog, informacje o redakcji, kontakt, polityka prywatności, kanał RSS i mapa strony.",
       "representativeQueries": [
         "Kreatorzy Wnętrz blog",
         "jak zaplanować projekt wnętrza",

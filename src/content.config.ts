@@ -1,8 +1,6 @@
 // src/content.config.ts — Content Layer (Astro 7). `z` z 'astro/zod'.
 //
-// wpisy    — nasze wpisy bloga: src/content/wpisy/*.md (pliki z podkreślnikiem na początku są pomijane).
-// polecane — zapowiedzi z naszych stron, pisane przez scripts/agreguj-rss.mjs do src/content/polecane/*.md
-//            (tylko zapowiedź i link do oryginału; pełnej treści agregator nigdy nie kopiuje).
+// wpisy — nasze wpisy bloga: src/content/wpisy/*.md (pliki z podkreślnikiem na początku są pomijane).
 import { existsSync } from 'node:fs';
 import { resolve } from 'node:path';
 
@@ -41,16 +39,4 @@ const wpisy = defineCollection({
     .refine((w) => !w.zdjecie || !!w.alt, { message: 'wpis ze zdjęciem musi mieć alt (co najmniej 10 znaków)', path: ['alt'] }),
 });
 
-const polecane = defineCollection({
-  loader: glob({ pattern: '**/*.md', base: './src/content/polecane' }),
-  schema: z.object({
-    tytul: z.string(),
-    opis: z.string(),
-    data: z.coerce.date(),
-    zrodlo: z.string(),
-    link: z.url(),
-    zdjecie: z.url().optional(),
-  }),
-});
-
-export const collections = { wpisy, polecane };
+export const collections = { wpisy };

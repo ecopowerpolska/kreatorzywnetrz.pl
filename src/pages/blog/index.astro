@@ -1,17 +1,13 @@
 ---
-// /blog/: własne wpisy od najnowszego, pod nimi zapowiedzi z naszych stron osobną częścią (poza chronologią, decyzja 6).
-// Filtr Wszystkie / Własne / Zapowiedzi bez JS: radio + :has() w motyw.css; bez :has() widać obie części.
+// /blog/: wszystkie opublikowane wpisy od najnowszego, jedną siatką kart.
 import Bazowy from '../../layouts/Bazowy.astro';
 import Okruszki from '../../components/Okruszki.astro';
 import KartaWpisu from '../../components/KartaWpisu.astro';
-import KartaPolecana from '../../components/KartaPolecana.astro';
 import { t } from '../../lib/tekst';
 import { opublikowane } from '../../lib/wpisy';
-import { wszystkiePolecane, polecaneRozne, NA_ZRODLO_POLECAMY } from '../../lib/polecane';
 import { okruszki } from '../../lib/schemat';
 
 const wpisy = await opublikowane();
-const zapowiedzi = polecaneRozne(await wszystkiePolecane(), NA_ZRODLO_POLECAMY).slice(0, 12);
 // Kandydat na LCP: pierwsza karta ze zdjęciem w pierwszym rzędzie
 const pierwszeZdjecie = wpisy.findIndex((w) => w.data.zdjecie);
 const priorytetowy = pierwszeZdjecie >= 0 && pierwszeZdjecie < 3 ? pierwszeZdjecie : -1;
@@ -20,11 +16,6 @@ const pozycje = [
   { nazwa: t('blog.tytul'), adres: '/blog/' },
 ];
 const schemat = [okruszki(pozycje)];
-const filtry = [
-  { id: 'filtr-wszystkie', etykieta: t('blog.filtrWszystkie') },
-  { id: 'filtr-wlasne', etykieta: t('blog.filtrWlasne') },
-  { id: 'filtr-zapowiedzi', etykieta: t('blog.filtrZapowiedzi') },
-];
 ---
 
 <Bazowy tytul={`${t('blog.tytul')} | ${t('marka.nazwa')}`} opis={t('blog.opis')} {schemat}>
@@ -35,44 +26,14 @@ const filtry = [
   </div>
   <div class="kontener sekcja sekcja--bez-gory">
     {
-      zapowiedzi.length > 0 && wpisy.length > 0 && (
-        <fieldset class="filtr">
-          <legend class="ukryte">{t('blog.tytul')}</legend>
-          {filtry.map((f, i) => (
-            <>
-              <input type="radio" name="filtr" id={f.id} checked={i === 0} />
-              <label for={f.id}>{f.etykieta}</label>
-            </>
-          ))}
-        </fieldset>
-      )
-    }
-    {
       wpisy.length > 0 && (
-        <section class="blog-czesc blog-czesc--wlasne" aria-labelledby="czesc-wlasne">
-          <h2 id="czesc-wlasne">{t('blog.filtrWlasne')}</h2>
-          <ul class="karty">
-            {wpisy.map((w, i) => (
-              <li>
-                <KartaWpisu wpis={w} priorytet={i === priorytetowy} />
-              </li>
-            ))}
-          </ul>
-        </section>
-      )
-    }
-    {
-      zapowiedzi.length > 0 && (
-        <section class="blog-czesc blog-czesc--zapowiedzi" aria-labelledby="czesc-zapowiedzi">
-          <h2 id="czesc-zapowiedzi">{t('blog.filtrZapowiedzi')}</h2>
-          <ul class="karty">
-            {zapowiedzi.map((w) => (
-              <li>
-                <KartaPolecana wpis={w} />
-              </li>
-            ))}
-          </ul>
-        </section>
+        <ul class="karty">
+          {wpisy.map((w, i) => (
+            <li>
+              <KartaWpisu wpis={w} priorytet={i === priorytetowy} poziom={2} />
+            </li>
+          ))}
+        </ul>
       )
     }
   </div>

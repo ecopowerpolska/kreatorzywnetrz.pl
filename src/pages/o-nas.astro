@@ -20,7 +20,7 @@ const schemat = [okruszki(pozycje)];
   </div>
   <div class="kontener">
     <div class="proza">
-      <div class="kadr-luk">
+      <div class="proza__zdjecie ramka">
         <Foto nazwa="o-nas.webp" widths={[400, 640, 880, 1200]} sizes="(min-width: 46rem) 42rem, calc(100vw - 2.5rem)" priorytet />
       </div>
       {lista('o-nas.akapity').map((a) => <p>{kawalki(a).map((k) => (k.adres ? <a href={k.adres}>{k.tekst}</a> : k.tekst))}</p>)}

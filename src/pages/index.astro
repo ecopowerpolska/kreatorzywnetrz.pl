@@ -1,21 +1,18 @@
 ---
-// Strona główna: tytuł i kadr-łuk (zdjęcie główne = kandydat na LCP, bez odsłaniania), marquee działów,
-// najnowsze wpisy (1 duży + do 3), cztery działy, zapowiedzi z naszych stron (najwyżej 1 z firmy, 3 razem, rel="nofollow").
+// Strona główna: tytuł i zdjęcie w ramce we własnej proporcji (kandydat na LCP, bez odsłaniania), marquee działów,
+// najnowsze wpisy (1 duży + do 3), cztery działy.
 import Bazowy from '../layouts/Bazowy.astro';
 import Foto from '../components/Foto.astro';
 import Marquee from '../components/Marquee.astro';
 import KartaWpisu from '../components/KartaWpisu.astro';
-import KartaPolecana from '../components/KartaPolecana.astro';
 import { t } from '../lib/tekst';
 import { opublikowane } from '../lib/wpisy';
-import { wszystkiePolecane, polecaneRozne, NA_ZRODLO_GLOWNA } from '../lib/polecane';
 import { DZIALY, adresDzialu, nazwaDzialu } from '../lib/dzialy';
 import { ZDJECIE_GLOWNE } from '../lib/zdjecia';
 import { organizacja, stronaWww } from '../lib/schemat';
 
 const wszystkie = await opublikowane();
 const [glowny, ...pozostale] = wszystkie.slice(0, 4);
-const zapowiedzi = polecaneRozne(await wszystkiePolecane(), NA_ZRODLO_GLOWNA).slice(0, 3);
 const schemat = [{ '@context': 'https://schema.org', '@graph': [stronaWww(), organizacja()] }];
 const tytulKarty = `${t('marka.nazwa')} | ${t('marka.haslo')}`;
 ---
@@ -27,8 +24,8 @@ const tytulKarty = `${t('marka.nazwa')} | ${t('marka.haslo')}`;
         <h1 id="tytul-glowny">{t('glowna.tytul')}</h1>
         <p class="hero__podtytul">{t('glowna.podtytul')}</p>
       </div>
-      <div class="hero__kadr">
-        <Foto nazwa={ZDJECIE_GLOWNE} widths={[400, 640, 880, 1100]} sizes="(min-width: 56rem) 30rem, calc(100vw - 2.5rem)" proporcja={4 / 5} priorytet />
+      <div class="hero__zdjecie ramka">
+        <Foto nazwa={ZDJECIE_GLOWNE} widths={[480, 720, 960, 1280]} sizes="(min-width: 76rem) 41rem, (min-width: 56rem) 55vw, calc(100vw - 2.5rem)" priorytet />
       </div>
     </div>
   </section>
@@ -77,24 +74,4 @@ const tytulKarty = `${t('marka.nazwa')} | ${t('marka.haslo')}`;
       </ul>
     </div>
   </section>
-
-  {
-    zapowiedzi.length > 0 && (
-      <section class="sekcja" aria-labelledby="z-naszych-stron">
-        <div class="kontener">
-          <div class="sekcja__glowa">
-            <h2 id="z-naszych-stron">{t('glowna.zNaszychStron')}</h2>
-            <a class="link-sekcji" href="/polecamy/">{t('polecamy.tytul')}</a>
-          </div>
-          <ul class="karty">
-            {zapowiedzi.map((w) => (
-              <li>
-                <KartaPolecana wpis={w} />
-              </li>
-            ))}
-          </ul>
-        </div>
-      </section>
-    )
-  }
 </Bazowy>

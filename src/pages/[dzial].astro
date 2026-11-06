@@ -1,6 +1,6 @@
 ---
 // Strona działu /<slug>/: okruszki, H1 i wstęp z teksty.json `dzialy.<slug>`, wpisy działu od najnowszego (pierwszy jako
-// karta wiodąca), na dole pozostałe działy. Okładka działu dzial-<slug>.webp w kadrze-łuku 3:2 obok nagłówka (na telefonie pod nim)
+// karta wiodąca), na dole pozostałe działy. Okładka działu dzial-<slug>.webp w ramce, we własnej proporcji, obok nagłówka (na telefonie pod nim)
 // jest kandydatem na LCP, więc karta wiodąca nie dostaje już priorytetu. Dział bez opublikowanych wpisów: noindex (hak sitemapy wycina go z sitemap.xml).
 import Bazowy from '../layouts/Bazowy.astro';
 import Okruszki from '../components/Okruszki.astro';
@@ -48,13 +48,13 @@ const schemat = [
 
 <Bazowy tytul={`${nazwa} | ${t('marka.nazwa')}`} opis={t(`dzialy.${dzial}.metaOpis`)} {schemat} bezIndeksu={wpisy.length === 0}>
   <Okruszki pozycje={pozycje} />
-  <div class="kontener podstrona-glowa podstrona-glowa--z-kadrem">
+  <div class="kontener podstrona-glowa podstrona-glowa--ze-zdjeciem">
     <div>
       <h1>{nazwa}</h1>
       <p class="podstrona-glowa__wstep">{t(`dzialy.${dzial}.opis`)}</p>
     </div>
-    <div class="kadr-luk">
-      <Foto nazwa={`dzial-${dzial}.webp`} widths={[400, 640, 880, 1200]} sizes="(min-width: 56rem) 30rem, calc(100vw - 2.5rem)" priorytet />
+    <div class="podstrona-glowa__zdjecie ramka">
+      <Foto nazwa={`dzial-${dzial}.webp`} widths={[400, 640, 880, 1200]} sizes="(min-width: 76rem) 35rem, (min-width: 56rem) 46vw, calc(100vw - 2.5rem)" priorytet />
     </div>
   </div>
   {

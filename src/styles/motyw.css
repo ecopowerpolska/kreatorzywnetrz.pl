@@ -3,7 +3,8 @@
 
    KIERUNEK „Róż i burgund” (decyzja 1, 2026-11-05): tło pudrowego różu, tekst prawie czarny burgund, akcent burgund,
    ciemny finał strony kontaktu i stopka w kolorze #1c0810. Kroje: DM Serif Display 400 (nagłówki) i Hanken Grotesk
-   300–900 (tekst), oba z Fonts API. Gest: kadr zdjęcia z półokrągłą górą (łuk), przyciski-pigułki, linie 1 px.
+   300–900 (tekst), oba z Fonts API. Gest: zdjęcia we własnej proporcji w delikatnej ramce
+   z passe-partout i miękkim cieniem (decyzja Piotra 2026-11-06), przyciski-pigułki, linie 1 px.
 
    KONTRASTY policzone skryptem kontrast-wcag.py (WCAG 2.2), nie ocenione okiem. Każda para tekst/tło ma własny komentarz. */
 
@@ -88,6 +89,11 @@
   --miara-wpisu: 42rem;
   --margines: 1.25rem;
   --promien: 6px;
+  /* ramka zdjęcia: cienka linia w kolorze linii motywu (złagodzona), passe-partout, cień dwuwarstwowy */
+  --promien-ramki: 0.625rem;
+  --passe-partout: #fdf6f3;
+  --ramka-linia: color-mix(in srgb, var(--linia-pole) 40%, transparent);
+  --cien-ramki: 0 1px 2px rgb(43 15 23 / 0.06), 0 12px 32px -12px rgb(43 15 23 / 0.28);
   --cel-dotyku: 2.75rem; /* 44 px przy piśmie 16 px */
   --wys-naglowka: 4rem;
   --ruch: 140ms ease-out;
@@ -561,7 +567,7 @@ main:focus {
   display: none;
 }
 
-/* ══ HERO strony głównej: tytuł po lewej, kadr-łuk po prawej ══ */
+/* ══ HERO strony głównej: tytuł po lewej, zdjęcie w ramce po prawej (na telefonie pod tytułem) ══ */
 .hero {
   padding-block: var(--o-8) var(--o-12);
 }
@@ -569,7 +575,7 @@ main:focus {
 .hero__siatka {
   display: grid;
   gap: var(--o-8);
-  align-items: end;
+  align-items: center;
 }
 
 .hero__tekst h1 {
@@ -584,26 +590,14 @@ main:focus {
   line-height: 1.45;
 }
 
-.hero__kadr {
-  overflow: hidden;
-  border-radius: 50% 50% var(--promien) var(--promien) / 40% 40% var(--promien) var(--promien);
-  background: var(--powierzchnia);
-}
-
-.hero__kadr img {
-  width: 100%;
-  aspect-ratio: 4 / 5;
-  object-fit: cover;
-}
-
 @media (min-width: 56rem) {
   .hero {
     padding-block: var(--o-16);
   }
 
   .hero__siatka {
-    grid-template-columns: minmax(0, 7fr) minmax(0, 5fr);
-    gap: var(--o-16);
+    grid-template-columns: minmax(0, 5fr) minmax(0, 7fr);
+    gap: var(--o-12);
   }
 }
 
@@ -643,7 +637,7 @@ main:focus {
   content: '';
   width: 0.5rem;
   height: 0.5rem;
-  border-radius: 50%;
+  border-radius: 999px;
   background: var(--ciemne-akcent);
 }
 
@@ -710,8 +704,7 @@ main:focus {
   height: 100%;
   padding: var(--o-6);
   border: 1px solid var(--linia-pole);
-  border-radius: 999px 999px var(--promien) var(--promien) / 7rem 7rem var(--promien) var(--promien);
-  padding-top: var(--o-12);
+  border-radius: var(--promien-ramki);
   background: var(--tlo);
   transition: border-color var(--ruch);
 }
@@ -750,7 +743,14 @@ main:focus {
 }
 
 .inne-dzialy {
-  padding-block: var(--o-12);
+  padding-bottom: var(--o-12);
+}
+
+/* Linia nad blokiem na szerokość treści, nie razem z marginesami kontenera */
+.inne-dzialy::before {
+  content: '';
+  display: block;
+  margin-bottom: var(--o-12);
   border-top: 1px solid var(--linia-pole);
 }
 
@@ -766,7 +766,7 @@ main:focus {
   list-style: none;
 }
 
-/* ══ KARTY wpisów i zapowiedzi ══ */
+/* ══ KARTY wpisów ══ */
 .karty {
   display: grid;
   gap: var(--o-8) var(--o-6);
@@ -790,6 +790,43 @@ main:focus {
   margin-top: var(--o-8);
 }
 
+/* Rząd kart: zdjęcie, linia meta, tytuł i opis na wspólnych ścieżkach rzędu (subgrid, 4 ścieżki na kartę). Zdjęcia
+   o różnej proporcji stoją dolną krawędzią na jednej linii, a tytuły zaczynają się na tej samej wysokości, także gdy
+   linia meta jednej karty łamie się na dwie. Bez subgrid: karty od góry, jak zwykła siatka. */
+@supports (grid-template-rows: subgrid) {
+  .karty {
+    row-gap: var(--o-2);
+  }
+
+  .karty > li {
+    display: grid;
+    grid-row: span 4;
+    grid-template-rows: subgrid;
+    margin-bottom: var(--o-6);
+  }
+
+  .karty .karta {
+    grid-row: span 4;
+    grid-template-rows: subgrid;
+    row-gap: var(--o-2);
+  }
+
+  .karty .karta__zdjecie,
+  .karty .karta__plansza {
+    align-self: end;
+    margin-bottom: var(--o-2);
+  }
+
+  .karty .karta__tekst {
+    grid-row: span 3;
+    grid-template-rows: subgrid;
+  }
+
+  .karty .karta__meta {
+    align-self: start;
+  }
+}
+
 .karta {
   position: relative;
   display: grid;
@@ -798,33 +835,11 @@ main:focus {
   height: 100%;
 }
 
-.karta__zdjecie {
-  overflow: hidden;
-  border-radius: 50% 50% var(--promien) var(--promien) / 40% 40% var(--promien) var(--promien);
-  background: var(--powierzchnia);
-}
-
-.karta__zdjecie img {
-  width: 100%;
-  aspect-ratio: 4 / 5;
-  object-fit: cover;
-}
-
-/* Telefon: kadr kwadratowy (łuk = półkole), żeby karta w jednej kolumnie nie zajmowała całego ekranu */
-@media (max-width: 39.99rem) {
-  .karta:not(.karta--zapowiedz) .karta__zdjecie {
-    border-radius: 50% 50% var(--promien) var(--promien) / 50% 50% var(--promien) var(--promien);
-  }
-
-  .karta:not(.karta--zapowiedz) .karta__zdjecie img,
-  .karta__plansza {
-    aspect-ratio: 1;
-  }
-}
-
+/* Plansza działu: zastępstwo zdjęcia, gdy wpis go nie ma (3:2, ten sam promień i cień co ramka) */
 .karta__plansza {
-  aspect-ratio: 4 / 5;
-  border-radius: 50% 50% var(--promien) var(--promien) / 40% 40% var(--promien) var(--promien);
+  aspect-ratio: 3 / 2;
+  border-radius: var(--promien-ramki);
+  box-shadow: var(--cien-ramki);
 }
 
 .plansza--projekt-wnetrza {
@@ -894,15 +909,13 @@ main:focus {
 }
 
 /* Cała karta jest odnośnikiem tytułu (rozciągnięty ::after); etykieta działu leży nad nim warstwą */
-.karta__tytul a::after,
-.karta__czytaj::after {
+.karta__tytul a::after {
   content: '';
   position: absolute;
   inset: 0;
 }
 
-.karta__tytul a:focus-visible,
-.karta__czytaj:focus-visible {
+.karta__tytul a:focus-visible {
   outline: none;
 }
 
@@ -910,7 +923,7 @@ main:focus {
   color: var(--akcent);
 }
 
-.karta:has(.karta__tytul a:focus-visible, .karta__czytaj:focus-visible) {
+.karta:has(.karta__tytul a:focus-visible) {
   outline: 3px solid var(--akcent);
   outline-offset: 6px;
   border-radius: var(--promien);
@@ -921,47 +934,14 @@ main:focus {
   font-size: var(--t-2);
 }
 
-.karta__czytaj {
-  display: inline-flex;
-  align-items: center;
-  min-height: var(--cel-dotyku);
-  font-size: var(--t-2);
-  font-weight: 600;
-}
-
-/* Zapowiedź z naszych stron: karta z ramką, poza chronologią własnych wpisów (decyzja 6) */
-.karta--zapowiedz {
-  padding: var(--o-6);
-  border: 1px solid var(--linia-pole);
-  border-radius: var(--promien);
-  background: var(--tlo);
-}
-
-.karta--zapowiedz .karta__zdjecie {
-  border-radius: var(--promien);
-}
-
-.karta--zapowiedz .karta__zdjecie img {
-  aspect-ratio: 3 / 2;
-}
-
-.karta__zrodlo {
-  font-weight: 600;
-  color: var(--akcent);
-}
-
-.karta--zapowiedz .karta__tytul {
-  font-size: var(--t-4);
-}
-
-/* Karta główna (najnowszy wpis): łuk po lewej, tekst obok */
+/* Karta główna (najnowszy wpis): zdjęcie po lewej, tekst obok */
 .karta--glowna .karta__tytul {
   font-size: var(--t-6);
 }
 
 @media (min-width: 56rem) {
   .karta--glowna {
-    grid-template-columns: minmax(0, 5fr) minmax(0, 6fr);
+    grid-template-columns: minmax(0, 7fr) minmax(0, 5fr);
     align-items: center;
     gap: var(--o-12);
   }
@@ -975,20 +955,23 @@ main:focus {
   }
 }
 
-/* ══ ODSŁANIANIE ZDJĘĆ (decyzja 3): kadr wchodzi z przezroczystości spod „kurtyny”; nigdy na zdjęciu LCP ══
-   Stan domyślny = zdjęcie widoczne; mechanika niżej w bramce ruchu i wsparcia osi view(). */
+/* ══ ODSŁANIANIE ZDJĘĆ (decyzja 3): ramka ze zdjęciem wchodzi z przezroczystości, całe zdjęcie od pierwszej klatki
+   (bez przycinania); nigdy na zdjęciu LCP. Stan domyślny = zdjęcie widoczne; mechanika niżej w bramce ruchu i osi view(). */
 
-/* ══ KADR-ŁUK 3:2: okładka działu, karty firm na /polecamy/, /o-nas/, góra /kontakt/ (ten sam łuk co karty wpisów) ══ */
-.kadr-luk {
-  overflow: hidden;
-  border-radius: 50% 50% var(--promien) var(--promien) / 40% 40% var(--promien) var(--promien);
-  background: var(--powierzchnia);
+/* ══ RAMKA ZDJĘCIA (decyzja Piotra 2026-11-06): każde zdjęcie strony we własnej proporcji, bez kadrowania i bez łuku;
+   cienka linia, passe-partout i miękki cień. Wymiary w atrybutach <img> (Foto.astro), więc CLS = 0. ══ */
+.ramka {
+  padding: var(--o-2);
+  border: 1px solid var(--ramka-linia);
+  border-radius: var(--promien-ramki);
+  background: var(--passe-partout);
+  box-shadow: var(--cien-ramki);
 }
 
-.kadr-luk img {
+.ramka img {
   width: 100%;
-  aspect-ratio: 3 / 2;
-  object-fit: cover;
+  height: auto;
+  border-radius: 3px;
 }
 
 /* ══ NAGŁÓWEK PODSTRONY, OKRUSZKI ══ */
@@ -996,16 +979,16 @@ main:focus {
   padding-block: var(--o-6) var(--o-12);
 }
 
-.podstrona-glowa--z-kadrem {
+.podstrona-glowa--ze-zdjeciem {
   display: grid;
   gap: var(--o-8);
-  align-items: end;
+  align-items: center;
 }
 
 @media (min-width: 56rem) {
-  .podstrona-glowa--z-kadrem {
-    grid-template-columns: minmax(0, 7fr) minmax(0, 5fr);
-    gap: var(--o-16);
+  .podstrona-glowa--ze-zdjeciem {
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+    gap: var(--o-12);
   }
 }
 
@@ -1056,81 +1039,6 @@ main:focus {
   color: var(--tekst);
 }
 
-/* ══ BLOG: filtr bez JS (radio + :has), zapowiedzi osobno, poza chronologią ══ */
-.filtr {
-  display: flex;
-  flex-wrap: wrap;
-  gap: var(--o-2);
-  margin: 0 0 var(--o-8);
-  padding: 0;
-  border: 0;
-}
-
-.filtr input {
-  position: absolute;
-  opacity: 0;
-  pointer-events: none;
-}
-
-.filtr label {
-  display: inline-flex;
-  align-items: center;
-  min-height: var(--cel-dotyku);
-  padding: 0 var(--o-6);
-  border: 1px solid var(--linia-pole);
-  border-radius: 999px;
-  font-size: var(--t-2);
-  font-weight: 600;
-  cursor: pointer;
-  transition:
-    background-color var(--ruch),
-    color var(--ruch),
-    border-color var(--ruch);
-}
-
-.filtr label:hover {
-  border-color: var(--akcent);
-  color: var(--akcent);
-}
-
-.filtr label:active {
-  transform: translateY(1px);
-}
-
-.filtr input:checked + label {
-  background: var(--akcent);
-  border-color: var(--akcent);
-  color: var(--na-akcencie);
-}
-
-.filtr input:focus-visible + label {
-  outline: 3px solid var(--akcent);
-  outline-offset: 3px;
-}
-
-.filtr input:disabled + label {
-  opacity: 0.45;
-  cursor: not-allowed;
-}
-
-.blog-czesc + .blog-czesc {
-  margin-top: var(--o-16);
-}
-
-.blog-czesc h2 {
-  margin-bottom: var(--o-6);
-  font-size: var(--t-5);
-}
-
-body:has(#filtr-wlasne:checked) .blog-czesc--zapowiedzi,
-body:has(#filtr-zapowiedzi:checked) .blog-czesc--wlasne {
-  display: none;
-}
-
-body:has(#filtr-zapowiedzi:checked) .blog-czesc--zapowiedzi {
-  margin-top: 0;
-}
-
 /* ══ WPIS ══ */
 .wpis__glowa {
   max-width: calc(var(--miara-wpisu) + 2 * var(--margines) + 16rem);
@@ -1158,12 +1066,6 @@ body:has(#filtr-zapowiedzi:checked) .blog-czesc--zapowiedzi {
   padding-inline: var(--margines);
 }
 
-.wpis__zdjecie img {
-  width: 100%;
-  aspect-ratio: 3 / 2;
-  object-fit: cover;
-  border-radius: 50% 50% var(--promien) var(--promien) / 22% 22% var(--promien) var(--promien);
-}
 
 .wpis__uklad {
   display: grid;
@@ -1369,56 +1271,6 @@ body:has(#filtr-zapowiedzi:checked) .blog-czesc--zapowiedzi {
   line-height: 1.2;
 }
 
-/* ══ POLECAMY: trzy firmy, przycisk z rel="nofollow" ══ */
-.firmy {
-  display: grid;
-  gap: var(--o-6);
-  list-style: none;
-}
-
-@media (min-width: 64rem) {
-  .firmy {
-    grid-template-columns: repeat(3, minmax(0, 1fr));
-  }
-}
-
-.firma {
-  display: grid;
-  align-content: start;
-  gap: var(--o-4);
-  padding: var(--o-8) var(--o-6);
-  border: 1px solid var(--linia-pole);
-  border-radius: 999px 999px var(--promien) var(--promien) / 6rem 6rem var(--promien) var(--promien);
-  padding-top: var(--o-12);
-  background: var(--tlo);
-}
-
-.firma:has(.firma__kadr) {
-  padding-top: var(--o-6);
-}
-
-.firma h2 {
-  font-size: var(--t-6);
-}
-
-.firma__zdanie {
-  font-size: var(--t-4);
-  line-height: 1.4;
-}
-
-.firma ul {
-  display: grid;
-  gap: var(--o-2);
-  padding-left: var(--o-6);
-  color: var(--tekst-cichy);
-  font-size: var(--t-2);
-}
-
-.firma .przycisk {
-  justify-self: start;
-  margin-top: var(--o-2);
-}
-
 /* ══ STRONY TEKSTOWE (o nas, polityka, dziękujemy, 404) ══ */
 .proza {
   max-width: var(--miara-wpisu);
@@ -1432,6 +1284,10 @@ body:has(#filtr-zapowiedzi:checked) .blog-czesc--zapowiedzi {
 .proza h2 {
   margin-top: var(--o-8);
   font-size: var(--t-5);
+}
+
+.proza__zdjecie {
+  margin-bottom: var(--o-4);
 }
 
 .proza__podpis {
@@ -1468,9 +1324,9 @@ body:has(#filtr-zapowiedzi:checked) .blog-czesc--zapowiedzi {
 
 @media (min-width: 56rem) {
   .kontakt-gora {
-    grid-template-columns: minmax(0, 7fr) minmax(0, 5fr);
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
     align-items: center;
-    gap: var(--o-16);
+    gap: var(--o-12);
   }
 }
 
@@ -1920,21 +1776,21 @@ body:has(#filtr-zapowiedzi:checked) .blog-czesc--zapowiedzi {
       --os-final: --final;
     }
 
-    /* Odsłanianie zdjęć: tylko kadry z klasą .odslon (karty), nigdy zdjęcie LCP */
-    .odslon img {
+    /* Odsłanianie zdjęć: tylko ramki z klasą .odslon (karty), nigdy zdjęcie LCP; całe zdjęcie, bez przycinania */
+    .odslon {
       animation: odslon linear both;
       animation-timeline: var(--os-widok);
-      animation-range: entry 0% cover 30%;
+      animation-range: entry 0% entry 70%;
     }
 
     @keyframes odslon {
       from {
         opacity: 0;
-        clip-path: inset(10% 10% 0 10%);
+        transform: translateY(1.5rem);
       }
       to {
         opacity: 1;
-        clip-path: inset(0);
+        transform: none;
       }
     }
 

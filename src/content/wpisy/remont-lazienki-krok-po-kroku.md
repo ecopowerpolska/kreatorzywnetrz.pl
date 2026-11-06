@@ -12,7 +12,7 @@ tagi: ["remont łazienki", "hydroizolacja", "instalacje", "płytki"]
 
 ## Zanim zaczniesz: projekt i zakupy
 
-Remont łazienki zaczyna się na papierze. Rozrysuj, gdzie stanie wanna albo prysznic, umywalka, miska ustępowa, pralka i grzejnik, i dopiero do tego dopasuj punkty wody, odpływy i gniazdka. Jak przygotować pomiar, układ i kosztorys dla całego mieszkania, opisujemy we wpisie o [pomiarze, układzie i moodboardzie](/blog/pomiar-uklad-moodboard/).
+Remont [łazienki](https://nadihome.pl/remont-lazienki) zaczyna się na papierze. Rozrysuj, gdzie stanie wanna albo prysznic, umywalka, miska ustępowa, pralka i grzejnik, i dopiero do tego dopasuj punkty wody, odpływy i gniazdka. Jak przygotować pomiar, układ i kosztorys dla całego mieszkania, opisujemy we wpisie o [pomiarze, układzie i moodboardzie](/blog/pomiar-uklad-moodboard/).
 
 Kup albo zamów wcześniej to, od czego zależą instalacje: stelaż podtynkowy, baterie podtynkowe, odpływ liniowy albo brodzik. Każdy z nich ma w instrukcji wymiary montażowe. Hydraulik potrzebuje ich przed pierwszym cięciem bruzdy.
 

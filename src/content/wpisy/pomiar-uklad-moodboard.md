@@ -16,7 +16,7 @@ Plan od dewelopera albo ze spółdzielni to punkt wyjścia, nie pomiar. Ściany 
 
 Zmierz każde pomieszczenie w dwóch, trzech miejscach na ścianę: przy podłodze, w połowie wysokości i pod sufitem. Zapisz wysokość, szerokość i położenie okien, drzwi, parapetów, grzejników, pionów, kratek wentylacyjnych, gniazdek i wyłączników. Zaznacz, gdzie wchodzi woda i odpływ, gdzie stoi licznik i skrzynka z bezpiecznikami. Zrób zdjęcie każdej ściany z miarką w kadrze.
 
-Jeśli remont obejmuje całe mieszkanie, pomiar zwykle robi projektant razem z inwentaryzacją. W Warszawie tak pracuje [Studio Agat](https://studioagat.pl/projektowanie-wnetrz): zaczyna od rozmowy o potrzebach i pomiarów, potem przygotowuje układy funkcjonalne, moodboardy i wizualizacje, a kosztorys z harmonogramem jest u nich osobnym etapem przed remontem. Każdy etap zamyka protokół, więc wiesz, co zostało ustalone.
+Jeśli remont obejmuje całe mieszkanie, pomiar zwykle robi [projektant](https://studioagat.pl/projektowanie-wnetrz) razem z inwentaryzacją. Zaczyna od rozmowy o potrzebach i pomiarów, potem przygotowuje układy funkcjonalne, moodboardy i wizualizacje, a kosztorys z harmonogramem robi osobnym etapem przed remontem. Gdy każdy etap zamyka protokół, wiesz, co zostało ustalone.
 
 ## Remont czy przebudowa: sprawdź, zanim przesuniesz ścianę
 

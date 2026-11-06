@@ -1,6 +1,7 @@
 ---
-// Karta wpisu: kadr-łuk 4:5 (albo plansza działu, gdy wpis nie ma zdjęcia), linia meta (dział jako odnośnik, data, czas czytania),
-// tytuł, opis. Tytuł jest odnośnikiem rozciągniętym na całą kartę; etykieta działu leży nad nim warstwą i prowadzi do działu.
+// Karta wpisu: zdjęcie w ramce we własnej proporcji (albo plansza działu, gdy wpis nie ma zdjęcia), linia meta (dział jako
+// odnośnik, data, czas czytania), tytuł, opis. W siatce .karty rząd zdjęć i rząd tekstów to wspólne ścieżki (subgrid), więc tytuły
+// w rzędzie stoją na jednej linii także przy zdjęciach o różnej proporcji. Tytuł jest odnośnikiem rozciągniętym na całą kartę; etykieta działu leży nad nim warstwą i prowadzi do działu.
 // Zdjęcie karty odsłania się przy przewijaniu (.odslon), poza kartą z `priorytet` (kandydat na LCP).
 import Foto from './Foto.astro';
 import { adresWpisu, czasCzytania, dataIso, dataPoPolsku, type Wpis } from '../lib/wpisy';
@@ -9,7 +10,7 @@ import { t, wstaw } from '../lib/tekst';
 
 interface Props {
   wpis: Wpis;
-  /** Karta główna (najnowszy wpis): większy kadr, tekst obok. */
+  /** Karta główna (najnowszy wpis): większe zdjęcie, tekst obok. */
   glowna?: boolean;
   priorytet?: boolean;
   /** Na stronie działu etykieta działu jest zbędna (dział stoi w H1). */
@@ -26,13 +27,12 @@ const minuty = czasCzytania(wpis);
 <article class:list={['karta', { 'karta--glowna': glowna }]}>
   {
     d.zdjecie ? (
-      <div class:list={['karta__zdjecie', { odslon: !priorytet }]}>
+      <div class:list={['karta__zdjecie ramka', { odslon: !priorytet }]}>
         <Foto
           nazwa={d.zdjecie}
           alt={d.alt}
-          widths={glowna ? [480, 720, 960, 1200] : [360, 540, 720]}
-          sizes={glowna ? '(min-width: 56rem) 34rem, calc(100vw - 2.5rem)' : '(min-width: 76rem) 23rem, (min-width: 40rem) 45vw, calc(100vw - 2.5rem)'}
-          proporcja={4 / 5}
+          widths={glowna ? [480, 720, 960, 1280] : [360, 540, 720]}
+          sizes={glowna ? '(min-width: 76rem) 41rem, (min-width: 56rem) 55vw, calc(100vw - 2.5rem)' : '(min-width: 76rem) 23rem, (min-width: 40rem) 45vw, calc(100vw - 2.5rem)'}
           priorytet={priorytet}
         />
       </div>
